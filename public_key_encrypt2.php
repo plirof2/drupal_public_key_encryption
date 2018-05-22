@@ -56,8 +56,8 @@ function generate()
 	shell_exec('export RANDFILE="/opt/lampp/htdocs/.rnd"');
     // Set the key parameters
     $config = array(
-        "digest_alg" => "sha256",
-        "private_key_bits" => 2048,
+        "digest_alg" => "sha128",
+        "private_key_bits" => 1024,
         "private_key_type" => OPENSSL_KEYTYPE_RSA,
     );
 
