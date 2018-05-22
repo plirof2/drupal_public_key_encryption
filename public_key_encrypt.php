@@ -32,7 +32,7 @@ function encrypt($data, $publicKey)
 {
     // Encrypt the data using the public key
    openssl_public_encrypt($data, $encryptedData, $publicKey);
-
+echo  "<HR>publicKey= $publicKey";
     // Return encrypted data
     return $encryptedData;
 }
@@ -42,16 +42,24 @@ function decrypt($data, $privateKey)
 {
     // Decrypt the data using the private key
    openssl_private_decrypt($data, $decryptedData, $privateKey);
+   echo  "<HR>privateKey = $privateKey";
 
     // Return decrypted data
     return $decryptedData;
 }
 
 // Encrypt and then decrypt a string
+echo  "<HR>";
+echo  "<HR>";
+echo  "<HR>";
+echo  "<HR>";
+echo  "<HR>";
 $arrKeys = generate();
 $strEncrypted = encrypt('Hello World!', $arrKeys['public']);
 echo $strEncrypted;
+echo  "<HR>";
 $strDecrypted = decrypt($strEncrypted, $arrKeys['private']);
 echo $strDecrypted;
+echo  "<HR>";
 
 ?>

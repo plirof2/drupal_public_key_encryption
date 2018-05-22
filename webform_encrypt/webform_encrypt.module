@@ -1,0 +1,229 @@
+<?php
+
+/**
+ * @file
+ * Main module file for the Webform Encrypt module.
+ */
+
+/**
+ * Implementation of hook_permission().
+ */
+function webform_encrypt_permission() {
+  return array(
+    'view encrypted values' => array(
+      'title' => t('View Encrypted Values in Webform Results'),
+      'description' => t('Users that do not have this permission will see placeholder text.'),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_form_FORM_ID_alter().
+ */
+function webform_encrypt_form_webform_admin_settings_alter(&$form, $form_state) {
+  // Add our config options to the webform settings page.
+  $form['encrypt'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Webform Encrypt'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['encrypt']['webform_encrypt_match_user'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable email to user matching'),
+    '#description' => t('If enabled, every time webform sends an email, it will attempt to find a user that matches the email address the mail will be sent to in order to correctly determine permissions.'),
+    '#default_value' => variable_get('webform_encrypt_match_user', 0),
+  );
+}
+
+/**
+ * Implementation of hook_form_FORM_ID_alter().
+ */
+function webform_encrypt_form_webform_component_edit_form_alter(&$form, $form_state) {
+  // Add our fields to the component add/edit form.
+  $component = $form_state['build_info']['args'][1];
+
+  // Exclude webform component types that don't make sense to encrypt.
+  $excluded_types = array('fieldset', 'file', 'markup', 'pagebreak');
+  if (!in_array($form['type']['#value'], $excluded_types)) {
+
+    // Add settings for encryption.
+    $form['encryption'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Encryption'),
+      '#tree' => TRUE,
+    );
+    $form['encryption']['encrypt'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Encrypt this field\'s value'),
+      '#description' => t('!link to edit encryption settings.', array('!link' => l('Click here', 'admin/config/system/encrypt'))),
+      '#default_value' => isset($component['extra']['encrypt']) ? $component['extra']['encrypt'] : 0,
+    );
+  }
+}
+
+/**
+ * Implementation of hook_webform_component_presave().
+ * Save encryption settings for a component.
+ */
+function webform_encrypt_webform_component_presave(&$component) {
+  if (!empty($component['encryption'])) {
+    $component['extra'] = array_merge($component['extra'], $component['encryption']);
+    unset($component['encryption']);
+    
+    if ($component['extra']['encrypt']) {
+      webform_encrypt_encrypt_component_data($component['nid'], $component['cid'], $component['extra']);
+    }
+    else {
+      webform_encrypt_decrypt_component_data($component['nid'], $component['cid'], $component['extra']);
+    }
+  }
+}
+
+/**
+ * Implementation of hook_webform_submission_presave().
+ * Encrypt the value if the component has been marked as such.
+ */
+function webform_encrypt_webform_submission_presave($node, &$submission) {
+  foreach ($submission->data as $cid => $entry) {
+    if (!empty($node->webform['components'][$cid]['extra']['encrypt'])) {
+      foreach ($submission->data[$cid] as $delta => $value) {
+        //$submission->data[$cid][$delta] = encrypt($entry[$delta], array('base64' => TRUE));
+        $submission->data[$cid][$delta] = encrypt($entry[$delta], get_my_public_Key());
+      }
+    }
+  }
+}
+
+/**
+ * Implementation of hook_webform_submission_load().
+ * Decrypt values if encrypted
+ */
+function webform_encrypt_webform_submission_load($submissions) {
+  foreach ($submissions as $submission) {
+    $node = node_load($submission->nid);
+    foreach ($submission->data as $cid => $entry) {
+      if (!empty($node->webform['components'][$cid]['extra']['encrypt'])) {
+        foreach ($submission->data[$cid] as $delta => $value) {
+          if (!empty($entry[$delta]) && @unserialize($entry[$delta]) !== FALSE) {
+            $submission->data[$cid][$delta] = user_access('view encrypted values') ? decrypt($entry[$delta], get_my_private_Key()) : t('[Value Encrypted]');
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Preprocess for theme('webform_results_table').
+ *
+ * Decrypt webform values in the table display.
+ */
+function webform_encrypt_preprocess_webform_results_table(&$vars) {
+  foreach ($vars['submissions'] as $sid => &$submission) {
+    foreach ($submission->data as $cid => &$item) {
+      $component = $vars['components'][$cid];
+      if (!empty($component['extra']['encrypt'])) {
+        foreach ($item['value'] as &$value) {
+          //$value = user_access('view encrypted values') ? decrypt($value, array('base64' => TRUE)) : t('[Value Encrypted]');
+          $value = user_access('view encrypted values') ? decrypt($value, get_my_private_Key()) : t('[Value Encrypted]');
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Encrypt all non-encrypted data of a component.
+ */
+function webform_encrypt_encrypt_component_data($nid = NULL, $cid = NULL, $extra = array()) {
+  $results = db_query('SELECT nid, cid, extra FROM {webform_component} where nid = :nid AND cid = :cid', array(':nid' => $nid, ':cid' => $cid))->fetchAll();
+  
+  foreach ($results as $row) {
+    $components[$row->nid . ':' . $row->cid] = unserialize($row->extra);
+  }
+  $data = db_query('SELECT nid, sid, cid, data FROM {webform_submitted_data} where nid = :nid AND cid = :cid', array(':nid' => $nid, ':cid' => $cid))->fetchAll();
+  foreach ($data as $row) {
+    $key = $row->nid . ':' . $row->cid;
+    if (isset($components[$key]['encrypt']) && !$components[$key]['encrypt']) {
+      db_update('webform_submitted_data')
+        ->fields(array(
+          //'data' => encrypt($row->data, array('base64' => TRUE)),
+          'data' => encrypt($row->data, get_my_public_Key()),
+        ))
+        ->condition('nid', $row->nid)
+        ->condition('sid', $row->sid)
+        ->condition('cid', $row->cid)
+        ->execute();
+    }
+  }
+}
+
+/**
+ * Decrypt all encrypted data of a component.
+ */
+function webform_encrypt_decrypt_component_data($nid = NULL, $cid = NULL, $extra = array()) {
+  $results = db_query('SELECT nid, cid, extra FROM {webform_component} where nid = :nid AND cid = :cid', array(':nid' => $nid, ':cid' => $cid))->fetchAll();
+  
+  foreach ($results as $row) {
+    $components[$row->nid . ':' . $row->cid] = unserialize($row->extra);
+  }
+  $data = db_query('SELECT nid, sid, cid, data FROM {webform_submitted_data} where nid = :nid AND cid = :cid', array(':nid' => $nid, ':cid' => $cid))->fetchAll();
+  foreach ($data as $row) {
+    $key = $row->nid . ':' . $row->cid;
+    
+    if (!empty($components[$key]['encrypt']) && is_array(@unserialize($row->data))) {
+      //echo "<pre>";print_R(decrypt($row->data, array('base64' => TRUE)));exit;
+      db_update('webform_submitted_data')
+        ->fields(array(
+          //'data' => decrypt($row->data, array('base64' => TRUE)),
+          'data' => decrypt($row->data, get_my_private_Key()),
+        ))
+        ->condition('nid', $row->nid)
+        ->condition('sid', $row->sid)
+        ->condition('cid', $row->cid)
+        ->execute();
+    }
+  }
+}
+
+
+//--------------------------------------
+// Encrypt data using the public key
+function encrypt($data, $publicKey)
+{
+    // Encrypt the data using the public key
+   openssl_public_encrypt($data, $encryptedData, $publicKey);
+echo  "<HR>publicKey= $publicKey";
+    // Return encrypted data
+    return $encryptedData;
+}
+
+// Decrypt data using the private key
+function decrypt($data, $privateKey)
+{
+    // Decrypt the data using the private key
+   openssl_private_decrypt($data, $decryptedData, $privateKey);
+   echo  "<HR>privateKey = $privateKey";
+
+    // Return decrypted data
+    return $decryptedData;
+}
+
+function get_my_private_Key()
+{
+$private_my_key='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 Z3Ob31P+DnxwQRJXMH0wO0D064sa';
+
+    return $private_my_key;
+}
+
+function get_my_public_Key()
+{
+$public_my_key='MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA0bTYgVvF3j1TF4HT+eoF qVJvu4qgPkuzjWjw5tnM4EyeiwnrNuBusQN/VBsWPO/XqeiZH/7Tlr2l0nKYQfW3 5I1O1vF8b2HtPRRve3WMD1W0DHtVp21BtWt7/uI/B9bXJnMS5txgV/cGmrrMu1MZ urSGGy49XJsfULtSvmm7Acxu7YUobY5ZKzdN3o+X6ZDP+52RAYFt+Mp2n/CYpQxn YS8eAsH4I7Z/Z6+WdpyEMwf9yrrK6VObyqSDLG9lFiTwq7gAQjuxQSvFZAn7gC0E 4tWw/trUGVPdukoC17dWzoLkuIsfY7kZwSTXGKhpawQWS3BFKm0s17HtdEm8IhO0 rEVkDuJFnyAL5McEzDp6HoWbl7PMajNC2hH6FXx5I2jEQAlqz57axLadIFXe4oNe sTKQVUKvymhAmmF55jd9KIW4DgzUNybW3DxQDQBHPF0xj+MXac51wDGtqAEWv/dq aqxJeXQ9iRS5IJnqWwx2AIi7CbWLUwwvQ05zoSy74T9xRrrHnj8MBwTESqX6PTrE SnNyB4bT5kT1JjfccizpFW5zSShBpyh6c2VwoXLFzDcitQXS/qJxt1Y1r+wukhqn Sai4vhKBQgi/t7t3/AqdVhe2D6LZDgXvmqbbOVoX4lzjU69bqyVEycoIKaGQ/kb6 r04zUS/CkyaXB7RS4QMbEPsCAwEAAQ==';
+
+    return $public_my_key;
+}
+
+
+
+
