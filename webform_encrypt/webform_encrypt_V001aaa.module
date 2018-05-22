@@ -71,6 +71,7 @@ function webform_encrypt_webform_component_presave(&$component) {
   if (!empty($component['encryption'])) {
     $component['extra'] = array_merge($component['extra'], $component['encryption']);
     unset($component['encryption']);
+    
     if ($component['extra']['encrypt']) {
       webform_encrypt_encrypt_component_data($component['nid'], $component['cid'], $component['extra']);
     }
@@ -90,7 +91,6 @@ function webform_encrypt_webform_submission_presave($node, &$submission) {
       foreach ($submission->data[$cid] as $delta => $value) {
         //$submission->data[$cid][$delta] = my_encrypt($entry[$delta], array('base64' => TRUE));
         $submission->data[$cid][$delta] = my_encrypt($entry[$delta], get_my_public_Key());
-        //drupal_set_message("hellooooooooooooo2");
       }
     }
   }
@@ -106,10 +106,9 @@ function webform_encrypt_webform_submission_load($submissions) {
     foreach ($submission->data as $cid => $entry) {
       if (!empty($node->webform['components'][$cid]['extra']['encrypt'])) {
         foreach ($submission->data[$cid] as $delta => $value) {
-          ///if (!empty($entry[$delta]) && @unserialize($entry[$delta] ) !== FALSE) {  //ORIGINAL Line - don't know if its ok
-          if (!empty($entry[$delta]) /* && @unserialize($entry[$delta] ) !== FALSE */) {
-            $submission->data[$cid][$delta] = user_access('view encrypted values') ? decrypt($entry[$delta], get_my_private_Key()) : t('[Value Encrypted]');
-            //drupal_set_message("hellooooooooooooo3d");
+          if (!empty($entry[$delta]) && @unserialize($entry[$delta]) !== FALSE) {
+            ///$submission->data[$cid][$delta] = user_access('view encrypted values') ? my_decrypt($entry[$delta], get_my_private_Key()) : t('[Value Encrypted]');
+            $submission->data[$cid][$delta] = "DEBUGGGGGGGGGGGGGGGG";//my_decrypt($entry[$delta], get_my_private_Key()) : t('[Value Encrypted]');
           }
         }
       }
@@ -128,8 +127,11 @@ function webform_encrypt_preprocess_webform_results_table(&$vars) {
       $component = $vars['components'][$cid];
       if (!empty($component['extra']['encrypt'])) {
         foreach ($item['value'] as &$value) {
-          //$value = user_access('view encrypted values') ? decrypt($value, array('base64' => TRUE)) : t('[Value Encrypted]');
-          $value = user_access('view encrypted values') ? decrypt($value, get_my_private_Key()) : t('[Value Encrypted]');
+          //$value = user_access('view encrypted values') ? my_decrypt($value, array('base64' => TRUE)) : t('[Value Encrypted]');
+          $value = user_access('view encrypted values') ? my_decrypt($value, get_my_private_Key()) : t('[Value Encrypted]');
+          //$value = my_decrypt($value, get_my_private_Key());
+          $value="DEBUGGGGGGGGGGGGGGGG";
+          echo "DEBUGGGGGGGGGGGGGGGG";
         }
       }
     }
@@ -180,8 +182,8 @@ function webform_encrypt_decrypt_component_data($nid = NULL, $cid = NULL, $extra
       //echo "<pre>";print_R(decrypt($row->data, array('base64' => TRUE)));exit;
       db_update('webform_submitted_data')
         ->fields(array(
-          //'data' => decrypt($row->data, array('base64' => TRUE)),
-          'data' => decrypt($row->data, get_my_private_Key()),
+          //'data' => my_decrypt($row->data, array('base64' => TRUE)),
+          'data' => my_decrypt($row->data, get_my_private_Key()),
         ))
         ->condition('nid', $row->nid)
         ->condition('sid', $row->sid)
@@ -205,12 +207,13 @@ function my_encrypt($data="aaa", $publicKey)
 }
 
 // Decrypt data using the private key
-function decrypt($data, $privateKey)
+function my_decrypt($data, $privateKey)
 {
+  drupal_set_message("hellooooooooooooo");
     // Decrypt the data using the private key
    openssl_private_decrypt(base64_decode($data), $decryptedData, $privateKey);
 //   echo  "<HR>privateKey = $privateKey";
-
+$decryptedData="AAAAAAAAAAAAAAAAAAA";
     // Return decrypted data
     return ($decryptedData);
 }
@@ -260,20 +263,20 @@ return $output;
 function get_my_private_Key()
 {
 $private_my_key= trim('-----BEGIN PRIVATE KEY-----
-MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAKQaKxYlHuvqqGvv
-vUm0ZJ8AlZCfDcFvwQS5rFh5fYa+IZZP0cvBcf2fiQElmey+fbemYdatdNFI7VPq
-NqshA/YYePr9GjGqBGZC4AVdJBMLxVWSkuriDJw7/eWySBGFiWOtbPQ5Z+xlNwu9
-lnpp+nlP7gCFEzIqa3QPsKygfKg7AgMBAAECgYAP9xvKA8KGYUYRejmIOiyv63ah
-o1fLQfwdYZMK6Ib13PmXjhxzHlbgveyuV+Ipzj6c52sNX8LFubqdN2QqMgQYfUjk
-11q/oOLv5m6QzqhVoXWG7rpy/Vl4Def8Hs62seoMFJ5gRrPlHFkhYJsFk1YFE2HA
-P3FJinDq1YIIVVR+wQJBANgiILqxumd56zpYg8VpTjWa4tEHtBoHyyCkPrRPpLRA
-uqVqnfCBVF2C/ePirhQO8K7fmG0yqEd+5rCElTlu2mUCQQDCXx5YRDXo0mYZnWDw
-+oQz1KvCc7J0AWNHrMNOepz5FVka3I9BWHfmXmJB6swUkjjqBE204m0mRz3GudRL
-4P4fAkAK+bCvylas6oQHcnc+jxppnnPmKX371Gl8PtrwTRsQDDluLPvYOrkOBpjd
-+aTdX+TY/IHBCdGBz+/nBtSNFhQBAkBJWdP9w2AEyMG3EOkwh5m0ZaGb9EV3+b4Z
-olziFOuAJEpIFMwLAPPef+fcsFrruHK5/X3FsV03gNMTV7WCHRpJAkBZjvrOd7hZ
-eXGhWe0Womy0u6wFVzUlOBOd/5+8vvr1KZleiLXY8SVn2/Cnftrz6D9krs0x96wd
-6abCv9bCik3o
+MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAO1fbkPItttNdew2
+wbKP8eEtwOoJG+AJABO44VMJfXOt8RkTydZaLdwogyJ4gtK8p8ZGfmaIkj+zVLQf
+8gwCEuHnOzXNLzZedU+1qjkK0m8g5h3tsooFvZTrrb5THksN688KBphg0/n/X+re
+knfHeMcUSRZEdykkP/EGGGD1qH17AgMBAAECgYEAlVOPfjzqK5PTN0JLIBXFyC6M
+Sa5pRsrirYWE2kQCE5+9KFV2h847Q2CI/kppokDkGquGIOKRfllGU/o0vrEfRp+N
+CJsdiXCDKTjNBE5btdMmggINH/6AKz2anv4ZJEqjs0Fi//Fnk9Xnw6Uu/V0RpqKX
+OAhHupum4YvRUBcPOOECQQD6BKyEHCmgO5BexEe/sUyGsJ5GLo3y7KaS2iRRy6iz
+MnGnl2nn6sZ0IhWLR+RUMkGr6UrAVugc2zz80czSnQZdAkEA8w1OGMbrX6QEKhPV
+2hgLI1WuS7JeTt9Gu4tFZ3qCJDsN7DGgQBXzZ4C8YfQzQRwgGBaCEyRI20XSpOPA
+OJultwJAW0ShhYiSWX/k7/NPDdc3TGPlI1GTV/6zwCAJ6iIib2gWvUs0ygiWcYaP
+vsx7uZCvEIaVVyliikYuOUyNLMVNsQJBAKH5XPFgJ13edTQBcgPdABc1M2mY3gab
+/4xefQs/9ljkzht42v26YzK39VMmJb4fWzgST+8nwDH47y8Z5HEVMTMCQQDxpowL
+ZwYU8xZE6HQNiEzBpP8O3PFBcINAvmI5reEUBVprk5fdJLrLDIncCEq+OtGDecib
+r6XzCksGRjVW3pGt
 -----END PRIVATE KEY-----');
 
     return $private_my_key;
@@ -282,11 +285,11 @@ eXGhWe0Womy0u6wFVzUlOBOd/5+8vvr1KZleiLXY8SVn2/Cnftrz6D9krs0x96wd
 function get_my_public_Key()
 {
 $public_my_key=trim('-----BEGIN PUBLIC KEY-----
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCkGisWJR7r6qhr771JtGSfAJWQ
-nw3Bb8EEuaxYeX2GviGWT9HLwXH9n4kBJZnsvn23pmHWrXTRSO1T6jarIQP2GHj6
-/RoxqgRmQuAFXSQTC8VVkpLq4gycO/3lskgRhYljrWz0OWfsZTcLvZZ6afp5T+4A
-hRMyKmt0D7CsoHyoOwIDAQAB
------END PUBLIC KEY-----'); 
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDtX25DyLbbTXXsNsGyj/HhLcDq
+CRvgCQATuOFTCX1zrfEZE8nWWi3cKIMieILSvKfGRn5miJI/s1S0H/IMAhLh5zs1
+zS82XnVPtao5CtJvIOYd7bKKBb2U662+Ux5LDevPCgaYYNP5/1/q3pJ3x3jHFEkW
+RHcpJD/xBhhg9ah9ewIDAQAB
+-----END PUBLIC KEY-----');
 
     return $public_my_key;
 }
