@@ -259,7 +259,7 @@ return $output;
 
 function get_my_private_Key()
 {
-$private_my_key= trim('-----BEGIN PRIVATE KEY-----
+$private_my_key= trim('AAAAAA-----BEGIN PRIVATE KEY-----
 MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJka97mFuKzAd9qY
 s5nKdoNW/dkyQCFcGFFtZ7ZsXvTUOe678Bh91Ca5zeYin+vpsYRbzci/CYvxbYui
 VJVjn+URmnY2/I1FzQg0NDkGFD27lgBAFB1euLf+hN6mhVBdj4y9V2cpHV9IiWAg
@@ -280,15 +280,17 @@ bb12MrEizy/XNQ==
       //$public_my_key = $settings['public_key'] ;
       $private_my_key = $settings['private_key'];
     }
-    print_r($_SESSION);
+    $session_private_key=_mySite_session("current_private_key");
+    //drupal_set_message("SESS PRIV="._mySite_session("current_private_key"));
     //drupal_set_message(  "<h1>nid=".get_current_node_id()."private_my_key=$private_my_key </h1>");
+    if($session_private_key!=null) $private_my_key=$session_private_key;
 
     return $private_my_key;
 }
 
 function get_my_public_Key()
 {
-$public_my_key=trim('AAAA-----BEGIN PUBLIC KEY-----
+$public_my_key=trim('AAAAAAA-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCZGve5hbiswHfamLOZynaDVv3Z
 MkAhXBhRbWe2bF701Dnuu/AYfdQmuc3mIp/r6bGEW83IvwmL8W2LolSVY5/lEZp2
 NvyNRc0INDQ5BhQ9u5YAQBQdXri3/oTepoVQXY+MvVdnKR1fSIlgIOVmXhdnf58L
@@ -316,7 +318,12 @@ if (isset($node->nid) && count($node->nid) > 0){
   if ($node = menu_get_object()) {
   // Get the nid
   $nid = $node->nid;
-  drupal_set_message(  "<h1>nid=$nid</h1>");
+  /*
+  drupal_set_message(  "<h1>zzz nid=$nid</h1>");
+  $_SESSION[date("hh:ss")]="aaa";
+  $a=serialize($_SESSION);
+  drupal_set_message(  "SESS = $a");
+  */
   return $nid;
 }
 
@@ -480,11 +487,12 @@ function webform_encrypt_form_webform_configure_form_submit(&$form, &$form_state
     //(int) $values['restriction_method'] !== (int) $settings['restriction_method'] ||
     $values['msg_before'] !== $settings['msg_before'] ||
     $values['msg_after'] !== $settings['msg_after']) {
+    //$_SESSION['webform_encrypt']['hello']="helloooooooooooooooooooo";
+    _mySite_session("current_private_key",$values['private_key_end']); //save PRivate key to SESSION
     $record = array(
       'nid' => $form['nid']['#value'],
       'my_public_key' => isset($values['public_key_start']) ? $values['public_key_start'] : 0,
-      'my_private_key' => isset($values['private_key_end']) ? $values['private_key_end'] : 0,
-      //'restriction_method' => (int) $values['restriction_method'],
+      //'my_private_key' => isset($values['private_key_end']) ? $values['private_key_end'] : 0, DO NOT SAVE private key to DB      
       'msg_before' => trim($values['msg_before']) != '' ? trim($values['msg_before']) : NULL,
       'msg_after' => trim($values['msg_after']) != '' ? trim($values['msg_after']) : NULL,
     );
@@ -546,4 +554,22 @@ function _webform_encrypt_node_types() {
     return webform_node_types();
   }
   return webform_variable_get('webform_node_types');
+}
+
+
+
+
+function _mySite_session($key, $value = NULL)
+{
+    static $storage;
+    if ($value)
+    {
+        $storage[$key] = $value ;
+        $_SESSION['mykey'][$key] = $value ; // I use 'mykey' as a session key because in case some other module uses 'type' in $_SESSION. So try to make it unique.
+    }
+    elseif (empty($storage[$key]) && isset($_SESSION['mykey'][$key]))
+    {
+        $storage[$key] = $_SESSION['mykey'][$key];
+    }
+    return $storage[$key];
 }
