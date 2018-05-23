@@ -42,3 +42,61 @@ function webform_encrypt_uninstall() {
     }
   }
 }
+
+
+// ##################################  add webform form settings
+
+/**
+ * Implements hook_schema().
+ */
+function webform_encrypt_schema() {
+  $schema = array();
+
+  $schema['webform_encrypt'] = array(
+    'description' => 'Table for storing the information for scheduling webforms.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The node identifier of a webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'my_public_key' => array(
+        'description' => 'Timestamp of when the webform is scheduled to begin.',
+        'type' => 'varchar',
+        'length' => 128,        
+        //'not null' => TRUE,
+        'default' => 0,
+      ),
+      'my_private_key' => array(
+        'description' => 'Timestamp of when the webform is scheduled to end.',
+        'type' => 'varchar',
+        'length' => 128,        
+        //'not null' => TRUE,
+        'default' => 0,
+      ),
+      /*
+      'restriction_method' => array(
+        'description' => 'Method for restricting user access to closed webforms.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'default' => 1,
+        'not null' => TRUE,
+      ),
+      */
+      'msg_before' => array(
+        'description' => 'Message to display before the webform is scheduled to begin.',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'msg_after' => array(
+        'description' => 'Message to display after the webform is scheduled to end.',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+    ),
+    'primary key' => array('nid'),
+  );
+
+  return $schema;
+}

@@ -291,6 +291,194 @@ sjCP579ZnZr3zZsqHwIDAQAB
     return $public_my_key;
 }
 
+// +++++++++++++++++++ ADD FIELDS +++++++++++++++++++++++++++++++
 
 
 
+
+/**
+ * Implements hook_form_FORM_ID_alter() for webform_configure_form().
+ */
+function webform_encrypt_form_webform_configure_form_alter(&$form, &$form_state) {
+  if (user_access('view encrypted values')) {
+    $settings = _webform_encrypt_webform_encrypt_settings($form['nid']['#value']);
+
+    $form['#validate'][] = 'webform_encrypt_form_webform_configure_form_validate';
+    $form['#submit'][] = 'webform_encrypt_form_webform_configure_form_submit';
+    $form['#attached']['css'][] = drupal_get_path('module', 'webform_encrypt') . '/webform_encrypt.admin.css';
+
+
+    if (!empty($settings)) {
+      $my_public_key = $settings['public_key'] != 0 ? new DateObject($settings['public_key']) : NULL;
+      $my_private_key = $settings['private_key'] != 0 ? new DateObject($settings['private_key']) : NULL;
+    }
+
+
+    $form['pk_encrypter'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('pk_encrypter'),
+      '#description' => t('Specify dates and times to schedule when users are allowed to use this webform.<br />If the webform\'s overall status is set to %Closed under Submission settings, it will remain closed regardless of Scheduler settings.', array(
+        '%Closed' => t('Closed'),
+      )),
+      '#weight' => -2.5,
+      '#collapsible' => TRUE,
+      '#collapsed' => !isset($my_public_key) && !isset($my_private_key),
+      '#tree' => TRUE,
+    );
+
+    $form['pk_encrypter']['public_key_start'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Public Key'),
+      '#description' => t('PUBLIC KEY - saved to server'),
+      '#default_value' => isset($my_public_key) ? $my_public_key : NULL,
+    );
+
+    $form['pk_encrypter']['private_key_end'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Private Key'),
+      '#description' => t('PRIVATE KEY - stored by USER'),
+      '#default_value' => isset($my_private_key) ? $my_private_key : NULL,
+    );
+/*
+    $form['pk_encrypter']['restriction_method'] = array(
+      '#type' => 'radios',
+      '#title' => t('Access restriction method'),
+      '#default_value' => isset($settings['restriction_method']) ? (int) $settings['restriction_method'] : 1,
+      '#options' => array(
+        0 => t('Deny access to the page'),
+        1 => t('Allow access to the page, hide the webform'),
+        2 => t('Allow access to the page, show the webform, disable components'),
+      ),
+    );
+*/
+    $form['pk_encrypter']['msg_before'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Message to display before start date'),
+      '#description' => t('Message to display before start date. Leave empty to use default message'),
+      '#maxlength' => 128,
+      '#default_value' => isset($settings['msg_before']) ? $settings['msg_before'] : '',
+    );
+
+    $form['pk_encrypter']['msg_after'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Message to display after private_key date'),
+      '#description' => t('Message to display after private_key date. Leave empty to use default message'),
+      '#maxlength' => 128,
+      '#default_value' => isset($settings['msg_after']) ? $settings['msg_after'] : '',
+    );
+/*
+    // These additions/modifications to the form elements are made if the
+    // date_popup module is available.
+    if (module_exists('date_popup')) {
+      $date_popup = array(
+        '#type' => 'date_popup',
+        '#date_year_range' => '0:+3',
+        '#description' => NULL,
+      );
+
+      $form['pk_encrypter']['public_key_start'] = array_merge($form['pk_encrypter']['public_key_start'], $date_popup);
+      $form['pk_encrypter']['private_key_end'] = array_merge($form['pk_encrypter']['private_key_end'], $date_popup);
+      */
+    }
+  }
+
+
+/**
+ * Fetch the scheduler settings and information of webform(s) by the node ID.
+ *
+ * @param int $nid
+ *   The node ID to which the webform belongs.
+ *
+ * @return array
+ *   A row of information represented as an associative array.
+ */
+function _webform_encrypt_webform_encrypt_settings($nid) {
+  $db_settings = db_select('webform_encrypt', 'w', array('fetch' => PDO::FETCH_ASSOC))
+    ->fields('w')
+    ->condition('w.nid', $nid)
+    ->execute()
+    ->fetchAssoc();
+
+  if ($db_settings){
+    $db_settings['public_key'] = $db_settings['my_public_key'];
+    $db_settings['private_key'] =  $db_settings['my_private_key']; // !!!!!!! @@@@@@@@ JON should get this from $_SESSION
+  }
+
+  return $db_settings;
+}
+
+
+/**
+ * Additional validation handler for validating webform scheduler settings.
+ */
+function webform_encrypt_form_webform_configure_form_validate(&$form, &$form_state) {
+  $values =& $form_state['values']['pk_encrypter'];
+  
+  if (!empty($values['public_key_start'])) {
+    // Make a new DateObject (supplied by date_api) from the user input.
+    $my_public_key = $values['public_key_start'] ;
+
+    /*
+    // If there are any mismatches between the user input and the expected
+    // format, display an error to the user with a helpful link to the
+    // date_popup module to make life so much easier.
+    if (isset($my_public_key->errors['invalid'])) {
+      form_set_error('public_key_start', $my_public_key->errors['invalid'] . ' ' . (!module_exists('date_popup') ? t('Install and enable the Date Popup module included in !date_link for an easy pop-up calprivate_keyar.', array('!date_link' => l('Date', 'http://drupal.org/project/date'))) : ''));
+    }
+    // Else, we can save the timestamp which is used by the submit handler.
+    else {
+      $values['public_key_start_timestamp'] = $my_public_key->format('U');
+    }
+    */
+  }
+
+  if (!empty($values['private_key_end'])) {
+    $my_private_key = $values['private_key_end'] ;
+    /*
+    if (isset($my_private_key->errors['invalid'])) {
+      form_set_error('private_key_end', $my_private_key->errors['invalid'] . ' ' . (!module_exists('date_popup') ? t('Install and enable the Date Popup module included in !date_link for an easy pop-up calprivate_keyar.', array('!date_link' => l('Date', 'http://drupal.org/project/date'))) : ''));
+    }
+    else {
+      $values['private_key_end_timestamp'] = $my_private_key->format('U');
+    }
+    */
+  }
+  /*
+  // If for some reason the user selected an private_key date that occurs before
+  // the start date, they made a mistake.
+  if (isset($values['public_key_start_timestamp'])
+    && isset($values['private_key_end_timestamp'])
+    && $values['private_key_end_timestamp'] <= $values['public_key_start_timestamp']) {
+    form_set_error('private_key_end', t('The private_key time cannot be before the start time.'));
+  }
+  */
+}
+
+
+
+/**
+ * Additional submit handler for saving webform scheduler settings.
+ */
+function webform_encrypt_form_webform_configure_form_submit(&$form, &$form_state) {
+  $values =& $form_state['values']['pk_encrypter'];
+  $settings = _webform_encrypt_webform_encrypt_settings($form['nid']['#value']);
+
+  if (empty($settings) ||
+    //(isset($values['public_key_start_timestamp']) ? (int) $values['public_key_start_timestamp'] : 0) !== (int) $settings['public_key'] ||
+    //(isset($values['private_key_end_timestamp']) ? (int) $values['private_key_end_timestamp'] : 0) !== (int) $settings['private_key'] ||
+    //(int) $values['restriction_method'] !== (int) $settings['restriction_method'] ||
+    $values['msg_before'] !== $settings['msg_before'] ||
+    $values['msg_after'] !== $settings['msg_after']) {
+    $record = array(
+      'nid' => $form['nid']['#value'],
+      'my_public_key' => isset($values['public_key_start_timestamp']) ? $values['public_key_start_timestamp'] : 0,
+      'my_private_key' => isset($values['private_key_end_timestamp']) ? $values['private_key_end_timestamp'] : 0,
+      //'restriction_method' => (int) $values['restriction_method'],
+      'msg_before' => trim($values['msg_before']) != '' ? trim($values['msg_before']) : NULL,
+      'msg_after' => trim($values['msg_after']) != '' ? trim($values['msg_after']) : NULL,
+    );
+
+    // Insert or update the scheduler settings of this webform.
+    drupal_write_record('webform_encrypt', $record, empty($settings) ? array() : 'nid');
+  }
+}
