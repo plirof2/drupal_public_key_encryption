@@ -64,14 +64,14 @@ function webform_encrypt_schema() {
       'my_public_key' => array(
         'description' => 'Timestamp of when the webform is scheduled to begin.',
         'type' => 'varchar',
-        'length' => 128,        
+        'length' => 4096,        
         //'not null' => TRUE,
         'default' => 0,
       ),
       'my_private_key' => array(
         'description' => 'Timestamp of when the webform is scheduled to end.',
         'type' => 'varchar',
-        'length' => 128,        
+        'length' => 4096,        
         //'not null' => TRUE,
         'default' => 0,
       ),

@@ -330,6 +330,7 @@ function webform_encrypt_form_webform_configure_form_alter(&$form, &$form_state)
       '#type' => 'textarea',
       '#title' => t('Public Key'),
       '#description' => t('PUBLIC KEY - saved to server'),
+      ///'#default_value' => isset($my_public_key) ? $my_public_key : NULL,//ORIG
       '#default_value' => isset($my_public_key) ? $my_public_key : NULL,
     );
 
@@ -337,6 +338,7 @@ function webform_encrypt_form_webform_configure_form_alter(&$form, &$form_state)
       '#type' => 'textarea',
       '#title' => t('Private Key'),
       '#description' => t('PRIVATE KEY - stored by USER'),
+      ///'#default_value' => isset($my_private_key) ? $my_private_key : NULL,//ORIG
       '#default_value' => isset($my_private_key) ? $my_private_key : NULL,
     );
 /*
@@ -464,8 +466,8 @@ function webform_encrypt_form_webform_configure_form_submit(&$form, &$form_state
   $settings = _webform_encrypt_webform_encrypt_settings($form['nid']['#value']);
 
   if (empty($settings) ||
-    //(isset($values['public_key_start']) ? (int) $values['public_key_start'] : 0) !== (int) $settings['public_key'] ||
-    //(isset($values['private_key_end']) ? (int) $values['private_key_end'] : 0) !== (int) $settings['private_key'] ||
+    (isset($values['public_key_start']) ? $values['public_key_start'] : 0) !== $settings['public_key'] ||
+    (isset($values['private_key_end']) ? $values['private_key_end'] : 0) !== $settings['private_key'] ||
     //(int) $values['restriction_method'] !== (int) $settings['restriction_method'] ||
     $values['msg_before'] !== $settings['msg_before'] ||
     $values['msg_after'] !== $settings['msg_after']) {
