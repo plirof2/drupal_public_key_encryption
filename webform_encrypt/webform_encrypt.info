@@ -1,9 +1,9 @@
 name = Webform Encrypt
-description = Provides encryption for webform components
+description = MOD Provides PUBLIC KEY encryption for webform components
 core = 7.x
 package = Webform
 
-dependencies[] = encrypt
+; dependencies[] = encrypt
 dependencies[] = webform
 
 ; Information added by Drupal.org packaging script on 2017-06-08
