@@ -427,7 +427,7 @@ function webform_encrypt_form_webform_configure_form_validate(&$form, &$form_sta
     }
     // Else, we can save the timestamp which is used by the submit handler.
     else {
-      $values['public_key_start_timestamp'] = $my_public_key->format('U');
+      $values['public_key_start'] = $my_public_key->format('U');
     }
     */
   }
@@ -439,16 +439,16 @@ function webform_encrypt_form_webform_configure_form_validate(&$form, &$form_sta
       form_set_error('private_key_end', $my_private_key->errors['invalid'] . ' ' . (!module_exists('date_popup') ? t('Install and enable the Date Popup module included in !date_link for an easy pop-up calprivate_keyar.', array('!date_link' => l('Date', 'http://drupal.org/project/date'))) : ''));
     }
     else {
-      $values['private_key_end_timestamp'] = $my_private_key->format('U');
+      $values['private_key_end'] = $my_private_key->format('U');
     }
     */
   }
   /*
   // If for some reason the user selected an private_key date that occurs before
   // the start date, they made a mistake.
-  if (isset($values['public_key_start_timestamp'])
-    && isset($values['private_key_end_timestamp'])
-    && $values['private_key_end_timestamp'] <= $values['public_key_start_timestamp']) {
+  if (isset($values['public_key_start'])
+    && isset($values['private_key_end'])
+    && $values['private_key_end'] <= $values['public_key_start']) {
     form_set_error('private_key_end', t('The private_key time cannot be before the start time.'));
   }
   */
@@ -464,15 +464,15 @@ function webform_encrypt_form_webform_configure_form_submit(&$form, &$form_state
   $settings = _webform_encrypt_webform_encrypt_settings($form['nid']['#value']);
 
   if (empty($settings) ||
-    //(isset($values['public_key_start_timestamp']) ? (int) $values['public_key_start_timestamp'] : 0) !== (int) $settings['public_key'] ||
-    //(isset($values['private_key_end_timestamp']) ? (int) $values['private_key_end_timestamp'] : 0) !== (int) $settings['private_key'] ||
+    //(isset($values['public_key_start']) ? (int) $values['public_key_start'] : 0) !== (int) $settings['public_key'] ||
+    //(isset($values['private_key_end']) ? (int) $values['private_key_end'] : 0) !== (int) $settings['private_key'] ||
     //(int) $values['restriction_method'] !== (int) $settings['restriction_method'] ||
     $values['msg_before'] !== $settings['msg_before'] ||
     $values['msg_after'] !== $settings['msg_after']) {
     $record = array(
       'nid' => $form['nid']['#value'],
-      'my_public_key' => isset($values['public_key_start_timestamp']) ? $values['public_key_start_timestamp'] : 0,
-      'my_private_key' => isset($values['private_key_end_timestamp']) ? $values['private_key_end_timestamp'] : 0,
+      'my_public_key' => isset($values['public_key_start']) ? $values['public_key_start'] : 0,
+      'my_private_key' => isset($values['private_key_end']) ? $values['private_key_end'] : 0,
       //'restriction_method' => (int) $values['restriction_method'],
       'msg_before' => trim($values['msg_before']) != '' ? trim($values['msg_before']) : NULL,
       'msg_after' => trim($values['msg_after']) != '' ? trim($values['msg_after']) : NULL,
