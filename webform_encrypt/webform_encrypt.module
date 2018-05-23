@@ -108,7 +108,7 @@ function webform_encrypt_webform_submission_load($submissions) {
         foreach ($submission->data[$cid] as $delta => $value) {
           ///if (!empty($entry[$delta]) && @unserialize($entry[$delta] ) !== FALSE) {  //ORIGINAL Line - don't know if its ok
           if (!empty($entry[$delta]) /* && @unserialize($entry[$delta] ) !== FALSE */) {
-            $submission->data[$cid][$delta] = user_access('view encrypted values') ? decrypt($entry[$delta], get_my_private_Key()) : t('[Value Encrypted]');
+            $submission->data[$cid][$delta] = user_access('view encrypted values') ? /*"DECRYPTED-".*/decrypt($entry[$delta], get_my_private_Key()) : t('[Value Encrypted]');
             //drupal_set_message("hellooooooooooooo3d");
           }
         }
@@ -260,20 +260,20 @@ return $output;
 function get_my_private_Key()
 {
 $private_my_key= trim('-----BEGIN PRIVATE KEY-----
-MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAKQaKxYlHuvqqGvv
-vUm0ZJ8AlZCfDcFvwQS5rFh5fYa+IZZP0cvBcf2fiQElmey+fbemYdatdNFI7VPq
-NqshA/YYePr9GjGqBGZC4AVdJBMLxVWSkuriDJw7/eWySBGFiWOtbPQ5Z+xlNwu9
-lnpp+nlP7gCFEzIqa3QPsKygfKg7AgMBAAECgYAP9xvKA8KGYUYRejmIOiyv63ah
-o1fLQfwdYZMK6Ib13PmXjhxzHlbgveyuV+Ipzj6c52sNX8LFubqdN2QqMgQYfUjk
-11q/oOLv5m6QzqhVoXWG7rpy/Vl4Def8Hs62seoMFJ5gRrPlHFkhYJsFk1YFE2HA
-P3FJinDq1YIIVVR+wQJBANgiILqxumd56zpYg8VpTjWa4tEHtBoHyyCkPrRPpLRA
-uqVqnfCBVF2C/ePirhQO8K7fmG0yqEd+5rCElTlu2mUCQQDCXx5YRDXo0mYZnWDw
-+oQz1KvCc7J0AWNHrMNOepz5FVka3I9BWHfmXmJB6swUkjjqBE204m0mRz3GudRL
-4P4fAkAK+bCvylas6oQHcnc+jxppnnPmKX371Gl8PtrwTRsQDDluLPvYOrkOBpjd
-+aTdX+TY/IHBCdGBz+/nBtSNFhQBAkBJWdP9w2AEyMG3EOkwh5m0ZaGb9EV3+b4Z
-olziFOuAJEpIFMwLAPPef+fcsFrruHK5/X3FsV03gNMTV7WCHRpJAkBZjvrOd7hZ
-eXGhWe0Womy0u6wFVzUlOBOd/5+8vvr1KZleiLXY8SVn2/Cnftrz6D9krs0x96wd
-6abCv9bCik3o
+MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJka97mFuKzAd9qY
+s5nKdoNW/dkyQCFcGFFtZ7ZsXvTUOe678Bh91Ca5zeYin+vpsYRbzci/CYvxbYui
+VJVjn+URmnY2/I1FzQg0NDkGFD27lgBAFB1euLf+hN6mhVBdj4y9V2cpHV9IiWAg
+5WZeF2d/nwuyMI/nv1mdmvfNmyofAgMBAAECgYARMk86vkNE3AVaPyaFEpGHJQE0
+IQnE9XQhyTkJ61grBZ9QKjnIdnGau+ndfGwb8k6nACy37IUk+8QDGAOKF/uAcaR5
+9pXArxlJo73EC9yadFyAc/DMf/y2vEFFC4ZrXoZhx+CG1qvqjSK4hccg2VZdlq0U
+ktXprIFXCwgxQkFMSQJBAMihyvPbAWzP8+uSdMcCBlzrkhIuokYhRZDoyYtsNq/Y
+Dsyg1N+4F0MGHcwikYhc68oZuHXe4A1bRkGDriAfk1MCQQDDW4V9xsRDM4QGKEKS
+lcUgK+FQP4pNKxa4T/peaXDeYTKIZ1KRFNUULfX57vFWJ9y857zkzQ+m0JksDfUM
+KeCFAkBlvCT9ooAGfSxit9EfWJeBZrKbJaqDhTuRT3ljiWvxns1iVeubxe2FvwQ9
+Dwpc60FlKcWvf2R9YVsuvWb+QwShAkBosPZD5i4tWUEqT48FoS+Hwxw29iY2np3J
+XkrtJ5JuCiabhMtxpnleHBdSvmMk6a3YqlPHRcFagzVir4Qf5Z1FAkEAjqJyHb8V
+rZu2uj1+r/vGv9BbH80xjReT8udGjewBxBtqCfFoMuE8Xh6EImOXdZSHBXF2Srzq
+bb12MrEizy/XNQ==
 -----END PRIVATE KEY-----');
 
     return $private_my_key;
@@ -282,10 +282,10 @@ eXGhWe0Womy0u6wFVzUlOBOd/5+8vvr1KZleiLXY8SVn2/Cnftrz6D9krs0x96wd
 function get_my_public_Key()
 {
 $public_my_key=trim('-----BEGIN PUBLIC KEY-----
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCkGisWJR7r6qhr771JtGSfAJWQ
-nw3Bb8EEuaxYeX2GviGWT9HLwXH9n4kBJZnsvn23pmHWrXTRSO1T6jarIQP2GHj6
-/RoxqgRmQuAFXSQTC8VVkpLq4gycO/3lskgRhYljrWz0OWfsZTcLvZZ6afp5T+4A
-hRMyKmt0D7CsoHyoOwIDAQAB
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCZGve5hbiswHfamLOZynaDVv3Z
+MkAhXBhRbWe2bF701Dnuu/AYfdQmuc3mIp/r6bGEW83IvwmL8W2LolSVY5/lEZp2
+NvyNRc0INDQ5BhQ9u5YAQBQdXri3/oTepoVQXY+MvVdnKR1fSIlgIOVmXhdnf58L
+sjCP579ZnZr3zZsqHwIDAQAB
 -----END PUBLIC KEY-----'); 
 
     return $public_my_key;
