@@ -526,3 +526,15 @@ function webform_encrypt_node_view($node, $view_mode) {
   }
   */
 }
+
+/**
+ * Get a list of Webform-enabled node types, with backwards compatibility.
+ *
+ * @see https://drupal.org/node/1609324#webform-types
+ */
+function _webform_encrypt_node_types() {
+  if (function_exists('webform_node_types')) {
+    return webform_node_types();
+  }
+  return webform_variable_get('webform_node_types');
+}
