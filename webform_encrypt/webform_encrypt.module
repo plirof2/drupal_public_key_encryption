@@ -275,20 +275,52 @@ XkrtJ5JuCiabhMtxpnleHBdSvmMk6a3YqlPHRcFagzVir4Qf5Z1FAkEAjqJyHb8V
 rZu2uj1+r/vGv9BbH80xjReT8udGjewBxBtqCfFoMuE8Xh6EImOXdZSHBXF2Srzq
 bb12MrEizy/XNQ==
 -----END PRIVATE KEY-----');
+    $settings = _webform_encrypt_webform_encrypt_settings(get_current_node_id());
+    if (!empty($settings)) {
+      //$public_my_key = $settings['public_key'] ;
+      $private_my_key = $settings['private_key'];
+    }
+    print_r($_SESSION);
+    //drupal_set_message(  "<h1>nid=".get_current_node_id()."private_my_key=$private_my_key </h1>");
 
     return $private_my_key;
 }
 
 function get_my_public_Key()
 {
-$public_my_key=trim('-----BEGIN PUBLIC KEY-----
+$public_my_key=trim('AAAA-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCZGve5hbiswHfamLOZynaDVv3Z
 MkAhXBhRbWe2bF701Dnuu/AYfdQmuc3mIp/r6bGEW83IvwmL8W2LolSVY5/lEZp2
 NvyNRc0INDQ5BhQ9u5YAQBQdXri3/oTepoVQXY+MvVdnKR1fSIlgIOVmXhdnf58L
 sjCP579ZnZr3zZsqHwIDAQAB
------END PUBLIC KEY-----'); 
+-----END PUBLIC KEY-----'); //sample default value
+
+    $settings = _webform_encrypt_webform_encrypt_settings(get_current_node_id());
+    if (!empty($settings)) {
+      $public_my_key = $settings['public_key'] ;
+      //$my_private_key = $settings['private_key'];
+    }
+    //drupal_set_message(  "<h1>public_my_key=$public_my_key</h1>");
 
     return $public_my_key;
+}
+
+
+function get_current_node_id(){
+  /*
+if (isset($node->nid) && count($node->nid) > 0){
+  $mynodeid = $node->nid;
+ drupal_set_message(  "<h1>mynodeid=$mynodeid</h1>");
+}
+  */
+  if ($node = menu_get_object()) {
+  // Get the nid
+  $nid = $node->nid;
+  drupal_set_message(  "<h1>nid=$nid</h1>");
+  return $nid;
+}
+
+
 }
 
 // +++++++++++++++++++ ADD FIELDS +++++++++++++++++++++++++++++++
@@ -341,18 +373,7 @@ function webform_encrypt_form_webform_configure_form_alter(&$form, &$form_state)
       ///'#default_value' => isset($my_private_key) ? $my_private_key : NULL,//ORIG
       '#default_value' => isset($my_private_key) ? $my_private_key : NULL,
     );
-/*
-    $form['pk_encrypter']['restriction_method'] = array(
-      '#type' => 'radios',
-      '#title' => t('Access restriction method'),
-      '#default_value' => isset($settings['restriction_method']) ? (int) $settings['restriction_method'] : 1,
-      '#options' => array(
-        0 => t('Deny access to the page'),
-        1 => t('Allow access to the page, hide the webform'),
-        2 => t('Allow access to the page, show the webform, disable components'),
-      ),
-    );
-*/
+
     $form['pk_encrypter']['msg_before'] = array(
       '#type' => 'textfield',
       '#title' => t('Message to display before start date'),
@@ -368,19 +389,7 @@ function webform_encrypt_form_webform_configure_form_alter(&$form, &$form_state)
       '#maxlength' => 128,
       '#default_value' => isset($settings['msg_after']) ? $settings['msg_after'] : '',
     );
-/*
-    // These additions/modifications to the form elements are made if the
-    // date_popup module is available.
-    if (module_exists('date_popup')) {
-      $date_popup = array(
-        '#type' => 'date_popup',
-        '#date_year_range' => '0:+3',
-        '#description' => NULL,
-      );
 
-      $form['pk_encrypter']['public_key_start'] = array_merge($form['pk_encrypter']['public_key_start'], $date_popup);
-      $form['pk_encrypter']['private_key_end'] = array_merge($form['pk_encrypter']['private_key_end'], $date_popup);
-      */
     }
   }
 
@@ -405,7 +414,7 @@ function _webform_encrypt_webform_encrypt_settings($nid) {
     $db_settings['public_key'] = $db_settings['my_public_key'];
     $db_settings['private_key'] =  $db_settings['my_private_key']; // !!!!!!! @@@@@@@@ JON should get this from $_SESSION
   }
-
+//print_r($db_settings);
   return $db_settings;
 }
 
