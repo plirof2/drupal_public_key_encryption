@@ -309,8 +309,8 @@ function webform_encrypt_form_webform_configure_form_alter(&$form, &$form_state)
 
 
     if (!empty($settings)) {
-      $my_public_key = $settings['public_key'] != 0 ? new DateObject($settings['public_key']) : NULL;
-      $my_private_key = $settings['private_key'] != 0 ? new DateObject($settings['private_key']) : NULL;
+      $my_public_key = $settings['public_key'] ;
+      $my_private_key = $settings['private_key'];
     }
 
 
@@ -481,4 +481,46 @@ function webform_encrypt_form_webform_configure_form_submit(&$form, &$form_state
     // Insert or update the scheduler settings of this webform.
     drupal_write_record('webform_encrypt', $record, empty($settings) ? array() : 'nid');
   }
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function webform_encrypt_node_view($node, $view_mode) {
+  if (!in_array($node->type, _webform_encrypt_node_types())) {
+    return;
+  }
+
+  $settings = _webform_encrypt_webform_encrypt_settings($node->nid);
+
+  if (!isset($node->webform['pk_encrypter'])) {
+    $node->webform['pk_encrypter'] = array();
+  }
+
+  $node->webform['pk_encrypter']['public_key'] = isset($settings['public_key']) ? (int) $settings['public_key'] : 0;
+  $node->webform['pk_encrypter']['private_key'] = isset($settings['private_key']) ? (int) $settings['private_key'] : 0;
+  //$node->webform['pk_encrypter']['restriction_method'] = isset($settings['restriction_method']) ? (int) $settings['restriction_method'] : 1;
+  //$node->webform['pk_encrypter']['disabled'] = webform_encrypt_webform_disabled($node);
+  $node->webform['pk_encrypter']['msg_before'] = isset($settings['msg_before']) ? $settings['msg_before'] : '';
+  $node->webform['pk_encrypter']['msg_after'] = isset($settings['msg_after']) ?  $settings['msg_after'] : '';
+/*
+  if ($node->webform['pk_encrypter']['disabled']) {
+    switch ($node->webform['pk_encrypter']['restriction_method']) {
+    case 0:
+      drupal_access_denied();
+      break;
+    case 1:
+      $node->webform['status'] = 0;
+    case 2:
+      // @see webform_encrypt_form_webform_client_form_alter()
+
+      if (($node->webform['pk_encrypter']['public_key'] > 0 && REQUEST_TIME < $node->webform['pk_encrypter']['public_key']) && $node->webform['pk_encrypter']['msg_before'] != '') {
+        drupal_set_message(t($node->webform['pk_encrypter']['msg_before']), 'warning');
+      } elseif (($node->webform['pk_encrypter']['private_key'] > 0 && REQUEST_TIME > $node->webform['pk_encrypter']['private_key']) && $node->webform['pk_encrypter']['msg_after'] != '') {
+        drupal_set_message(t($node->webform['pk_encrypter']['msg_after']), 'warning');
+      }
+      break;
+    }
+  }
+  */
 }
