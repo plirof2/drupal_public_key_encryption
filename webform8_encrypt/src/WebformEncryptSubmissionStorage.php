@@ -25,7 +25,8 @@ class WebformEncryptSubmissionStorage extends WebformSubmissionStorage {
 
     foreach ($data as $element_name => $value) {
       //$encryption_profile = isset($config[$element_name]) ? EncryptionProfile::load($config[$element_name]['encrypt_profile']) : FALSE;
-      $encryption_profile = "AAA";
+      $encryption_profile=false;
+      if(isset($config[$element_name]['encrypt'])) $encryption_profile=true;      
       // If the value is an array and we have a encryption profile.
       if ($encryption_profile) {
         if (is_array($value)) {
@@ -112,7 +113,9 @@ class WebformEncryptSubmissionStorage extends WebformSubmissionStorage {
     $config = $webform->getThirdPartySetting('webform_encrypt', 'element');
     foreach ($data as $element_name => $value) {
       //$encryption_profile = isset($config[$element_name]) ? EncryptionProfile::load($config[$element_name]['encrypt_profile']) : FALSE;
-      $encryption_profile="AAA";
+      $encryption_profile=false;
+      if(isset($config[$element_name]['encrypt'])) $encryption_profile=true;
+
       if ($encryption_profile) {
         if (is_array($value)) {
           $this->decryptChildren($data[$element_name], $encryption_profile);
