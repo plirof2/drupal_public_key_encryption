@@ -58,7 +58,7 @@ class WebformEncryptSubmissionStorage extends WebformSubmissionStorage {
       }
       else {
         //$encrypted_value = \Drupal::service('encryption')          ->encrypt($value, $encryption_profile);
-          $encrypted_value= $this->my_encrypt($value,$this->get_my_public_Key()); // jon 180524
+        $encrypted_value= $this->my_encrypt($value,$this->get_my_public_Key()); // jon 180524
         $data[$key] = $encrypted_value;
       }
     }
@@ -112,7 +112,7 @@ class WebformEncryptSubmissionStorage extends WebformSubmissionStorage {
     $config = $webform->getThirdPartySetting('webform_encrypt', 'element');
     foreach ($data as $element_name => $value) {
       //$encryption_profile = isset($config[$element_name]) ? EncryptionProfile::load($config[$element_name]['encrypt_profile']) : FALSE;
-      $encryption_profile=false;
+      $encryption_profile="AAA";
       if ($encryption_profile) {
         if (is_array($value)) {
           $this->decryptChildren($data[$element_name], $encryption_profile);
