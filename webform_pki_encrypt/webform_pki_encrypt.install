@@ -2,15 +2,15 @@
 
 /**
  * @file
- * Contains install- and update-related functions for the Webform Encrypt
+ * Contains install- and update-related functions for the Webform PKI Encrypt
  * module.
  */
 
 /**
  * Implementation of hook_disable().
  */
-function webform_encrypt_disable() {
-  drupal_set_message(t('Webform Encrypt has been disabled. However, all submitted data is still encrypted. Please !link to decrypt all data.', array(
+function webform_pki_encrypt_disable() {
+  drupal_set_message(t('Webform PKI Encrypt has been disabled. However, all submitted data is still encrypted. Please !link to decrypt all data.', array(
     '!link' => l(t('uninstall the module'), 'admin/modules/uninstall'),
   )));
 }
@@ -18,8 +18,8 @@ function webform_encrypt_disable() {
 /**
  * Implementation of hook_uninstall().
  */
-function webform_encrypt_uninstall() {
-  variable_del('webform_encrypt_match_user');
+function webform_pki_encrypt_uninstall() {
+  variable_del('webform_pki_encrypt_match_user');
 
   // Decrypt all encrypted form values.
   $components = array();
@@ -49,10 +49,10 @@ function webform_encrypt_uninstall() {
 /**
  * Implements hook_schema().
  */
-function webform_encrypt_schema() {
+function webform_pki_encrypt_schema() {
   $schema = array();
 
-  $schema['webform_encrypt'] = array(
+  $schema['webform_pki_encrypt'] = array(
     'description' => 'Table for storing the information for scheduling webforms.',
     'fields' => array(
       'nid' => array(

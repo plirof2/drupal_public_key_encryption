@@ -1,4 +1,4 @@
-name = Webform Encrypt
+name = Webform PKI Encrypt (asymmetric encryption)
 description = MOD Provides PUBLIC KEY encryption for webform components
 core = 7.x
 package = Webform
@@ -7,8 +7,8 @@ package = Webform
 dependencies[] = webform
 
 ; Information added by Drupal.org packaging script on 2017-06-08
-version = "7.x-1.3"
+version = "7.x-1.3.mod001"
 core = "7.x"
-project = "webform_encrypt"
+project = "webform_pki_encrypt"
 datestamp = "1496919547"
 
