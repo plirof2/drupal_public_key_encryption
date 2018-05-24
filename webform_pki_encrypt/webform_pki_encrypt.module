@@ -580,7 +580,10 @@ function _webform_pki_encrypt_node_types() {
 
 
 
-
+/**
+ * Save private key in client session
+ *
+ */
 function _mySite_session($key, $value = NULL)
 {
     static $storage;
@@ -596,28 +599,14 @@ function _mySite_session($key, $value = NULL)
     return $storage[$key];
 }
 
-// ++++++++++++++++ TEST AUTO GENERATION ++++++++++++++++++++++++
-function webform_pki_encrypt_generate_form($form, &$form_state, $node) {
-  $nid = $node->nid;
-  $form['intro'] = array(
-    '#markup' => '<h2>' . t('Generate new codes for %node_title', array("%node_title" => $node->title)) . '</h2><p>' . t('To generate public/private keys please hit the button.') . '</p>',
-  );
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Generate'),
-  );
-
-  $form['codes'] = array(
-    '#markup' => '<div>' . webform_participants_codes_page($node) . '</div>',
-  );
-  return $form;
-}
-
 
 //+++++++++++++++++++ GENERATE NEW PAIR OF KEYS++++++++++++++++++++++++++++++++++++
 
 // Generate a public and private key
-
+/**
+ * Generate new keys (we come here from the submit button)
+ *
+ */
 function generate_new_keys(){
 
   $arrKeys = _generate_new_keys();
@@ -642,6 +631,10 @@ drupal_set_message( "<pre>".$arrKeys['private']."</pre");
 
 
 // Generate a public and private key
+/**
+ * Generate PRIVATE/PUBLIC key
+ *
+ */
 function _generate_new_keys()
 {
   //shell_exec('export RANDFILE="/opt/lampp/htdocs/.rnd";openssl ecparam -genkey -name secp256k1');
