@@ -42,8 +42,16 @@ class WebformElementEncrypt extends FormElement {
     $values = $form_state->getValues();
     $element_name = $values['key'];
     $config = $webform->getThirdPartySetting('webform_encrypt', 'element');
-    $encryption_options = \Drupal::service('encrypt.encryption_profile.manager')->getEncryptionProfileNamesAsOptions();
+    //$encryption_options = \Drupal::service('encrypt.encryption_profile.manager')->getEncryptionProfileNamesAsOptions();
 
+      $element['element_encrypt']['encrypt'] = [
+        '#type' => 'checkbox',
+        '#title' => t('Encrypt this field\'s value'),
+        '#description' => t('<a href="link">Click here</a> to edit encryption settings.'),
+        //'#default_value' => isset($config[$element_name]['encrypt']) ? $config[$element_name]['encrypt'] : FALSE,
+        '#default_value' => TRUE,
+      ];
+/*
     if (count($encryption_options) > 0) {
       $element['element_encrypt']['encrypt'] = [
         '#type' => 'checkbox',
@@ -71,7 +79,7 @@ class WebformElementEncrypt extends FormElement {
         '#markup' => t('Please configure the encryption profile to enable encryption for the element.'),
       );
     }
-
+    */
     return $element;
   }
 

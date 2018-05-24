@@ -6,7 +6,7 @@
  * module.
  */
 
-use Drupal\encrypt\Entity\EncryptionProfile;
+//use Drupal\encrypt\Entity\EncryptionProfile;
 use Drupal\webform\Entity\Webform;
 
 /**
@@ -23,8 +23,8 @@ function webform_encrypt_uninstall() {
     $webform = Webform::load($submission->webform_id);
     $config = $webform->getThirdPartySetting('webform_encrypt', 'element');
     if (!empty($config[$submission->name])) {
-      $encryption_profile = EncryptionProfile::load($config[$submission->name]['encrypt_profile']);
-      $value = Drupal::service('encryption')->decrypt($submission->value, $encryption_profile);
+      //$encryption_profile = EncryptionProfile::load($config[$submission->name]['encrypt_profile']);
+      //$value = Drupal::service('encryption')->decrypt($submission->value, $encryption_profile); //!!!!!!!!! DO NOT IMPLEMENT UNINSTALL
       \Drupal::database()->update('webform_submission_data')
         ->fields(array('value' => $value))
         ->condition('sid', $submission->sid)

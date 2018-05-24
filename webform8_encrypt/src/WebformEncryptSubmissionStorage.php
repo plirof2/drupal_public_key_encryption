@@ -4,7 +4,7 @@ namespace Drupal\webform_encrypt;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\webform\WebformSubmissionStorage;
-use Drupal\encrypt\Entity\EncryptionProfile;
+//use Drupal\encrypt\Entity\EncryptionProfile;
 
 /**
  * Alter webform submission storage definitions.
@@ -24,7 +24,8 @@ class WebformEncryptSubmissionStorage extends WebformSubmissionStorage {
     $config = $webform->getThirdPartySetting('webform_encrypt', 'element');
 
     foreach ($data as $element_name => $value) {
-      $encryption_profile = isset($config[$element_name]) ? EncryptionProfile::load($config[$element_name]['encrypt_profile']) : FALSE;
+      //$encryption_profile = isset($config[$element_name]) ? EncryptionProfile::load($config[$element_name]['encrypt_profile']) : FALSE;
+      $encryption_profile =false;
       // If the value is an array and we have a encryption profile.
       if ($encryption_profile) {
         if (is_array($value)) {
@@ -110,7 +111,8 @@ class WebformEncryptSubmissionStorage extends WebformSubmissionStorage {
     // Load the configuration.
     $config = $webform->getThirdPartySetting('webform_encrypt', 'element');
     foreach ($data as $element_name => $value) {
-      $encryption_profile = isset($config[$element_name]) ? EncryptionProfile::load($config[$element_name]['encrypt_profile']) : FALSE;
+      //$encryption_profile = isset($config[$element_name]) ? EncryptionProfile::load($config[$element_name]['encrypt_profile']) : FALSE;
+      $encryption_profile=false;
       if ($encryption_profile) {
         if (is_array($value)) {
           $this->decryptChildren($data[$element_name], $encryption_profile);
@@ -177,7 +179,7 @@ class WebformEncryptSubmissionStorage extends WebformSubmissionStorage {
     }
   }
 
-}
+
 
 
 //
@@ -255,3 +257,4 @@ sjCP579ZnZr3zZsqHwIDAQAB
 */
     return $public_my_key;
 }
+}//class WebformEncryptSubmissionStorage extends WebformSubmissionStorage {
