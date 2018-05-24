@@ -366,13 +366,6 @@ function webform_pki_encrypt_form_webform_configure_form_alter(&$form, &$form_st
     );
 
 
-/*
-'save' => array(
-  '#type' => 'submit',
-  '#value' => t('Save'),
-  '#submit' => array('save_function_name'),
-),
-*/
     $form['pk_encrypter']['generate_pki_keys'] = array(
       '#type' => 'submit',
       '#title' => t('Generate Public & Private Key'),
@@ -607,22 +600,51 @@ function _mySite_session($key, $value = NULL)
  * Generate new keys (we come here from the submit button)
  *
  */
-function generate_new_keys(){
+function generate_new_keys(&$form, &$form_state){
 
   $arrKeys = _generate_new_keys();
-drupal_set_message (t("<H3>IMPORTANT!!!! If you Press <B>SAVE form options</B> button ALL previous .If you want to cancel NAVIGATE manually outside of this page and then return<H3>"));
+drupal_set_message (t("<H3>IMPORTANT!!!! COPY/PASTE private and public key to the 'public/private' textareas below. If you Press <B>SAVE form options</B> button ALL previous .<H3>"));
 //$strEncrypted = _test_encrypt('Hello World!', $arrKeys['public']);
 drupal_set_message ("<pre>".$arrKeys['public']."</pre>");
 //echo  "</b><BR>".get_my_public_Key()."<HR>";
 drupal_set_message ( $strEncrypted);
 //drupal_set_message ( "<HR>OK ENCRYPT<HR>");
 $strDecrypted = _test_decrypt($strEncrypted, $arrKeys['private']);
-drupal_set_message (t("<H3>IMPORTANT!!!! Copy PRIVATE key somewhere safe . You will need this to decrypt all encrypted data.<b>If you loose it you loose your data</b><H3>"));
+drupal_set_message (t("<H3>IMPORTANT!!!! Copy/Store PRIVATE key somewhere safe . You will need this to decrypt all encrypted data.<b>If you loose it you loose your data</b><H3>"));
 
 drupal_set_message( "<pre>".$arrKeys['private']."</pre");
 //echo  "</b><BR>".get_my_private_Key()."<HR>";
 //drupal_set_message ("<HR>Now DECRYPT<HR>");
 //drupal_set_message ( $strDecrypted);
+
+
+
+  //$form['pk_encrypter']['#parents'] = array('public_key_start');
+  //form_set_value($form['public_key_start'],t('tjoohooo'), $form_state);
+/*
+    $form['pk_encrypter']['public_key_start']['#parents'] = array('public_key_start');
+    form_set_value($form['pk_encrypter']['public_key_start'],t('foo'),$form_state);
+
+
+    $settings['public_key']="cccccc";
+    $form['pk_encrypter']['public_key_start'][0]['value']['#default_value'] ="ddd";
+    $form_state['pk_encrypter']['public_key_start'][0]['value']['#default_value'] ="ddd";
+    $form['public_key_start'][0]['value']['#default_value'] ="ddd";
+    $form['pk_encrypter']['public_key_start']['value']['#default_value']='bbbb';
+    $form['pk_encrypter']['public_key_start']['value']='bbbb';
+    $form['pk_encrypter']['public_key_start']['#default_value']='bbbb2222';
+    $form_state['pk_encrypter']['public_key_start']['value']['#default_value']='bbbb';
+    $form_state['pk_encrypter']['public_key_start']['#default_value']='bbbb';
+    $form_state['pk_encrypter']['public_key_start']['value']='bbbb';    
+    $form_state['pk_encrypter']['public_key_start'] = array(
+      '#default_value' => 'aaaaaaaa',
+    );
+
+    $form['pk_encrypter']['private_key_end'] = array(
+      '#default_value' => 'aaaaaaaa',
+    );
+*/
+
 
   drupal_set_message(t("generate_new_keys OK (you must inclue all text ever ----- (dashes)"));
 
