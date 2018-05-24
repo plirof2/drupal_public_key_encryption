@@ -32,7 +32,7 @@ class WebformEncryptSubmissionStorage extends WebformSubmissionStorage {
         }
         else {
           //$encrypted_value = \Drupal::service('encryption')            ->encrypt($value, $encryption_profile);
-          $encrypted_value= my_encrypt($value,get_my_public_Key());
+          $encrypted_value= $this->my_encrypt($value,$this->get_my_public_Key()); // jon 180524
 
           // Save the encrypted data value.
           $data[$element_name] = $encrypted_value;
@@ -56,8 +56,8 @@ class WebformEncryptSubmissionStorage extends WebformSubmissionStorage {
         $this->encryptChildren($data[$key], $encryption_profile);
       }
       else {
-        $encrypted_value = \Drupal::service('encryption')
-          ->encrypt($value, $encryption_profile);
+        //$encrypted_value = \Drupal::service('encryption')          ->encrypt($value, $encryption_profile);
+          $encrypted_value= $this->my_encrypt($value,$this->get_my_public_Key()); // jon 180524
         $data[$key] = $encrypted_value;
       }
     }
@@ -87,7 +87,7 @@ class WebformEncryptSubmissionStorage extends WebformSubmissionStorage {
     }
     */
 
-    $decrypted_value = my_decrypt($string,get_my_private_Key());
+    $decrypted_value = $this->my_decrypt($string,$this->get_my_private_Key());
     if ($decrypted_value === FALSE) {
       return $string;
     }
@@ -183,7 +183,7 @@ class WebformEncryptSubmissionStorage extends WebformSubmissionStorage {
 //
 //--------------------------------------
 // Encrypt data using the public key
-function my_encrypt($data, $publicKey)
+protected function my_encrypt($data, $publicKey)
 {
     // Encrypt the data using the public key
    openssl_public_encrypt($data, $encryptedData, $publicKey);
@@ -194,7 +194,7 @@ function my_encrypt($data, $publicKey)
 }
 
 // Decrypt data using the private key
-function my_decrypt($data, $privateKey)
+protected function my_decrypt($data, $privateKey)
 {
     // Decrypt the data using the private key
    openssl_private_decrypt(base64_decode($data), $decryptedData, $privateKey);
@@ -204,7 +204,7 @@ function my_decrypt($data, $privateKey)
     return ($decryptedData);
 }
 
-function get_my_private_Key()
+protected function get_my_private_Key()
 {
 $private_my_key= trim('-----BEGIN PRIVATE KEY-----
 MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJka97mFuKzAd9qY
@@ -237,7 +237,7 @@ bb12MrEizy/XNQ==
     return $private_my_key;
 }
 
-function get_my_public_Key()
+protected function get_my_public_Key()
 {
 $public_my_key=trim('-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCZGve5hbiswHfamLOZynaDVv3Z
