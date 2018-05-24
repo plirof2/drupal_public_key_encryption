@@ -25,7 +25,7 @@ class WebformEncryptSubmissionStorage extends WebformSubmissionStorage {
 
     foreach ($data as $element_name => $value) {
       //$encryption_profile = isset($config[$element_name]) ? EncryptionProfile::load($config[$element_name]['encrypt_profile']) : FALSE;
-      $encryption_profile =false;
+      $encryption_profile = "AAA";
       // If the value is an array and we have a encryption profile.
       if ($encryption_profile) {
         if (is_array($value)) {

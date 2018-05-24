@@ -48,8 +48,8 @@ class WebformElementEncrypt extends FormElement {
         '#type' => 'checkbox',
         '#title' => t('Encrypt this field\'s value'),
         '#description' => t('<a href="link">Click here</a> to edit encryption settings.'),
-        //'#default_value' => isset($config[$element_name]['encrypt']) ? $config[$element_name]['encrypt'] : FALSE,
-        '#default_value' => TRUE,
+        '#default_value' => isset($config[$element_name]['encrypt']) ? $config[$element_name]['encrypt'] : FALSE,
+        //'#default_value' => TRUE,
       ];
 /*
     if (count($encryption_options) > 0) {
@@ -80,12 +80,32 @@ class WebformElementEncrypt extends FormElement {
       );
     }
     */
+    // To avoid generating an unnecessary dependencies on webform_encrypt:
+    // 1. Only set our third party settings if we are encrypting the element.
+    // 2. Unset our third party settings if not encrypting the element.
+    if (isset($values['encrypt']) && $values['encrypt'] == 1) {
+      $config[$element_name] = [
+        'encrypt' => $values['encrypt'],
+        'encrypt_profile' => $values['encrypt_profile'],
+      ];
+    }
+    else {
+      unset($config[$element_name]);
+    }
+    if (empty($config)) {
+      $webform->unsetThirdPartySetting('webform_encrypt', 'element');
+    }
+    else {
+      $webform->setThirdPartySetting('webform_encrypt', 'element', $config);
+    }
+
     return $element;
   }
 
   /**
    * Validates element attributes.
    */
+  /*
   public static function validateWebformElementEncrypt(&$element, FormStateInterface $form_state, &$complete_form) {
     $webform = $form_state->getFormObject()->getWebform();
     $values = $form_state->getValues();
@@ -111,5 +131,6 @@ class WebformElementEncrypt extends FormElement {
       $webform->setThirdPartySetting('webform_encrypt', 'element', $config);
     }
   }
+  */
 }
 
