@@ -62,28 +62,28 @@ function webform_pki_encrypt_schema() {
         'not null' => TRUE,
       ),
       'my_public_key' => array(
-        'description' => 'Timestamp of when the webform is scheduled to begin.',
+        'description' => 'Public key for this webform.',
         'type' => 'varchar',
         'length' => 4096,        
         //'not null' => TRUE,
         'default' => 0,
       ),
       'my_private_key' => array(
-        'description' => 'Timestamp of when the webform is scheduled to end.',
+        'description' => 'Private key for this webform..',
         'type' => 'varchar',
         'length' => 4096,        
         //'not null' => TRUE,
         'default' => 0,
       ),
-      /*
-      'restriction_method' => array(
-        'description' => 'Method for restricting user access to closed webforms.',
+      
+      'pk_encrypt_all_fields' => array(
+        'description' => '1=yes ,0=no . Encrypt ALL fields (may have problem with MAILS,NUMBERS ,DATES',
         'type' => 'int',
         'unsigned' => TRUE,
-        'default' => 1,
+        'default' => 0,
         'not null' => TRUE,
       ),
-      */
+      
       'msg_before' => array(
         'description' => 'Message to display before the webform is scheduled to begin.',
         'type' => 'varchar',
