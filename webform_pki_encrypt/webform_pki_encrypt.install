@@ -30,7 +30,7 @@ function webform_pki_encrypt_uninstall() {
   $data = db_query('SELECT nid, sid, cid, data FROM {webform_submitted_data}')->fetchAll();
   foreach ($data as $row) {
     $key = $row->nid . ':' . $row->cid;
-    if (!empty($components[$key]['encrypt']) && is_array(@unserialize($row->data))) {
+    if (!empty($components[$key]['pki_encrypt']) && is_array(@unserialize($row->data))) {
       db_update('webform_submitted_data')
         ->fields(array(
           'data' => decrypt($row->data, array('base64' => TRUE)),

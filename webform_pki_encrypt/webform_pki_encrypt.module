@@ -23,13 +23,13 @@ function webform_pki_encrypt_permission() {
  */
 function webform_pki_encrypt_form_webform_admin_settings_alter(&$form, $form_state) {
   // Add our config options to the webform settings page.
-  $form['encrypt'] = array(
+  $form['pki_encrypt'] = array(
     '#type' => 'fieldset',
     '#title' => t('Webform Encrypt'),
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
-  $form['encrypt']['webform_pki_encrypt_match_user'] = array(
+  $form['pki_encrypt']['webform_pki_encrypt_match_user'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable email to user matching'),
     '#description' => t('If enabled, every time webform sends an email, it will attempt to find a user that matches the email address the mail will be sent to in order to correctly determine permissions.'),
@@ -49,16 +49,16 @@ function webform_pki_encrypt_form_webform_component_edit_form_alter(&$form, $for
   if (!in_array($form['type']['#value'], $excluded_types)) {
 
     // Add settings for encryption.
-    $form['encryption'] = array(
+    $form['pki_encryption'] = array(
       '#type' => 'fieldset',
-      '#title' => t('Encryption'),
+      '#title' => t('E ncryption'),
       '#tree' => TRUE,
     );
-    $form['encryption']['encrypt'] = array(
+    $form['pki_encryption']['pki_encrypt'] = array(
       '#type' => 'checkbox',
       '#title' => t('Encrypt this field\'s value'),
       '#description' => t('!link to edit encryption settings.', array('!link' => l('Click here', 'admin/config/system/encrypt'))),
-      '#default_value' => isset($component['extra']['encrypt']) ? $component['extra']['encrypt'] : 0,
+      '#default_value' => isset($component['extra']['pki_encrypt']) ? $component['extra']['pki_encrypt'] : 0,
     );
   }
 }
@@ -68,10 +68,10 @@ function webform_pki_encrypt_form_webform_component_edit_form_alter(&$form, $for
  * Save encryption settings for a component.
  */
 function webform_pki_encrypt_webform_component_presave(&$component) {
-  if (!empty($component['encryption'])) {
-    $component['extra'] = array_merge($component['extra'], $component['encryption']);
-    unset($component['encryption']);
-    if ($component['extra']['encrypt']) {
+  if (!empty($component['pki_encryption'])) {
+    $component['extra'] = array_merge($component['extra'], $component['pki_encryption']);
+    unset($component['pki_encryption']);
+    if ($component['extra']['pki_encrypt']) {
       webform_pki_encrypt_encrypt_component_data($component['nid'], $component['cid'], $component['extra']);
     }
     else {
@@ -86,7 +86,7 @@ function webform_pki_encrypt_webform_component_presave(&$component) {
  */
 function webform_pki_encrypt_webform_submission_presave($node, &$submission) {
   foreach ($submission->data as $cid => $entry) {
-    if (!empty($node->webform['components'][$cid]['extra']['encrypt'])) {
+    if (!empty($node->webform['components'][$cid]['extra']['pki_encrypt'])) {
       foreach ($submission->data[$cid] as $delta => $value) {
         //$submission->data[$cid][$delta] = my_encrypt($entry[$delta], array('base64' => TRUE));
         $submission->data[$cid][$delta] = my_encrypt($entry[$delta], get_my_public_Key());
@@ -104,7 +104,7 @@ function webform_pki_encrypt_webform_submission_load($submissions) {
   foreach ($submissions as $submission) {
     $node = node_load($submission->nid);
     foreach ($submission->data as $cid => $entry) {
-      if (!empty($node->webform['components'][$cid]['extra']['encrypt'])) {
+      if (!empty($node->webform['components'][$cid]['extra']['pki_encrypt'])) {
         foreach ($submission->data[$cid] as $delta => $value) {
           ///if (!empty($entry[$delta]) && @unserialize($entry[$delta] ) !== FALSE) {  //ORIGINAL Line - don't know if its ok
           if (!empty($entry[$delta]) /* && @unserialize($entry[$delta] ) !== FALSE */) {
@@ -126,7 +126,7 @@ function webform_pki_encrypt_preprocess_webform_results_table(&$vars) {
   foreach ($vars['submissions'] as $sid => &$submission) {
     foreach ($submission->data as $cid => &$item) {
       $component = $vars['components'][$cid];
-      if (!empty($component['extra']['encrypt'])) {
+      if (!empty($component['extra']['pki_encrypt'])) {
         foreach ($item['value'] as &$value) {
           //$value = user_access('view encrypted values') ? decrypt($value, array('base64' => TRUE)) : t('[Value Encrypted]');
           $value = user_access('view encrypted values') ? decrypt($value, get_my_private_Key()) : t('[Value Encrypted]');
@@ -148,7 +148,7 @@ function webform_pki_encrypt_encrypt_component_data($nid = NULL, $cid = NULL, $e
   $data = db_query('SELECT nid, sid, cid, data FROM {webform_submitted_data} where nid = :nid AND cid = :cid', array(':nid' => $nid, ':cid' => $cid))->fetchAll();
   foreach ($data as $row) {
     $key = $row->nid . ':' . $row->cid;
-    if (isset($components[$key]['encrypt']) && !$components[$key]['encrypt']) {
+    if (isset($components[$key]['pki_encrypt']) && !$components[$key]['pki_encrypt']) {
       db_update('webform_submitted_data')
         ->fields(array(
           //'data' => my_encrypt($row->data, array('base64' => TRUE)),
@@ -176,7 +176,7 @@ function webform_pki_encrypt_decrypt_component_data($nid = NULL, $cid = NULL, $e
   foreach ($data as $row) {
     $key = $row->nid . ':' . $row->cid;
     
-    if (!empty($components[$key]['encrypt']) && is_array(@unserialize($row->data))) {
+    if (!empty($components[$key]['pki_encrypt']) && is_array(@unserialize($row->data))) {
       //echo "<pre>";print_R(decrypt($row->data, array('base64' => TRUE)));exit;
       db_update('webform_submitted_data')
         ->fields(array(
