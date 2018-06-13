@@ -90,7 +90,6 @@ function webform_pki_encrypt_webform_submission_presave($node, &$submission) {
       foreach ($submission->data[$cid] as $delta => $value) {
         //$submission->data[$cid][$delta] = my_encrypt($entry[$delta], array('base64' => TRUE));
         $submission->data[$cid][$delta] = my_encrypt($entry[$delta], get_my_public_Key());
-        //drupal_set_message("hellooooooooooooo2");
       }
     }
   }
@@ -109,7 +108,6 @@ function webform_pki_encrypt_webform_submission_load($submissions) {
           ///if (!empty($entry[$delta]) && @unserialize($entry[$delta] ) !== FALSE) {  //ORIGINAL Line - don't know if its ok
           if (!empty($entry[$delta]) /* && @unserialize($entry[$delta] ) !== FALSE */) {
             $submission->data[$cid][$delta] = user_access('view encrypted values') ? /*"DECRYPTED-".*/decrypt($entry[$delta], get_my_private_Key()) : t('[Value Encrypted]');
-            //drupal_set_message("hellooooooooooooo3d");
           }
         }
       }
@@ -152,7 +150,6 @@ function webform_pki_encrypt_encrypt_component_data($nid = NULL, $cid = NULL, $e
       db_update('webform_submitted_data')
         ->fields(array(
           //'data' => my_encrypt($row->data, array('base64' => TRUE)),
-          //'data' => $row->data."AAA",  //ok
           'data' => my_encrypt($row->data, get_my_public_Key()),
         ))
         ->condition('nid', $row->nid)
@@ -197,9 +194,7 @@ function webform_pki_encrypt_decrypt_component_data($nid = NULL, $cid = NULL, $e
 function my_encrypt($data="aaa", $publicKey)
 {
     // Encrypt the data using the public key
-   openssl_public_encrypt($data, $encryptedData, $publicKey);
-  //$encryptedData=ssl_encrypt($data,'public',get_my_public_Key());
-//echo  "<HR>publicKey= $publicKey";
+    openssl_public_encrypt($data, $encryptedData, $publicKey);
     // Return encrypted data
     return base64_encode($encryptedData);
 }
@@ -208,9 +203,7 @@ function my_encrypt($data="aaa", $publicKey)
 function decrypt($data, $privateKey)
 {
     // Decrypt the data using the private key
-   openssl_private_decrypt(base64_decode($data), $decryptedData, $privateKey);
-//   echo  "<HR>privateKey = $privateKey";
-
+    openssl_private_decrypt(base64_decode($data), $decryptedData, $privateKey);
     // Return decrypted data
     return ($decryptedData);
 }
@@ -259,7 +252,7 @@ return $output;
 
 function get_my_private_Key()
 {
-$private_my_key= trim('AAAAAA-----BEGIN PRIVATE KEY-----
+$private_my_key= trim('-----BEGIN PRIVATE KEY-----
 MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJka97mFuKzAd9qY
 s5nKdoNW/dkyQCFcGFFtZ7ZsXvTUOe678Bh91Ca5zeYin+vpsYRbzci/CYvxbYui
 VJVjn+URmnY2/I1FzQg0NDkGFD27lgBAFB1euLf+hN6mhVBdj4y9V2cpHV9IiWAg
@@ -290,7 +283,7 @@ bb12MrEizy/XNQ==
 
 function get_my_public_Key()
 {
-$public_my_key=trim('AAAAAAA-----BEGIN PUBLIC KEY-----
+$public_my_key=trim('-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCZGve5hbiswHfamLOZynaDVv3Z
 MkAhXBhRbWe2bF701Dnuu/AYfdQmuc3mIp/r6bGEW83IvwmL8W2LolSVY5/lEZp2
 NvyNRc0INDQ5BhQ9u5YAQBQdXri3/oTepoVQXY+MvVdnKR1fSIlgIOVmXhdnf58L
@@ -310,16 +303,16 @@ sjCP579ZnZr3zZsqHwIDAQAB
 
 function get_current_node_id(){
   /*
-if (isset($node->nid) && count($node->nid) > 0){
-  $mynodeid = $node->nid;
- drupal_set_message(  "<h1>mynodeid=$mynodeid</h1>");
-}
+  if (isset($node->nid) && count($node->nid) > 0){
+    $mynodeid = $node->nid;
+   drupal_set_message(  "<h1>mynodeid=$mynodeid</h1>");
+  }
   */
-  if ($node = menu_get_object()) {
+  if ($node = menu_get_object()) { // this doesn't work in all nodes...
   // Get the nid
   $nid = $node->nid;
   /*
-  drupal_set_message(  "<h1>zzz nid=$nid</h1>");
+  drupal_set_message(  "<h1>nid=$nid</h1>");
   $_SESSION[date("hh:ss")]="aaa";
   $a=serialize($_SESSION);
   drupal_set_message(  "SESS = $a");
@@ -502,7 +495,6 @@ function webform_pki_encrypt_form_webform_configure_form_submit(&$form, &$form_s
     //(int) $values['restriction_method'] !== (int) $settings['restriction_method'] ||
     $values['msg_before'] !== $settings['msg_before'] ||
     $values['msg_after'] !== $settings['msg_after']) {
-    //$_SESSION['webform_pki_encrypt']['hello']="helloooooooooooooooooooo";
     _mySite_session("current_private_key",$values['private_key_end']); //save PRivate key to SESSION
     $record = array(
       'nid' => $form['nid']['#value'],
@@ -669,11 +661,7 @@ function _generate_new_keys()
     );
 
     // Create the private and public key
-    //echo  "<HR>";
     $res = openssl_pkey_new($config);
-    //echo  "<HR>";
-//print_r($res); 
-//echo  "<HR>";
     // Extract the private key from $res to $privKey
     openssl_pkey_export($res, $privKey);
 
