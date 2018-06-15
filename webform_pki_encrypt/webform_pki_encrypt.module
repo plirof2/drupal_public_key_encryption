@@ -100,14 +100,30 @@ function webform_pki_encrypt_webform_submission_presave($node, &$submission) {
  * Decrypt values if encrypted
  */
 function webform_pki_encrypt_webform_submission_load($submissions) {
+  $has_result_access=false;
+  if(_mySite_session("temp_decryptor")=="yes") $has_result_access=true;
   foreach ($submissions as $submission) {
+    drupal_set_message("webform_pki_encrypt_webform_submission_load ");
     $node = node_load($submission->nid);
+    watchdog("webform_pki_encrypt_webform_submission_load", "nodeid= ".$node->nid." subm nodeid=".$submission->nid. ' SUBMID='.$submission->sid, $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
+
+    if (_mySite_session("temp_decryptor")!="yes" ) 
+      { drupal_set_message("webform_pki_encrypt_webform_submission_load temp_decryptor YES temp_decryptorSESSION=". _mySite_session("temp_decryptor")." has_result_access=$has_result_access");
+        $has_result_access=false;
+        //$has_result_access=_webform_pki_encrypt_my_access_call_back($node);
+      } 
+    else 
+      { drupal_set_message("webform_pki_encrypt_webform_submission_load temp_decryptor NO temp_decryptorSESSION=". _mySite_session("temp_decryptor")." has_result_access=$has_result_access");
+        
+        $has_result_access=_webform_pki_encrypt_my_access_call_back($node);
+      };
+
     foreach ($submission->data as $cid => $entry) {
       if (!empty($node->webform['components'][$cid]['extra']['pki_encrypt'])) {
         foreach ($submission->data[$cid] as $delta => $value) {
           ///if (!empty($entry[$delta]) && @unserialize($entry[$delta] ) !== FALSE) {  //ORIGINAL Line - don't know if its ok
           if (!empty($entry[$delta]) /* && @unserialize($entry[$delta] ) !== FALSE */) {
-            $submission->data[$cid][$delta] = user_access('view encrypted values') ? /*"DECRYPTED-".*/decrypt($entry[$delta], get_my_private_Key()) : t('[Value Encrypted]');
+            $submission->data[$cid][$delta] = (user_access('view encrypted values') || $has_result_access  )? /*"DECRYPTED-".*/decrypt($entry[$delta], get_my_private_Key()) : t('[Value EncryptedAAAAAA]');
           }
         }
       }
@@ -123,11 +139,14 @@ function webform_pki_encrypt_webform_submission_load($submissions) {
 function webform_pki_encrypt_preprocess_webform_results_table(&$vars) {
   foreach ($vars['submissions'] as $sid => &$submission) {
     foreach ($submission->data as $cid => &$item) {
+      drupal_set_message("webform_pki_encrypt_preprocess_webform_results_table");
+      //$has_result_access=false;
+      //$has_result_access=_webform_pki_encrypt_my_access_call_back($submission->nid);  
       $component = $vars['components'][$cid];
       if (!empty($component['extra']['pki_encrypt'])) {
         foreach ($item['value'] as &$value) {
           //$value = user_access('view encrypted values') ? decrypt($value, array('base64' => TRUE)) : t('[Value Encrypted]');
-          $value = user_access('view encrypted values') ? decrypt($value, get_my_private_Key()) : t('[Value Encrypted]');
+          $value = (user_access('view encrypted values') || $has_result_access  ) ? decrypt($value, get_my_private_Key()) : t('[Value EncryptedBBBBB]');
         }
       }
     }
@@ -700,3 +719,56 @@ function _test_decrypt($data, $privateKey)
 
 
 //--------------------- GENERATE NEW PAIR OF KEYS----------------------------
+
+/**
+callback access function
+Checks if current user has access to the results on this node & access to
+*/
+function _webform_pki_encrypt_my_access_call_back($node) {
+    watchdog("_webform_pki_encrypt_my_access_call_back", "_webform_pki_encrypt_my_access_call_back  ", $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
+    if (_mySite_session("temp_decryptor")=="yes") return true;
+
+    
+  /*
+  // /php_value memory_limit 128M
+  if (is_null($node)) return false;
+  
+  global $user;
+  $account = isset($account) ? $account : $user;
+  $access = false;
+  if (isset($node->field_webform_results_access)) {
+    // This webform has user(s) specified for submission results access control.
+    if (user_access("administer nodes") || user_access("edit any webform content")) {
+      $access = true;
+    }
+    else {
+      // For each user specified, make sure the current user is one of them,
+      // otherwise don't show the results.
+     if (isset($node->field_webform_results_access['und'])){
+      foreach ($node->field_webform_results_access['und'] as $i => $ref) {
+  // User Reference
+        if (isset($ref['uid']) && (($ref['uid'] == $account->uid))) {
+          $access = true;
+          break;
+        }
+  // Entity Reference
+        if (isset($ref['target_id']) && (($ref['target_id'] == $account->uid))) {
+          $access = true;
+          break;
+        }
+      }} //end of if (isset($node->field_webform_results_access['und']))
+    }
+  }
+  return $access;  
+  */
+  
+  //if (user_access('view encrypted values')) return true;
+  $nodeurl_relative ='node/'. $node->nid;
+  $valid_path=drupal_valid_path($nodeurl_relative.'/webform-results') ;
+  watchdog("_webform_pki_encrypt_my_access_call_back AFTER", "_webform_pki_encrypt_my_access_call_back nodeurl_relative=$nodeurl_relative ", $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
+  drupal_set_message("_webform_pki_encrypt_my_access_call_back  = $nodeurl_relative  + VALID path=".$valid_path);
+  //return false;
+  if($valid_path) {_mySite_session("temp_decryptor","yes"); } else { _mySite_session("temp_decryptor","no") ;} //save PRivate key to SESSION
+  return $valid_path ; // at this point we choose to ignore it. Reminder email is tied with webforms_results view
+  
+}
