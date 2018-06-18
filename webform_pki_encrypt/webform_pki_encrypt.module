@@ -97,33 +97,25 @@ function webform_pki_encrypt_webform_submission_presave($node, &$submission) {
 
 /**
  * Implementation of hook_webform_submission_load().
+ * This is called EACH time a submission is loaded (it is called even during anonymous submissions).
  * Decrypt values if encrypted
  */
 function webform_pki_encrypt_webform_submission_load($submissions) {
   $has_result_access=false;
   if(_mySite_session("temp_decryptor")=="yes") $has_result_access=true;
   foreach ($submissions as $submission) {
-    drupal_set_message("webform_pki_encrypt_webform_submission_load ");
+    //drupal_set_message("webform_pki_encrypt_webform_submission_load ");
     $node = node_load($submission->nid);
-    watchdog("webform_pki_encrypt_webform_submission_load", "nodeid= ".$node->nid." subm nodeid=".$submission->nid. ' SUBMID='.$submission->sid, $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
+    //watchdog("webform_pki_encrypt_webform_submission_load", "nodeid= ".$node->nid." subm nodeid=".$submission->nid. ' SUBMID='.$submission->sid, $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
 
-    if (_mySite_session("temp_decryptor")!="yes" ) //if nothing is set
-      { drupal_set_message("webform_pki_encrypt_webform_submission_load temp_decryptor YES temp_decryptorSESSION=". _mySite_session("temp_decryptor")." has_result_access=$has_result_access");
-        //$has_result_access=false;
-        $has_result_access=_webform_pki_encrypt_my_access_call_back($node);
-      } 
-    else 
-      { drupal_set_message("webform_pki_encrypt_webform_submission_load temp_decryptor NO temp_decryptorSESSION=". _mySite_session("temp_decryptor")." has_result_access=$has_result_access");
-        
-        $has_result_access=_webform_pki_encrypt_my_access_call_back($node);
-      };
+    $has_result_access=_webform_pki_encrypt_my_access_call_back($node);
 
     foreach ($submission->data as $cid => $entry) {
       if (!empty($node->webform['components'][$cid]['extra']['pki_encrypt'])) {
         foreach ($submission->data[$cid] as $delta => $value) {
           ///if (!empty($entry[$delta]) && @unserialize($entry[$delta] ) !== FALSE) {  //ORIGINAL Line - don't know if its ok
-          if (!empty($entry[$delta]) /* && @unserialize($entry[$delta] ) !== FALSE */) {
-            $submission->data[$cid][$delta] = (user_access('view encrypted values') || $has_result_access  )? /*"DECRYPTED-".*/decrypt($entry[$delta], get_my_private_Key()) : t('[Value EncryptedAAAAAA]');
+          if (!empty($entry[$delta]) ) {
+            $submission->data[$cid][$delta] = (user_access('view encrypted values') || $has_result_access  )? decrypt($entry[$delta], get_my_private_Key()) : t('[Value Encrypted]');
           }
         }
       }
@@ -131,27 +123,33 @@ function webform_pki_encrypt_webform_submission_load($submissions) {
   }
 }
 
+
 /**
- * Preprocess for theme('webform_results_table').
- *
- * Decrypt webform values in the table display.
+ * Preprocess for theme('webform_results_table'). **NOT USED**
+ * Decrypt webform values in the table display. 
+ * NOTE THIS is called ONLY if you bypass VIEWS $conf['webform_table'] = TRUE; 
  */
 function webform_pki_encrypt_preprocess_webform_results_table(&$vars) {
   foreach ($vars['submissions'] as $sid => &$submission) {
+
     foreach ($submission->data as $cid => &$item) {
-      drupal_set_message("webform_pki_encrypt_preprocess_webform_results_table");
+      //drupal_set_message("webform_pki_encrypt_preprocess_webform_results_table conf[webform_table] = TRUE;");
+      //watchdog("webform_pki_encrypt_preprocess_webform_results_table ", "BYPASSED webform VIEWS using STATIC old Tables nodeid= ".$node->nid." conf[webform_table] = TRUE; subm nodeid=".$submission->nid. ' SUBMID='.$submission->sid, $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);      
       //$has_result_access=false;
-      //$has_result_access=_webform_pki_encrypt_my_access_call_back($submission->nid);  
+      //$has_result_access=_webform_pki_encrypt_my_access_call_back($submission->nid); 
+      $node = node_load($submission->nid); 
+      $has_result_access=_webform_pki_encrypt_my_access_call_back($node);
       $component = $vars['components'][$cid];
       if (!empty($component['extra']['pki_encrypt'])) {
         foreach ($item['value'] as &$value) {
           //$value = user_access('view encrypted values') ? decrypt($value, array('base64' => TRUE)) : t('[Value Encrypted]');
-          $value = (user_access('view encrypted values') || $has_result_access  ) ? decrypt($value, get_my_private_Key()) : t('[Value EncryptedBBBBB]');
+          $value = (user_access('view encrypted values') || $has_result_access  ) ? decrypt($value, get_my_private_Key()) : t('[Value Encrypted-bbb]');
         }
       }
     }
   }
 }
+
 
 /**
  * Encrypt all non-encrypted data of a component.
