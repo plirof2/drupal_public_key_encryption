@@ -103,17 +103,17 @@ function webform_pki_encrypt_webform_submission_load($submissions) {
   $has_result_access=false;
   if(_mySite_session("temp_decryptor")=="yes") $has_result_access=true;
   foreach ($submissions as $submission) {
-    drupal_set_message("webform_pki_encrypt_webform_submission_load ");
+    //drupal_set_message("webform_pki_encrypt_webform_submission_load ");
     $node = node_load($submission->nid);
-    watchdog("webform_pki_encrypt_webform_submission_load", "nodeid= ".$node->nid." subm nodeid=".$submission->nid. ' SUBMID='.$submission->sid, $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
+    //watchdog("webform_pki_encrypt_webform_submission_load", "nodeid= ".$node->nid." subm nodeid=".$submission->nid. ' SUBMID='.$submission->sid, $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
 
     if (_mySite_session("temp_decryptor")!="yes" ) 
-      { drupal_set_message("webform_pki_encrypt_webform_submission_load temp_decryptor YES temp_decryptorSESSION=". _mySite_session("temp_decryptor")." has_result_access=$has_result_access");
+      { //drupal_set_message("webform_pki_encrypt_webform_submission_load temp_decryptor YES temp_decryptorSESSION=". _mySite_session("temp_decryptor")." has_result_access=$has_result_access");
         $has_result_access=false;
         //$has_result_access=_webform_pki_encrypt_my_access_call_back($node);
       } 
     else 
-      { drupal_set_message("webform_pki_encrypt_webform_submission_load temp_decryptor NO temp_decryptorSESSION=". _mySite_session("temp_decryptor")." has_result_access=$has_result_access");
+      { //drupal_set_message("webform_pki_encrypt_webform_submission_load temp_decryptor NO temp_decryptorSESSION=". _mySite_session("temp_decryptor")." has_result_access=$has_result_access");
         
         $has_result_access=_webform_pki_encrypt_my_access_call_back($node);
       };
@@ -123,7 +123,9 @@ function webform_pki_encrypt_webform_submission_load($submissions) {
         foreach ($submission->data[$cid] as $delta => $value) {
           ///if (!empty($entry[$delta]) && @unserialize($entry[$delta] ) !== FALSE) {  //ORIGINAL Line - don't know if its ok
           if (!empty($entry[$delta]) /* && @unserialize($entry[$delta] ) !== FALSE */) {
-            $submission->data[$cid][$delta] = (user_access('view encrypted values') || $has_result_access  )? /*"DECRYPTED-".*/decrypt($entry[$delta], get_my_private_Key()) : t('[Value EncryptedAAAAAA]');
+            $my_private_key=0;
+            $my_private_key=  (null !==(_mySite_session("current_private_key"))  )? _mySite_session("current_private_key") : t('[NO PRIVATE KEY FOUND]');
+            $submission->data[$cid][$delta] = (user_access('view encrypted values') || $has_result_access  )? /*"DECRYPTED-".*/decrypt($entry[$delta], $my_private_key) : t('[Value Encrypted]');
           }
         }
       }

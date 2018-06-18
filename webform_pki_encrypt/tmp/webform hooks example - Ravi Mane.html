@@ -1,0 +1,978 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0079)https://sites.google.com/site/ravivmane/webform-in-drupal/webform-hooks-example -->
+<html xmlns="http://www.w3.org/1999/xhtml" itemscope="" itemtype="http://schema.org/WebPage"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<script src="./webform hooks example - Ravi Mane_files/cb=gapi.loaded_2" async=""></script><script src="./webform hooks example - Ravi Mane_files/cb=gapi.loaded_1" async=""></script><script src="./webform hooks example - Ravi Mane_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript">/* Copyright 2008 Google. */ (function() { (function(){function e(a){this.t={};this.tick=function(a,c,b){this.t[a]=[void 0!=b?b:(new Date).getTime(),c];if(void 0==b)try{window.console.timeStamp("CSI/"+a)}catch(h){}};this.tick("start",null,a)}var a;if(window.performance)var d=(a=window.performance.timing)&&a.responseStart;var f=0<d?new e(d):new e;window.jstiming={Timer:e,load:f};if(a){var c=a.navigationStart;0<c&&d>=c&&(window.jstiming.srt=d-c)}if(a){var b=window.jstiming.load;0<c&&d>=c&&(b.tick("_wtsrt",void 0,c),b.tick("wtsrt_","_wtsrt",
+d),b.tick("tbsd_","wtsrt_"))}try{a=null,window.chrome&&window.chrome.csi&&(a=Math.floor(window.chrome.csi().pageT),b&&0<c&&(b.tick("_tbnd",void 0,window.chrome.csi().startE),b.tick("tbnd_","_tbnd",c))),null==a&&window.gtbExternal&&(a=window.gtbExternal.pageT()),null==a&&window.external&&(a=window.external.pageT,b&&0<c&&(b.tick("_tbnd",void 0,window.external.startE),b.tick("tbnd_","_tbnd",c))),a&&(window.jstiming.pt=a)}catch(g){}})(); })()
+</script>
+<link rel="shortcut icon" type="image/x-icon" href="https://www.google.com/images/icons/product/sites-16.ico">
+<link rel="apple-touch-icon" href="https://ssl.gstatic.com/sites/p/a07748/system/app/images/apple-touch-icon.png" type="image/png">
+<script type="text/javascript">/* Copyright 2008 Google. */ (function() { function d(a){return document.getElementById(a)}window.byId=d;function g(a){return a.replace(/^\s+|\s+$/g,"")}window.trim=g;var h=[],k=0;window.JOT_addListener=function(a,b,c){var f=new String(k++);a={eventName:a,handler:b,compId:c,key:f};h.push(a);return f};window.JOT_removeListenerByKey=function(a){for(var b=0;b<h.length;b++)if(h[b].key==a){h.splice(b,1);break}};window.JOT_removeAllListenersForName=function(a){for(var b=0;b<h.length;b++)h[b].eventName==a&&h.splice(b,1)};
+window.JOT_postEvent=function(a,b,c){var f={eventName:a,eventSrc:b||{},payload:c||{}};if(window.JOT_fullyLoaded)for(b=h.length,c=0;c<b&&c<h.length;c++){var e=h[c];e&&e.eventName==a&&(f.listenerCompId=e.compId||"",(e="function"==typeof e.handler?e.handler:window[e.handler])&&e(f))}else window.JOT_delayedEvents.push({eventName:a,eventSrc:b,payload:c})};window.JOT_delayedEvents=[];window.JOT_fullyLoaded=!1;
+window.JOT_formatRelativeToNow=function(a,b){a=((new Date).getTime()-a)/6E4;if(1440<=a||0>a)return null;var c=0;60<=a&&(a/=60,c=2);2<=a&&c++;return b?window.JOT_siteRelTimeStrs[c].replace("__duration__",Math.floor(a)):window.JOT_userRelTimeStrs[c].replace("__duration__",Math.floor(a))}; })()
+</script>
+<script>
+
+  
+
+  var breadcrumbs = [{"path":"/site/ravivmane/webform-in-drupal","deleted":false,"title":"Webform in drupal","dir":"ltr"},{"path":"/site/ravivmane/webform-in-drupal/webform-hooks-example","deleted":false,"title":"webform hooks example","dir":"ltr"}];
+  var JOT_clearDotPath = 'https://ssl.gstatic.com/sites/p/a07748/system/app/images/cleardot.gif';
+
+  
+  var JOT_userRelTimeStrs = ["a minute ago","__duration__ minutes ago","an hour ago","__duration__ hours ago"];
+
+  
+  
+
+  
+
+  var webspace = {"gvizGstaticVersion":"current","enableAnalytics":false,"pageSharingId":"jotspot_page","codeembeds":{"outerIframeSrc":"https://www.gstatic.com/jotspot/embeds/code/0f08d42392f2000e7e3f3daf5b427a43/outer_iframe.html","innerIframeSrc":"https://1671939014-jotspot-embeds.googleusercontent.com/code/8d87fa64604b2a11fae2ed06104c58d3/inner_iframe.html"},"enableUniversalAnalytics":false,"sharingPolicy":"OPENED","siteTitle":"Ravi Mane","jot2atari":{"eligibility":"ineligible"},"onepickUrl":"https://docs.google.com/picker","adsensePublisherId":null,"features":{"newCodeEmbedInsert":true,"oAuthForChartsApi":true,"moreMobileStyleImprovements":null,"cajaNetworkAccess":true,"googleChartsOverGstatic":false,"picasaAlbumInsert":false,"pageDrafts":false,"newCodeEmbedAsDefault":false,"enableJot2Atari":true,"plusBadge":false,"pdfEmbedSupport":false},"isPublic":true,"newSitesBaseUrl":"https://sites.google.com","isConsumer":true,"serverFlags":{"jot2AtariLearnMoreUrl":"https://support.google.com/sites/answer/7035197","cajaBaseUrl":"//www.gstatic.com/caja","cajaDebugMode":false},"domainAnalyticsAccountId":"","plusPageId":"","signInUrl":"https://accounts.google.com/AccountChooser?continue\u003dhttps://sites.google.com/site/ravivmane/webform-in-drupal/webform-hooks-example\u0026service\u003djotspot","analyticsAccountId":"","scottyUrl":"/_/upload","homePath":"/","siteNoticeUrlEnabled":null,"plusPageUrl":"","adsensePromoClickedOrSiteIneligible":true,"csiReportUri":"https://gg.google.com/csi","sharingId":"jotspot","termsUrl":"//www.google.com/intl/en/policies/terms/","gvizVersion":1,"editorResources":{"sitelayout":["https://ssl.gstatic.com/sites/p/a07748/system/app/css/sitelayouteditor.css"],"text":["https://ssl.gstatic.com/sites/p/a07748/system/js/codemirror.js","https://ssl.gstatic.com/sites/p/a07748/system/app/css/codemirror_css.css","https://ssl.gstatic.com/sites/p/a07748/system/js/trog_edit__en.js","https://ssl.gstatic.com/sites/p/a07748/system/app/css/trogedit.css","/site/ravivmane/_/rsrc/1528357124000/system/app/css/editor.css","https://ssl.gstatic.com/sites/p/a07748/system/app/css/codeeditor.css","/site/ravivmane/_/rsrc/1528357124000/system/app/css/camelot/editor-jfk.css"]},"sharingUrlPrefix":"/_/sharing","isAdsenseEnabled":true,"domain":"defaultdomain","baseUri":"/site/ravivmane","name":"ravivmane","siteTemplateId":false,"siteNoticeRevision":null,"siteNoticeUrlAddress":null,"siteNoticeMessage":null,"page":{"isRtlLocale":false,"canDeleteWebspace":null,"isPageDraft":null,"parentPath":"/webform-in-drupal","parentWuid":"wuid:gx:57a5412134c94516","siteLocale":"en","timeZone":"America/Los_Angeles","type":"text","title":"webform hooks example","locale":"en","wuid":"wuid:gx:7116bed36dc90f43","revision":3,"path":"/webform-in-drupal/webform-hooks-example","isSiteRtlLocale":false,"pageInheritsPermissions":null,"name":"webform-hooks-example","canChangePath":true,"state":"","properties":{},"bidiEnabled":false,"currentTemplate":{"path":"/system/app/pagetemplates/text","title":"Web Page"}},"canPublishScriptToAnyone":true,"user":{"keyboardShortcuts":true,"sessionIndex":"","onePickToken":"","guest_":true,"displayNameOrEmail":"guest","userName":"guest","uid":"","renderMobile":false,"domain":"","namespace":"","hasWriteAccess":false,"namespaceUser":false,"primaryEmail":"guest","hasAdminAccess":false},"gadgets":{"baseUri":"/site/ravivmane/system/app/pages/gadgets"}};
+  webspace.page.breadcrumbs = breadcrumbs;
+
+  
+  var JOT_siteRelTimeStrs = ["a minute ago","__duration__ minutes ago","an hour ago","__duration__ hours ago"];
+
+</script>
+<script type="text/javascript">
+                window.jstiming.load.tick('scl');
+              </script>
+<meta name="title" content="webform hooks example - Ravi Mane">
+<meta itemprop="name" content="webform hooks example - Ravi Mane">
+<meta property="og:title" content="webform hooks example - Ravi Mane">
+<style type="text/css">
+</style>
+<link rel="stylesheet" type="text/css" href="./webform hooks example - Ravi Mane_files/standard-css-iceberg-ltr-ltr.css">
+<link rel="stylesheet" type="text/css" href="./webform hooks example - Ravi Mane_files/overlay.css">
+<link rel="stylesheet" type="text/css" href="./webform hooks example - Ravi Mane_files/allthemes-view.css">
+<!--[if IE]>
+          <link rel="stylesheet" type="text/css" href="/site/ravivmane/system/app/css/camelot/allthemes%2die.css" />
+        <![endif]-->
+<title>webform hooks example - Ravi Mane</title>
+<script type="text/javascript">
+                window.jstiming.load.tick('cl');
+              </script>
+<script type="text/javascript" charset="UTF-8" src="./webform hooks example - Ravi Mane_files/platform.js" gapi_processed="true"></script><script type="text/javascript" charset="UTF-8" src="./webform hooks example - Ravi Mane_files/js"></script><style>.dcs-d-dcs-od-dcs-pd{width:500px}.dcs-od-dcs-pd-dcs-t{color:black;font-family:arial,sans-serif;font-family:var(--docs-material-font-family,arial,sans-serif);font-size:13px;white-space:normal}.dcs-od-dcs-pd-dcs-xj-dcs-vf{position:absolute;top:0px;padding-top:16px;left:220px}.dcs-od-dcs-pd-dcs-t button.dcs-od-dcs-pd-dcs-qd-dcs-bb,.dcs-od-dcs-pd-dcs-t button.dcs-od-dcs-pd-dcs-qd-dcs-bb:hover{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#4d90fe;background-color:#4d90fe;background-image:-webkit-linear-gradient(top,#4d90fe,#4787ed);background-image:-moz-linear-gradient(top,#4d90fe,#4787ed);background-image:-ms-linear-gradient(top,#4d90fe,#4787ed);background-image:-o-linear-gradient(top,#4d90fe,#4787ed);background-image:linear-gradient(top,#4d90fe,#4787ed);border:1px solid #3079ed;color:#fff}#docs-instant-button-bubble{border:1px solid #eee;box-shadow:0 3px 3px rgba(0,0,0,0.05);background:rgba(255,255,255,0.85);border-radius:100%;position:absolute;top:0;width:40px;text-align:center;height:40px;z-index:-2;cursor:default;opacity:0;transition:opacity .25s ease-in-out,z-index .26s linear .25s}.dcs-d-dcs-vd-dcs-bb-dcs-ke-dcs-ef-dcs-pi{transform:translate(-50%,-50%)}.dcs-d-dcs-vd-dcs-bb-dcs-ke-dcs-ef-dcs-wd{transform:translate(-65%,-50%)}#docs-instant-button-bubble.dcs-d-dcs-vd-dcs-bb-dcs-qe{opacity:1;cursor:pointer;z-index:101;transition:opacity .25s ease-in-out}#docs-instant-button-bubble.dcs-d-dcs-vd-dcs-bb-dcs-oi-dcs-h{z-index:-2;opacity:0;top:0;transition:none}.dcs-d-dcs-vd-dcs-bb-dcs-ke-dcs-hb{display:inline-block;opacity:0.5;margin-top:13px;margin-left:-3px;transition:opacity .15s ease-in-out}.dcs-d-dcs-e .dcs-d-dcs-vd-dcs-bb-dcs-ke-dcs-hb{margin-top:11px}#docs-instant-button-bubble:hover .dcs-d-dcs-vd-dcs-bb-dcs-ke-dcs-hb,#docs-instant-button-bubble .dcs-d-dcs-vd-dcs-bb-dcs-ke-dcs-hb:hover{opacity:1}#docs-instant-button-bubble:hover{background:rgba(255,255,255,1)}#docs-instant-button-bubble:focus{outline:0}#docs-instant-button-bubble.dcs-d-dcs-w-dcs-ej{-ms-high-contrast-adjust:none}.dcs-cc-dcs-ak-dcs-bk{position:relative;display:-moz-inline-box;display:inline-block}* html .dcs-cc-dcs-ak-dcs-bk{display:inline}*:first-child+html .dcs-cc-dcs-ak-dcs-bk{display:inline}.dcs-cc-dcs-dc-dcs-bb{background:#ddd url(//ssl.gstatic.com/editor/button-bg.png) repeat-x top left;border:0;color:#000;cursor:pointer;list-style:none;margin:2px;outline:none;padding:0;text-decoration:none;vertical-align:middle}.dcs-cc-dcs-dc-dcs-bb-dcs-lh-dcs-gh,.dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{border-style:solid;border-color:#aaa;vertical-align:top}.dcs-cc-dcs-dc-dcs-bb-dcs-lh-dcs-gh{margin:0;border-width:1px 0;padding:0}.dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{margin:0 -1px;border-width:0 1px;padding:3px 4px}* html .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{left:-1px}* html .dcs-cc-dcs-dc-dcs-bb-dcs-wd .dcs-cc-dcs-dc-dcs-bb-dcs-lh-dcs-gh{left:-1px;right:auto}* html .dcs-cc-dcs-dc-dcs-bb-dcs-wd .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{right:auto}*:first-child+html .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{left:-1px}*:first-child+html .dcs-cc-dcs-dc-dcs-bb-dcs-wd .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{left:1px;right:auto}::root .dcs-cc-dcs-dc-dcs-bb,::root .dcs-cc-dcs-dc-dcs-bb-dcs-lh-dcs-gh,::root .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{line-height:0}::root .dcs-cc-dcs-dc-dcs-bb-dcs-ff,::root .dcs-cc-dcs-dc-dcs-bb-dcs-ec{line-height:normal}.dcs-cc-dcs-dc-dcs-bb-dcs-bf{background-image:none!important;opacity:0.3;-moz-opacity:0.3;filter:alpha(opacity=30)}.dcs-cc-dcs-dc-dcs-bb-dcs-bf .dcs-cc-dcs-dc-dcs-bb-dcs-lh-dcs-gh,.dcs-cc-dcs-dc-dcs-bb-dcs-bf .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh,.dcs-cc-dcs-dc-dcs-bb-dcs-bf .dcs-cc-dcs-dc-dcs-bb-dcs-ff,.dcs-cc-dcs-dc-dcs-bb-dcs-bf .dcs-cc-dcs-dc-dcs-bb-dcs-ec{color:#333!important;border-color:#999!important}* html .dcs-cc-dcs-dc-dcs-bb-dcs-bf{margin:2px 1px!important;padding:0 1px!important}*:first-child+html .dcs-cc-dcs-dc-dcs-bb-dcs-bf{margin:2px 1px!important;padding:0 1px!important}.dcs-cc-dcs-dc-dcs-bb-dcs-le .dcs-cc-dcs-dc-dcs-bb-dcs-lh-dcs-gh,.dcs-cc-dcs-dc-dcs-bb-dcs-le .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{border-color:#9cf #69e #69e #7af!important}.dcs-cc-dcs-dc-dcs-bb-dcs-gb,.dcs-cc-dcs-dc-dcs-bb-dcs-xi{background-color:#bbb;background-position:bottom left}.dcs-cc-dcs-dc-dcs-bb-dcs-hh .dcs-cc-dcs-dc-dcs-bb-dcs-lh-dcs-gh,.dcs-cc-dcs-dc-dcs-bb-dcs-hh .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{border-color:orange}.dcs-cc-dcs-dc-dcs-bb-dcs-ff{padding:0 4px 0 0;vertical-align:top}.dcs-cc-dcs-dc-dcs-bb-dcs-ec{height:15px;width:7px;background:url(//ssl.gstatic.com/editor/editortoolbar.png) no-repeat -388px 0;vertical-align:top}.dcs-cc-dcs-dc-dcs-bb-dcs-ah-dcs-qh,.dcs-cc-dcs-dc-dcs-bb-dcs-ah-dcs-qh .dcs-cc-dcs-dc-dcs-bb-dcs-lh-dcs-gh,.dcs-cc-dcs-dc-dcs-bb-dcs-ah-dcs-qh .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{margin-right:0}.dcs-cc-dcs-dc-dcs-bb-dcs-ah-dcs-u,.dcs-cc-dcs-dc-dcs-bb-dcs-ah-dcs-u .dcs-cc-dcs-dc-dcs-bb-dcs-lh-dcs-gh,.dcs-cc-dcs-dc-dcs-bb-dcs-ah-dcs-u .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{margin-left:0}.dcs-cc-dcs-dc-dcs-bb-dcs-ah-dcs-u .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{border-left:1px solid #fff}.dcs-cc-dcs-dc-dcs-bb-dcs-ah-dcs-u.dcs-cc-dcs-dc-dcs-bb-dcs-ei .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{border-left:1px solid #ddd}.dcs-f-dcs-bb{-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;cursor:default;font-size:11px;font-weight:bold;text-align:center;white-space:nowrap;margin-right:16px;height:27px;line-height:27px;min-width:54px;outline:0px;padding:0 8px}.dcs-f-dcs-bb-dcs-le{-webkit-box-shadow:0 1px 1px rgba(0,0,0,.1);-moz-box-shadow:0 1px 1px rgba(0,0,0,.1);box-shadow:0 1px 1px rgba(0,0,0,.1)}.dcs-f-dcs-bb-dcs-qb{-webkit-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);-moz-box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1);box-shadow:inset 0px 1px 2px rgba(0,0,0,0.1)}.dcs-f-dcs-bb .dcs-f-dcs-bb-dcs-ye{margin-top:-3px;vertical-align:middle}.dcs-f-dcs-bb-dcs-af{margin-left:5px}.dcs-f-dcs-bb-dcs-nf{min-width:34px;padding:0}.dcs-f-dcs-bb-dcs-ah-dcs-u,.dcs-f-dcs-bb-dcs-ah-dcs-qh{z-index:1}.dcs-f-dcs-bb-dcs-ah-dcs-u.dcs-f-dcs-bb-dcs-bf{z-index:0}.dcs-f-dcs-bb-dcs-ei.dcs-f-dcs-bb-dcs-ah-dcs-u,.dcs-f-dcs-bb-dcs-ei.dcs-f-dcs-bb-dcs-ah-dcs-qh{z-index:2}.dcs-f-dcs-bb-dcs-ah-dcs-u:focus,.dcs-f-dcs-bb-dcs-ah-dcs-qh:focus,.dcs-f-dcs-bb-dcs-le.dcs-f-dcs-bb-dcs-ah-dcs-u,.dcs-f-dcs-bb-dcs-le.dcs-f-dcs-bb-dcs-ah-dcs-qh{z-index:3}.dcs-f-dcs-bb-dcs-ah-dcs-u{margin-left:-1px;-moz-border-radius-bottomleft:0;-moz-border-radius-topleft:0;-webkit-border-bottom-left-radius:0;-webkit-border-top-left-radius:0;border-bottom-left-radius:0;border-top-left-radius:0}.dcs-f-dcs-bb-dcs-ah-dcs-qh{margin-right:0px;-moz-border-radius-topright:0;-moz-border-radius-bottomright:0;-webkit-border-top-right-radius:0;-webkit-border-bottom-right-radius:0;border-top-right-radius:0;border-bottom-right-radius:0}.dcs-f-dcs-bb.dcs-f-dcs-bb-dcs-bf:active{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none}.dcs-f-dcs-bb-dcs-ue{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#4d90fe;background-image:-webkit-linear-gradient(top,#4d90fe,#4787ed);background-image:-moz-linear-gradient(top,#4d90fe,#4787ed);background-image:-ms-linear-gradient(top,#4d90fe,#4787ed);background-image:-o-linear-gradient(top,#4d90fe,#4787ed);background-image:linear-gradient(top,#4d90fe,#4787ed);border:1px solid #3079ed;color:#fff}.dcs-f-dcs-bb-dcs-ue.dcs-f-dcs-bb-dcs-le{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#357ae8;background-image:-webkit-linear-gradient(top,#4d90fe,#357ae8);background-image:-moz-linear-gradient(top,#4d90fe,#357ae8);background-image:-ms-linear-gradient(top,#4d90fe,#357ae8);background-image:-o-linear-gradient(top,#4d90fe,#357ae8);background-image:linear-gradient(top,#4d90fe,#357ae8);border:1px solid #2f5bb7;border-bottom-color:#2f5bb7}.dcs-f-dcs-bb-dcs-ue:focus{-webkit-box-shadow:inset 0 0 0 1px #fff;-moz-box-shadow:inset 0 0 0 1px #fff;box-shadow:inset 0 0 0 1px #fff;border:1px solid #fff;border:rgba(0,0,0,0) solid 1px;outline:1px solid #4d90fe;outline:rgba(0,0,0,0) 0}.dcs-f-dcs-bb-dcs-ue.dcs-f-dcs-bb-dcs-i-dcs-j{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;outline:none}.dcs-f-dcs-bb-dcs-ue:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);background:#357ae8;border:1px solid #2f5bb7;border-top:1px solid #2f5bb7}.dcs-f-dcs-bb-dcs-ue.dcs-f-dcs-bb-dcs-bf{background:#4d90fe;filter:alpha(opacity=50);opacity:0.5}.dcs-f-dcs-bb-dcs-tc{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#f5f5f5;background-image:-webkit-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-moz-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-ms-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-o-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:linear-gradient(top,#f5f5f5,#f1f1f1);color:#444;border:1px solid #dcdcdc;border:1px solid rgba(0,0,0,0.1)}.dcs-f-dcs-bb-dcs-tc.dcs-f-dcs-bb-dcs-le,.dcs-f-dcs-bb-dcs-tc.dcs-f-dcs-bb-dcs-i-dcs-j.dcs-f-dcs-bb-dcs-le{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#f8f8f8;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1);border:1px solid #c6c6c6;color:#333}.dcs-f-dcs-bb-dcs-tc:active,.dcs-f-dcs-bb-dcs-tc.dcs-f-dcs-bb-dcs-le:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1);background:#f8f8f8;color:#333}.dcs-f-dcs-bb-dcs-tc.dcs-f-dcs-bb-dcs-qb,.dcs-f-dcs-bb-dcs-tc.dcs-f-dcs-bb-dcs-i-dcs-j.dcs-f-dcs-bb-dcs-qb{background-color:#eee;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1);border:1px solid #ccc;color:#333}.dcs-f-dcs-bb-dcs-tc.dcs-f-dcs-bb-dcs-ei,.dcs-f-dcs-bb-dcs-tc.dcs-f-dcs-bb-dcs-i-dcs-j.dcs-f-dcs-bb-dcs-ei{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1);background-color:#eee;background-image:-webkit-linear-gradient(top,#eee,#e0e0e0);background-image:-moz-linear-gradient(top,#eee,#e0e0e0);background-image:-ms-linear-gradient(top,#eee,#e0e0e0);background-image:-o-linear-gradient(top,#eee,#e0e0e0);background-image:linear-gradient(top,#eee,#e0e0e0);border:1px solid #ccc;color:#333}.dcs-f-dcs-bb-dcs-tc:focus{border:1px solid #4d90fe;outline:none}.dcs-f-dcs-bb-dcs-tc.dcs-f-dcs-bb-dcs-i-dcs-j{border:1px solid #dcdcdc;border:1px solid rgba(0,0,0,0.1);outline:none}.dcs-f-dcs-bb-dcs-tc.dcs-f-dcs-bb-dcs-bf{background:#fff;border:1px solid #f3f3f3;border:1px solid rgba(0,0,0,0.05);color:#b8b8b8}.dcs-f-dcs-bb-dcs-tc .dcs-f-dcs-bb-dcs-ye{opacity:.55}.dcs-f-dcs-bb-dcs-tc.dcs-f-dcs-bb-dcs-ei .dcs-f-dcs-bb-dcs-ye,.dcs-f-dcs-bb-dcs-tc.dcs-f-dcs-bb-dcs-qb .dcs-f-dcs-bb-dcs-ye,.dcs-f-dcs-bb-dcs-tc.dcs-f-dcs-bb-dcs-le .dcs-f-dcs-bb-dcs-ye{opacity:0.9}.dcs-f-dcs-bb-dcs-tc.dcs-f-dcs-bb-dcs-bf .dcs-f-dcs-bb-dcs-ye{filter:alpha(opacity=33);opacity:0.333}.dcs-f-dcs-fb{-webkit-border-radius:1px;-moz-border-radius:1px;border-radius:1px;background-color:rgba(255,255,255,.05);border:1px solid #c6c6c6;border:1px solid rgba(155,155,155,.57);font-size:1px;height:11px;margin:0px 4px 0px 1px;outline:0;vertical-align:text-bottom;width:11px}.dcs-f-dcs-fb-dcs-xe{background-color:#fff;background-color:rgba(255,255,255,.65)}.dcs-f-dcs-fb-dcs-ei{background-color:#fff;background-color:rgba(255,255,255,.65)}.dcs-f-dcs-fb-dcs-le{-webkit-box-shadow:inset 0px 1px 1px rgba(0,0,0,.1);-moz-box-shadow:inset 0px 1px 1px rgba(0,0,0,.1);box-shadow:inset 0px 1px 1px rgba(0,0,0,.1);border:1px solid #b2b2b2}.dcs-f-dcs-fb-dcs-gb{background-color:#ebebeb}.dcs-f-dcs-fb-dcs-hh{border:1px solid #4d90fe}.dcs-f-dcs-fb-dcs-bh.dcs-f-dcs-fb-dcs-hh{border:1px solid #c6c6c6;border:1px solid rgba(155,155,155,.57)}.dcs-f-dcs-fb-dcs-bf,.dcs-f-dcs-fb-dcs-bh.dcs-f-dcs-fb-dcs-bf{background-color:#fff;border:1px solid #f1f1f1;cursor:default}.dcs-f-dcs-fb-dcs-v{height:15px;outline:0;width:15px;left:0;position:relative;top:-3px}.dcs-f-dcs-fb-dcs-xe .dcs-f-dcs-fb-dcs-v{background:url(//ssl.gstatic.com/ui/v1/menu/checkmark-partial.png) no-repeat -5px -3px;background-image:-webkit-image-set(url(//ssl.gstatic.com/ui/v1/menu/checkmark-partial.png) 1x,url(//ssl.gstatic.com/ui/v1/menu/checkmark-partial_2x.png) 2x)}.dcs-f-dcs-fb-dcs-ei .dcs-f-dcs-fb-dcs-v{background:url(//ssl.gstatic.com/ui/v1/menu/checkmark.png) no-repeat -5px -3px;background-image:-webkit-image-set(url(//ssl.gstatic.com/ui/v1/menu/checkmark.png) 1x,url(//ssl.gstatic.com/ui/v1/menu/checkmark_2x.png) 2x)}.dcs-cc-dcs-xh,.dcs-s-dcs-t{-webkit-box-shadow:0 4px 16px rgba(0,0,0,.2);-moz-box-shadow:0 4px 16px rgba(0,0,0,.2);box-shadow:0 4px 16px rgba(0,0,0,.2);background:#fff;background-clip:padding-box;border:1px solid #acacac;border:1px solid rgba(0,0,0,.333);outline:0;position:absolute}.dcs-cc-dcs-xh-dcs-xb,.dcs-s-dcs-t-dcs-xb{background:#fff;left:0;position:absolute;top:0}div.dcs-cc-dcs-xh-dcs-xb,div.dcs-s-dcs-t-dcs-xb{filter:alpha(opacity=75);-moz-opacity:.75;opacity:.75}.dcs-s-dcs-t{color:#000;padding:30px 42px}.dcs-s-dcs-t-dcs-k{background-color:#fff;color:#000;cursor:default;font-size:16px;font-weight:normal;line-height:24px;margin:0 0 16px}.dcs-s-dcs-t-dcs-k-dcs-yj{height:11px;opacity:0.7;padding:17px;position:absolute;right:0px;top:0px;width:11px}.dcs-s-dcs-t-dcs-k-dcs-yj:after{content:'';background:url(//ssl.gstatic.com/ui/v1/dialog/close-x.png);position:absolute;height:11px;width:11px;right:17px}.dcs-s-dcs-t-dcs-k-dcs-yj:hover{opacity:1}.dcs-s-dcs-t-dcs-c{background-color:#fff;line-height:1.4em;word-wrap:break-word}.dcs-s-dcs-t-dcs-vh{margin-top:16px}.dcs-s-dcs-t-dcs-vh button{-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;background-color:#f5f5f5;background-image:-webkit-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-moz-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-ms-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-o-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:linear-gradient(top,#f5f5f5,#f1f1f1);border:1px solid #dcdcdc;border:1px solid rgba(0,0,0,0.1);color:#444;cursor:default;font-family:inherit;font-size:11px;font-weight:bold;height:29px;line-height:27px;margin:0 16px 0 0;min-width:72px;outline:0;padding:0 8px}.dcs-s-dcs-t-dcs-vh button:hover,.dcs-s-dcs-t-dcs-vh button:active{-webkit-box-shadow:0px 1px 1px rgba(0,0,0,0.1);-moz-box-shadow:0px 1px 1px rgba(0,0,0,0.1);box-shadow:0px 1px 1px rgba(0,0,0,0.1);background-color:#f8f8f8;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1);border:1px solid #c6c6c6;color:#333}.dcs-s-dcs-t-dcs-vh button:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}.dcs-s-dcs-t-dcs-vh button:focus{border:1px solid #4d90fe}.dcs-s-dcs-t-dcs-vh button[disabled]{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background:#fff;background-image:none;border:1px solid #f3f3f3;border:1px solid rgba(0,0,0,0.05);color:#b8b8b8}.dcs-s-dcs-t-dcs-vh .dcs-cc-dcs-ch-dcs-ue{background-color:#4d90fe;background-image:-webkit-linear-gradient(top,#4d90fe,#4787ed);background-image:-moz-linear-gradient(top,#4d90fe,#4787ed);background-image:-ms-linear-gradient(top,#4d90fe,#4787ed);background-image:-o-linear-gradient(top,#4d90fe,#4787ed);background-image:linear-gradient(top,#4d90fe,#4787ed);border:1px solid #3079ed;color:#fff}.dcs-s-dcs-t-dcs-vh .dcs-cc-dcs-ch-dcs-ue:hover,.dcs-s-dcs-t-dcs-vh .dcs-cc-dcs-ch-dcs-ue:active{background-color:#357ae8;background-image:-webkit-linear-gradient(top,#4d90fe,#357ae8);background-image:-moz-linear-gradient(top,#4d90fe,#357ae8);background-image:-ms-linear-gradient(top,#4d90fe,#357ae8);background-image:-o-linear-gradient(top,#4d90fe,#357ae8);background-image:linear-gradient(top,#4d90fe,#357ae8);border:1px solid #2f5bb7;color:#fff}.dcs-s-dcs-t-dcs-vh .dcs-cc-dcs-ch-dcs-ue:active{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);box-shadow:inset 0 1px 2px rgba(0,0,0,0.3)}.dcs-s-dcs-t-dcs-vh .dcs-cc-dcs-ch-dcs-ue:focus{-webkit-box-shadow:inset 0 0 0 1px #fff;-moz-box-shadow:inset 0 0 0 1px #fff;box-shadow:inset 0 0 0 1px #fff;border:1px solid #fff;border:rgba(0,0,0,0) solid 1px;outline:1px solid #4d90fe;outline:rgba(0,0,0,0) 0}.dcs-s-dcs-t-dcs-vh .dcs-cc-dcs-ch-dcs-ue[disabled]{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background:#4d90fe;color:#fff;filter:alpha(opacity=50);opacity:0.5}.dcs-f-dcs-ji,.dcs-f-dcs-wi,.dcs-f-dcs-hd{width:512px}.dcs-cc-dcs-dc{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:0 2px 4px rgba(0,0,0,0.2);-moz-box-shadow:0 2px 4px rgba(0,0,0,0.2);box-shadow:0 2px 4px rgba(0,0,0,0.2);-webkit-transition:opacity 0.218s;-moz-transition:opacity 0.218s;-o-transition:opacity 0.218s;transition:opacity 0.218s;background:#fff;border:1px solid #ccc;border:1px solid rgba(0,0,0,.2);cursor:default;font-size:13px;margin:0;outline:none;padding:6px 0;position:absolute}.dcs-cc-dcs-cf-dcs-dc-dcs-bb{-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;background-color:#f5f5f5;background-image:-webkit-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-moz-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-ms-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:-o-linear-gradient(top,#f5f5f5,#f1f1f1);background-image:linear-gradient(top,#f5f5f5,#f1f1f1);border:1px solid #dcdcdc;color:#444;cursor:default;font-size:11px;font-weight:bold;line-height:27px;list-style:none;margin:0 2px;min-width:46px;outline:none;padding:0 18px 0 6px;text-align:center;text-decoration:none}.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-bf{background-color:#fff;border-color:#f3f3f3;color:#b8b8b8}.dcs-cc-dcs-cf-dcs-dc-dcs-bb.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-le{background-color:#f8f8f8;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1);-webkit-box-shadow:0 1px 1px rgba(0,0,0,.1);-moz-box-shadow:0 1px 1px rgba(0,0,0,.1);box-shadow:0 1px 1px rgba(0,0,0,.1);border-color:#c6c6c6;color:#333}.dcs-cc-dcs-cf-dcs-dc-dcs-bb.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-hh{border-color:#4d90fe}.dcs-cc-dcs-cf-dcs-dc-dcs-bb.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-xi,.dcs-cc-dcs-cf-dcs-dc-dcs-bb.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-gb{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1);background-color:#eee;background-image:-webkit-linear-gradient(top,#eee,#e0e0e0);background-image:-moz-linear-gradient(top,#eee,#e0e0e0);background-image:-ms-linear-gradient(top,#eee,#e0e0e0);background-image:-o-linear-gradient(top,#eee,#e0e0e0);background-image:linear-gradient(top,#eee,#e0e0e0);border:1px solid #ccc;color:#333;z-index:2}.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ff{vertical-align:top;white-space:nowrap}.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ec{border-color:#777 transparent;border-style:solid;border-width:4px 4px 0 4px;height:0;width:0;position:absolute;right:5px;top:12px}.dcs-cc-dcs-cf-dcs-dc-dcs-bb .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ye{margin-top:-3px;opacity:.55;vertical-align:middle}.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-gb .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ye,.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-xi .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ye,.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-qb .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ye,.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-le .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ye{opacity:0.9}.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-gb .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ec,.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-xi .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ec,.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-qb .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ec,.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-le .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ec{border-color:#595959 transparent}.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-u,.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-qh{z-index:1}.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-u.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-bf{z-index:0}.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-qh:focus,.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-le.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ah-dcs-qh{z-index:2}.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-u:focus,.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-le.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ah-dcs-u{z-index:2}.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ah-dcs-u{margin-left:-1px;-moz-border-radius-bottomleft:0;-moz-border-radius-topleft:0;-webkit-border-bottom-left-radius:0;-webkit-border-top-left-radius:0;border-bottom-left-radius:0;border-top-left-radius:0;min-width:0;padding-left:0;vertical-align:top}.dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ah-dcs-qh{margin-right:0px;-moz-border-radius-topright:0;-moz-border-radius-bottomright:0;-webkit-border-top-right-radius:0;-webkit-border-bottom-right-radius:0;border-top-right-radius:0;border-bottom-right-radius:0}.dcs-cc-dcs-hf,.dcs-cc-dcs-wk,.dcs-cc-dcs-xk{position:relative;color:#333;cursor:pointer;list-style:none;margin:0;padding:6px 8em 6px 30px;white-space:nowrap}.dcs-cc-dcs-dc-dcs-yk .dcs-cc-dcs-hf,.dcs-cc-dcs-dc-dcs-zk .dcs-cc-dcs-hf{padding-left:16px;vertical-align:middle}.dcs-cc-dcs-dc-dcs-al .dcs-cc-dcs-hf{padding-right:44px}.dcs-cc-dcs-hf-dcs-bf{cursor:default}.dcs-cc-dcs-hf-dcs-bf .dcs-cc-dcs-hf-dcs-vk,.dcs-cc-dcs-hf-dcs-bf .dcs-cc-dcs-hf-dcs-c{color:#ccc!important}.dcs-cc-dcs-hf-dcs-bf .dcs-cc-dcs-hf-dcs-hb{filter:alpha(opacity=30);opacity:0.3}.dcs-cc-dcs-hf-dcs-ne,.dcs-cc-dcs-hf-dcs-le{background-color:#eee;border-color:#eee;border-style:dotted;border-width:1px 0;padding-top:5px;padding-bottom:5px}.dcs-cc-dcs-hf-dcs-ne .dcs-cc-dcs-hf-dcs-c,.dcs-cc-dcs-hf-dcs-le .dcs-cc-dcs-hf-dcs-c{color:#333}.dcs-cc-dcs-hf-dcs-fb,.dcs-cc-dcs-hf-dcs-hb{background-repeat:no-repeat;height:21px;left:3px;position:absolute;right:auto;top:3px;vertical-align:middle;width:21px}.dcs-cc-dcs-uc-dcs-qb{background-image:url(//ssl.gstatic.com/ui/v1/menu/checkmark.png);background-repeat:no-repeat;background-position:left center}.dcs-cc-dcs-uc-dcs-qb .dcs-cc-dcs-hf-dcs-c{color:#333}.dcs-cc-dcs-hf-dcs-vk{color:#777;direction:ltr;left:auto;padding:0 6px;position:absolute;right:0;text-align:right}.dcs-cc-dcs-hf-dcs-sh-dcs-bl{text-decoration:underline}.dcs-cc-dcs-hf-dcs-sh-dcs-th{color:#777;font-size:12px;padding-left:4px}.dcs-cc-dcs-sk-dcs-bb,.dcs-cc-dcs-sk-dcs-dc-dcs-bb{-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;background:0;border-color:transparent;border-style:solid;border-width:1px;outline:none;padding:0;height:24px;color:#444;line-height:24px;list-style:none;font-size:11px;font-weight:bold;text-decoration:none;vertical-align:middle;cursor:default}.dcs-cc-dcs-sk-dcs-bb-dcs-lh-dcs-gh,.dcs-cc-dcs-sk-dcs-bb-dcs-ud-dcs-gh .dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-lh-dcs-gh,.dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-ud-dcs-gh{border:0;vertical-align:top}.dcs-cc-dcs-sk-dcs-bb-dcs-lh-dcs-gh,.dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-lh-dcs-gh{margin:0;padding:0}.dcs-cc-dcs-sk-dcs-bb-dcs-ud-dcs-gh,.dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-ud-dcs-gh{padding:0 2px}.dcs-cc-dcs-sk-dcs-bb-dcs-le,.dcs-cc-dcs-sk-dcs-bb-dcs-gb,.dcs-cc-dcs-sk-dcs-bb-dcs-ei,.dcs-cc-dcs-sk-dcs-bb-dcs-qb{color:#222;padding:0}.dcs-cc-dcs-sk-dcs-bb-dcs-le,.dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-le{border-color:#c6c6c6!important;color:#222}.dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-xi{color:#222}.dcs-cc-dcs-sk-dcs-bb-dcs-le,.dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-le{-webkit-box-shadow:0 1px 1px rgba(0,0,0,.1);-moz-box-shadow:0 1px 1px rgba(0,0,0,.1);box-shadow:0 1px 1px rgba(0,0,0,.1);background-color:#f8f8f8;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1)}.dcs-cc-dcs-sk-dcs-bb-dcs-gb,.dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-gb{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1);background-color:#f6f6f6;background-image:-webkit-linear-gradient(top,#f6f6f6,#f1f1f1);background-image:-moz-linear-gradient(top,#f6f6f6,#f1f1f1);background-image:-ms-linear-gradient(top,#f6f6f6,#f1f1f1);background-image:-o-linear-gradient(top,#f6f6f6,#f1f1f1);background-image:linear-gradient(top,#f6f6f6,#f1f1f1);border-color:#c6c6c6}.dcs-cc-dcs-sk-dcs-bb-dcs-qb,.dcs-cc-dcs-sk-dcs-bb-dcs-ei,.dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-xi{-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1);background-color:#eee;background-image:-webkit-linear-gradient(top,#eee,#e0e0e0);background-image:-moz-linear-gradient(top,#eee,#e0e0e0);background-image:-ms-linear-gradient(top,#eee,#e0e0e0);background-image:-o-linear-gradient(top,#eee,#e0e0e0);background-image:linear-gradient(top,#eee,#e0e0e0);border-color:#ccc}.dcs-cc-dcs-sk-dcs-bb-dcs-bf,.dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-bf{color:#222!important;opacity:0.3;filter:alpha(opacity=30)}.dcs-cc-dcs-sk-dcs-bb-dcs-ah-dcs-qh,.dcs-cc-dcs-sk-dcs-bb-dcs-ah-dcs-qh .dcs-cc-dcs-sk-dcs-bb-dcs-lh-dcs-gh,.dcs-cc-dcs-sk-dcs-bb-dcs-ah-dcs-qh .dcs-cc-dcs-sk-dcs-bb-dcs-ud-dcs-gh{margin-right:0}.dcs-cc-dcs-sk-dcs-bb-dcs-ah-dcs-u,.dcs-cc-dcs-sk-dcs-bb-dcs-ah-dcs-u .dcs-cc-dcs-sk-dcs-bb-dcs-lh-dcs-gh,.dcs-cc-dcs-sk-dcs-bb-dcs-ah-dcs-u .dcs-cc-dcs-sk-dcs-bb-dcs-ud-dcs-gh{margin-left:0}.dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-ec{background:url(//ssl.gstatic.com/ui/v1/disclosure/small-grey-disclosure-arrow-down.png) center no-repeat;float:right;margin:10px 2px 0 3px;padding:0;opacity:.8;vertical-align:middle;width:5px;height:7px;*float:none;*position:relative;*top:-3px}.dcs-cc-dcs-sk-dcs-th{border-left:1px solid #ccc;height:17px;line-height:normal;list-style:none;margin:0 2px;outline:none;overflow:hidden;padding:0;text-decoration:none;vertical-align:middle;width:0}.dcs-cc-dcs-sk-dcs-ob .dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-ec{background:url(//ssl.gstatic.com/ui/v1/disclosure/small-grey-disclosure-arrow-down.png) center no-repeat;height:11px;margin-top:7px;width:7px;-webkit-transform:none;-moz-transform:none;transform:none;filter:none}.dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-ff{padding:0;margin:0}.dcs-f-dcs-se::-webkit-scrollbar{height:16px;overflow:visible;width:16px}.dcs-f-dcs-se::-webkit-scrollbar-button{height:0;width:0}.dcs-f-dcs-se::-webkit-scrollbar-track{background-clip:padding-box;border:solid transparent;border-width:0 0 0 4px}.dcs-f-dcs-se::-webkit-scrollbar-track:horizontal{border-width:4px 0 0}.dcs-f-dcs-se::-webkit-scrollbar-track:hover{background-color:rgba(0,0,0,.05);box-shadow:inset 1px 0 0 rgba(0,0,0,.1)}.dcs-f-dcs-se::-webkit-scrollbar-track:horizontal:hover{box-shadow:inset 0 1px 0 rgba(0,0,0,.1)}.dcs-f-dcs-se::-webkit-scrollbar-track:active{background-color:rgba(0,0,0,.05);box-shadow:inset 1px 0 0 rgba(0,0,0,.14),inset -1px 0 0 rgba(0,0,0,.07)}.dcs-f-dcs-se::-webkit-scrollbar-track:horizontal:active{box-shadow:inset 0 1px 0 rgba(0,0,0,.14),inset 0 -1px 0 rgba(0,0,0,.07)}.dcs-f-dcs-se-dcs-cl.dcs-f-dcs-se::-webkit-scrollbar-track:hover{background-color:rgba(255,255,255,.1);box-shadow:inset 1px 0 0 rgba(255,255,255,.2)}.dcs-f-dcs-se-dcs-cl.dcs-f-dcs-se::-webkit-scrollbar-track:horizontal:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}.dcs-f-dcs-se-dcs-cl.dcs-f-dcs-se::-webkit-scrollbar-track:active{background-color:rgba(255,255,255,.1);box-shadow:inset 1px 0 0 rgba(255,255,255,.25),inset -1px 0 0 rgba(255,255,255,.15)}.dcs-f-dcs-se-dcs-cl.dcs-f-dcs-se::-webkit-scrollbar-track:horizontal:active{box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(255,255,255,.15)}.dcs-f-dcs-se::-webkit-scrollbar-thumb{background-color:rgba(0,0,0,.2);background-clip:padding-box;border:solid transparent;border-width:1px 1px 1px 6px;min-height:28px;padding:100px 0 0;box-shadow:inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07)}.dcs-f-dcs-se::-webkit-scrollbar-thumb:horizontal{border-width:6px 1px 1px;padding:0 0 0 100px;box-shadow:inset 1px 1px 0 rgba(0,0,0,.1),inset -1px 0 0 rgba(0,0,0,.07)}.dcs-f-dcs-se::-webkit-scrollbar-thumb:hover{background-color:rgba(0,0,0,.4);box-shadow:inset 1px 1px 1px rgba(0,0,0,.25)}.dcs-f-dcs-se::-webkit-scrollbar-thumb:active{background-color:rgba(0,0,0,0.5);box-shadow:inset 1px 1px 3px rgba(0,0,0,0.35)}.dcs-f-dcs-se-dcs-cl.dcs-f-dcs-se::-webkit-scrollbar-thumb{background-color:rgba(255,255,255,.3);box-shadow:inset 1px 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(255,255,255,.1)}.dcs-f-dcs-se-dcs-cl.dcs-f-dcs-se::-webkit-scrollbar-thumb:horizontal{box-shadow:inset 1px 1px 0 rgba(255,255,255,.15),inset -1px 0 0 rgba(255,255,255,.1)}.dcs-f-dcs-se-dcs-cl.dcs-f-dcs-se::-webkit-scrollbar-thumb:hover{background-color:rgba(255,255,255,.6);box-shadow:inset 1px 1px 1px rgba(255,255,255,.37)}.dcs-f-dcs-se-dcs-cl.dcs-f-dcs-se::-webkit-scrollbar-thumb:active{background-color:rgba(255,255,255,.75);box-shadow:inset 1px 1px 3px rgba(255,255,255,.5)}.dcs-f-dcs-se-dcs-dl.dcs-f-dcs-se::-webkit-scrollbar-track{border-width:0 1px 0 6px}.dcs-f-dcs-se-dcs-dl.dcs-f-dcs-se::-webkit-scrollbar-track:horizontal{border-width:6px 0 1px}.dcs-f-dcs-se-dcs-dl.dcs-f-dcs-se::-webkit-scrollbar-track:hover{background-color:rgba(0,0,0,.035);box-shadow:inset 1px 1px 0 rgba(0,0,0,.14),inset -1px -1px 0 rgba(0,0,0,.07)}.dcs-f-dcs-se-dcs-dl.dcs-f-dcs-se-dcs-cl.dcs-f-dcs-se::-webkit-scrollbar-track:hover{background-color:rgba(255,255,255,.07);box-shadow:inset 1px 1px 0 rgba(255,255,255,.25),inset -1px -1px 0 rgba(255,255,255,.15)}.dcs-f-dcs-se-dcs-dl.dcs-f-dcs-se::-webkit-scrollbar-thumb{border-width:0 1px 0 6px}.dcs-f-dcs-se-dcs-dl.dcs-f-dcs-se::-webkit-scrollbar-thumb:horizontal{border-width:6px 0 1px}.dcs-f-dcs-se::-webkit-scrollbar-corner{background:transparent}body.dcs-f-dcs-se::-webkit-scrollbar-track-piece{background-clip:padding-box;background-color:#f5f5f5;border:solid #fff;border-width:0 0 0 3px;box-shadow:inset 1px 0 0 rgba(0,0,0,.14),inset -1px 0 0 rgba(0,0,0,.07)}body.dcs-f-dcs-se::-webkit-scrollbar-track-piece:horizontal{border-width:3px 0 0;box-shadow:inset 0 1px 0 rgba(0,0,0,.14),inset 0 -1px 0 rgba(0,0,0,.07)}body.dcs-f-dcs-se::-webkit-scrollbar-thumb{border-width:1px 1px 1px 5px}body.dcs-f-dcs-se::-webkit-scrollbar-thumb:horizontal{border-width:5px 1px 1px}body.dcs-f-dcs-se::-webkit-scrollbar-corner{background-clip:padding-box;background-color:#f5f5f5;border:solid #fff;border-width:3px 0 0 3px;box-shadow:inset 1px 1px 0 rgba(0,0,0,.14)}.dcs-f-dcs-ke{-webkit-box-shadow:0 1px 3px rgba(0,0,0,.2);-moz-box-shadow:0 1px 3px rgba(0,0,0,.2);box-shadow:0 1px 3px rgba(0,0,0,.2);background-color:#fff;border:1px solid;border-color:#bbb #bbb #a8a8a8;padding:16px;position:absolute;z-index:1201!important}.dcs-f-dcs-ke-dcs-el{background:url("//ssl.gstatic.com/ui/v1/icons/common/x_8px.png") no-repeat;border:1px solid transparent;height:21px;opacity:.4;outline:0;position:absolute;right:2px;top:2px;width:21px}.dcs-f-dcs-ke-dcs-el:focus{border:1px solid #4d90fe;opacity:.8}.dcs-f-dcs-ke-dcs-td{position:absolute}.dcs-f-dcs-ke-dcs-td .dcs-f-dcs-ke-dcs-rf,.dcs-f-dcs-ke-dcs-td .dcs-f-dcs-ke-dcs-zi{display:block;height:0;position:absolute;width:0}.dcs-f-dcs-ke-dcs-td .dcs-f-dcs-ke-dcs-rf{border:9px solid}.dcs-f-dcs-ke-dcs-td .dcs-f-dcs-ke-dcs-zi{border:8px solid}.dcs-f-dcs-ke-dcs-fj{bottom:0}.dcs-f-dcs-ke-dcs-gc{top:-9px}.dcs-f-dcs-ke-dcs-rg{left:-9px}.dcs-f-dcs-ke-dcs-ui{right:0}.dcs-f-dcs-ke-dcs-fj .dcs-f-dcs-ke-dcs-rf,.dcs-f-dcs-ke-dcs-gc .dcs-f-dcs-ke-dcs-rf{border-color:#bbb transparent;left:-9px}.dcs-f-dcs-ke-dcs-fj .dcs-f-dcs-ke-dcs-rf{border-color:#a8a8a8 transparent}.dcs-f-dcs-ke-dcs-fj .dcs-f-dcs-ke-dcs-zi,.dcs-f-dcs-ke-dcs-gc .dcs-f-dcs-ke-dcs-zi{border-color:#fff transparent;left:-8px}.dcs-f-dcs-ke-dcs-fj .dcs-f-dcs-ke-dcs-rf{border-bottom-width:0}.dcs-f-dcs-ke-dcs-fj .dcs-f-dcs-ke-dcs-zi{border-bottom-width:0}.dcs-f-dcs-ke-dcs-gc .dcs-f-dcs-ke-dcs-rf{border-top-width:0}.dcs-f-dcs-ke-dcs-gc .dcs-f-dcs-ke-dcs-zi{border-top-width:0;top:1px}.dcs-f-dcs-ke-dcs-rg .dcs-f-dcs-ke-dcs-rf,.dcs-f-dcs-ke-dcs-ui .dcs-f-dcs-ke-dcs-rf{border-color:transparent #bbb;top:-9px}.dcs-f-dcs-ke-dcs-rg .dcs-f-dcs-ke-dcs-zi,.dcs-f-dcs-ke-dcs-ui .dcs-f-dcs-ke-dcs-zi{border-color:transparent #fff;top:-8px}.dcs-f-dcs-ke-dcs-rg .dcs-f-dcs-ke-dcs-rf{border-left-width:0}.dcs-f-dcs-ke-dcs-rg .dcs-f-dcs-ke-dcs-zi{border-left-width:0;left:1px}.dcs-f-dcs-ke-dcs-ui .dcs-f-dcs-ke-dcs-rf{border-right-width:0}.dcs-f-dcs-ke-dcs-ui .dcs-f-dcs-ke-dcs-zi{border-right-width:0}.dcs-f-dcs-g{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;-webkit-transition:visibility 0,opacity .13s ease-in;-moz-transition:visibility 0,opacity .13s ease-in;-o-transition:visibility 0,opacity .13s ease-in;transition:visibility 0,opacity .13s ease-in;background-color:#2a2a2a;border:1px solid #fff;color:#fff;cursor:default;display:block;font-size:11px;font-weight:bold;margin-left:-1px;opacity:1;padding:7px 9px;position:absolute;visibility:visible;white-space:pre-wrap;word-break:break-all;word-break:break-word}.dcs-f-dcs-g-dcs-h{-webkit-transition:visibility .13s,opacity .13s ease-out,left 0 linear .13s,top 0 linear .13s;-moz-transition:visibility .13s,opacity .13s ease-out,left 0 linear .13s,top 0 linear .13s;-o-transition:visibility .13s,opacity .13s ease-out,left 0 linear .13s,top 0 linear .13s;transition:visibility .13s,opacity .13s ease-out,left 0 linear .13s,top 0 linear .13s;opacity:0;left:20px!important;top:20px!important;visibility:hidden}.dcs-f-dcs-g-dcs-cj{display:none}.dcs-f-dcs-g-dcs-td{pointer-events:none;position:absolute}.dcs-f-dcs-g-dcs-td .dcs-f-dcs-g-dcs-rf,.dcs-f-dcs-g-dcs-td .dcs-f-dcs-g-dcs-zi{content:'';display:block;height:0;position:absolute;width:0}.dcs-f-dcs-g-dcs-td .dcs-f-dcs-g-dcs-rf{border:6px solid}.dcs-f-dcs-g-dcs-td .dcs-f-dcs-g-dcs-zi{border:5px solid}.dcs-f-dcs-g-dcs-fj{bottom:0}.dcs-f-dcs-g-dcs-gc{top:-6px}.dcs-f-dcs-g-dcs-rg{left:-6px}.dcs-f-dcs-g-dcs-ui{right:0}.dcs-f-dcs-g-dcs-fj .dcs-f-dcs-g-dcs-rf,.dcs-f-dcs-g-dcs-gc .dcs-f-dcs-g-dcs-rf{border-color:#fff transparent;left:-6px}.dcs-f-dcs-g-dcs-fj .dcs-f-dcs-g-dcs-zi,.dcs-f-dcs-g-dcs-gc .dcs-f-dcs-g-dcs-zi{border-color:#2a2a2a transparent;left:-5px}.dcs-f-dcs-g-dcs-fj .dcs-f-dcs-g-dcs-rf{border-bottom-width:0}.dcs-f-dcs-g-dcs-fj .dcs-f-dcs-g-dcs-zi{border-bottom-width:0}.dcs-f-dcs-g-dcs-gc .dcs-f-dcs-g-dcs-rf{border-top-width:0}.dcs-f-dcs-g-dcs-gc .dcs-f-dcs-g-dcs-zi{border-top-width:0;top:1px}.dcs-f-dcs-g-dcs-rg .dcs-f-dcs-g-dcs-rf,.dcs-f-dcs-g-dcs-ui .dcs-f-dcs-g-dcs-rf{border-color:transparent #fff;top:-6px}.dcs-f-dcs-g-dcs-rg .dcs-f-dcs-g-dcs-zi,.dcs-f-dcs-g-dcs-ui .dcs-f-dcs-g-dcs-zi{border-color:transparent #2a2a2a;top:-5px}.dcs-f-dcs-g-dcs-rg .dcs-f-dcs-g-dcs-rf{border-left-width:0}.dcs-f-dcs-g-dcs-rg .dcs-f-dcs-g-dcs-zi{border-left-width:0;left:1px}.dcs-f-dcs-g-dcs-ui .dcs-f-dcs-g-dcs-rf{border-right-width:0}.dcs-f-dcs-g-dcs-ui .dcs-f-dcs-g-dcs-zi{border-right-width:0}.dcs-s-dcs-t{z-index:1001}.dcs-s-dcs-t-dcs-xb{z-index:1000}.dcs-s-dcs-t-dcs-k-dcs-yj{background-image:none}.dcs-cc-dcs-dc{z-index:1001}.dcs-a-dcs-kh-dcs-lh{width:11px;height:11px}.dcs-a-dcs-kh-dcs-lh>.dcs-a-dcs-wg-dcs-ec{width:11px;height:11px;margin:auto;vertical-align:top;cursor:pointer}.dcs-a-dcs-kh-dcs-lh .dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-ec{width:11px;height:11px;margin:0;padding:0}.dcs-a-dcs-kh-dcs-lh .dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-ud-dcs-gh,.dcs-a-dcs-kh-dcs-lh .dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-lh-dcs-gh{width:11px;min-width:11px;height:11px;min-height:11px}.dcs-a-dcs-kh>.dcs-cc-dcs-hf{padding-left:10px;padding-right:10px}.dcs-a-dcs-cb{background-color:#f5f5f5;cursor:pointer;direction:ltr;position:relative;width:240px;border:none;box-shadow:0 1px 3px rgba(0,0,0,0.3);border-radius:2px}.dcs-a-dcs-q-dcs-gb.dcs-a-dcs-cb{cursor:default}.dcs-a-dcs-cb:focus,.dcs-a-dcs-cb:active{outline:0}.dcs-a-dcs-cb-dcs-td-dcs-ud,.dcs-a-dcs-cb-dcs-td-dcs-lh{display:none}.dcs-a-dcs-cb-dcs-tb{max-height:inherit;overflow-y:auto;overflow-x:hidden}.dcs-a-dcs-cb-dcs-c{overflow-y:auto;overflow-x:hidden}.dcs-a-dcs-cb .dcs-a-dcs-cb-dcs-db-dcs-eb{border:none;display:none;padding:8px}.dcs-a-dcs-cb .dcs-a-dcs-mh-dcs-db-dcs-eb{background:#fff}.dcs-a-dcs-q-dcs-gb.dcs-a-dcs-cb .dcs-a-dcs-cb-dcs-db-dcs-eb{display:block}.dcs-a-dcs-cb-dcs-db-dcs-eb .dcs-a-dcs-db-dcs-te{display:block;height:26px}.dcs-a-dcs-cb-dcs-db-dcs-eb .dcs-a-dcs-db-dcs-vh{text-align:left}.dcs-a-dcs-mh-dcs-db-dcs-eb{border-top:none!important;padding-top:0}.dcs-a-dcs-cb .dcs-a-dcs-db-dcs-hi-dcs-ii-dcs-if,.dcs-a-dcs-cb .dcs-a-dcs-db-dcs-mk-dcs-nk-dcs-if,.dcs-a-dcs-cb .dcs-a-dcs-db-dcs-ld-dcs-if,.dcs-a-dcs-cb .dcs-a-dcs-db-dcs-ti-dcs-if{color:#777;font-size:12px;font-family:Arial,sans-serif,sans;font-family:var(--docs-material-header-font-family,Arial,sans-serif,sans);margin-top:8px}.dcs-a-dcs-tf-dcs-hg .dcs-a-dcs-cb{position:absolute;-webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;z-index:500}.dcs-a-dcs-tf-dcs-hg .dcs-a-dcs-wg-dcs-qe.dcs-a-dcs-cb,.dcs-a-dcs-tf-dcs-hg .dcs-a-dcs-q-dcs-gb.dcs-a-dcs-cb{z-index:501}.dcs-a-dcs-tf-dcs-hg-dcs-ig .dcs-a-dcs-cb{box-shadow:0 2px 4px rgba(0,0,0,0.2)}.dcs-a-dcs-tf-dcs-uf .dcs-a-dcs-cb-dcs-td-dcs-ud,.dcs-a-dcs-cb-dcs-td-dcs-lh{height:0;position:absolute;width:0}.dcs-a-dcs-tf-dcs-uf .dcs-a-dcs-cb .dcs-a-dcs-cb-dcs-td-dcs-ud{border-top:none;border-bottom:18px solid transparent;border-left:none;border-right:18px solid #fff;left:-13px;top:0}.dcs-a-dcs-tf-dcs-uf .dcs-a-dcs-q-dcs-r.dcs-a-dcs-cb .dcs-a-dcs-cb-dcs-td-dcs-ud{border-right:18px solid #eee}.dcs-a-dcs-tf-dcs-uf .dcs-a-dcs-cb .dcs-a-dcs-cb-dcs-td-dcs-lh{border-top:none;border-bottom:24px solid transparent;border-left:none;border-right:24px solid rgba(0,0,0,0.135);left:-15px;top:-1px;z-index:-1}.dcs-a-dcs-tf-dcs-uf .dcs-a-dcs-q-dcs-gb.dcs-a-dcs-cb>.dcs-a-dcs-cb-dcs-td-dcs-ud,.dcs-a-dcs-tf-dcs-uf .dcs-a-dcs-q-dcs-gb.dcs-a-dcs-cb>.dcs-a-dcs-cb-dcs-td-dcs-lh{display:block}.dcs-a-dcs-cb .dcs-a-dcs-db-dcs-zc{margin-right:10px}.dcs-a-dcs-tf-dcs-uf .dcs-a-dcs-cb .dcs-a-dcs-cb-dcs-td-dcs-ud.dcs-a-dcs-nb-dcs-gg{border-right:18px solid #fff}.dcs-a-dcs-tf-dcs-uf .dcs-a-dcs-cb .dcs-a-dcs-cb-dcs-td-dcs-ud.dcs-a-dcs-nb-dcs-of{border-right:18px solid #f2f2f2}.dcs-a-dcs-tf-dcs-uf .dcs-a-dcs-cb .dcs-a-dcs-cb-dcs-td-dcs-ud.dcs-a-dcs-nb-dcs-si{border-right:18px solid #4285f4}.dcs-a-dcs-mc .dcs-a-dcs-rb-dcs-sb{background-color:rgba(140,196,116,0.5)}.dcs-a-dcs-mc .dcs-a-dcs-qb-dcs-rb-dcs-sb{background-color:rgba(140,196,116,1)}.dcs-a-dcs-mc,.dcs-a-dcs-dh{border:none;border-bottom:1px solid #e5e5e5;padding:3px 8px 5px 8px;zoom:1;background:#f5f5f5;position:static}.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb{box-shadow:0px 3px 6px rgba(0,0,0,0.2)}.dcs-a-dcs-cb .dcs-a-dcs-mc:last-of-type{padding-bottom:12px}.dcs-a-dcs-cb .dcs-a-dcs-z-dcs-be.dcs-a-dcs-mc{padding:8px;border-bottom:1px solid #ddd;background:#fff;min-height:36px}.dcs-a-dcs-q-dcs-r .dcs-a-dcs-mc,.dcs-a-dcs-q-dcs-r .dcs-a-dcs-dh,.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-r .dcs-a-dcs-z-dcs-be.dcs-a-dcs-mc{background:#eee}.dcs-a-dcs-cb .dcs-a-dcs-cb-dcs-tk .dcs-a-dcs-z-dcs-be.dcs-a-dcs-mc{border:none}.dcs-a-dcs-mc .dcs-a-dcs-mc-dcs-yc{left:0!important;display:block}.dcs-a-dcs-mc.dcs-a-dcs-z-dcs-be{border-top:none!important}.dcs-a-dcs-mc-dcs-cg .dcs-a-dcs-mc-dcs-kd{margin:0;margin-top:2px;color:#333;font-family:Arial,sans-serif,sans;font-family:var(--docs-material-header-font-family,Arial,sans-serif,sans);font-size:13px;font-size:var(--docs-material-font-size-normal,13px);font-weight:normal;font-weight:var(--docs-material-font-weight-bold,normal);height:18px}.dcs-a-dcs-cb .dcs-a-dcs-cb-dcs-db-dcs-eb .dcs-a-dcs-db-dcs-te,.dcs-a-dcs-mc .dcs-a-dcs-mc-dcs-pe .dcs-a-dcs-mc-dcs-zg{line-height:1.4}.dcs-a-dcs-mc .dcs-a-dcs-mc-dcs-pe{word-wrap:break-word;color:#333;padding:0}.dcs-a-dcs-mc-dcs-cg .dcs-a-dcs-mc-dcs-mf{margin:0;color:#777;font-size:11px;font-size:var(--docs-material-font-size-12,11px)}.dcs-a-dcs-mc .dcs-a-dcs-z-dcs-ab-dcs-bb-dcs-kf-dcs-lf,.dcs-a-dcs-mc .dcs-a-dcs-qf-dcs-jb,.dcs-a-dcs-mc .dcs-a-dcs-ib-dcs-jb{min-width:28px;width:28px;opacity:0.2}.dcs-a-dcs-mc .dcs-a-dcs-fd-dcs-bb,.dcs-a-dcs-mc .dcs-a-dcs-dg-dcs-bb,.dcs-a-dcs-mc .dcs-a-dcs-z-dcs-ab-dcs-bb-dcs-kf-dcs-lf,.dcs-a-dcs-mc .dcs-a-dcs-qf-dcs-jb,.dcs-a-dcs-mc .dcs-a-dcs-ib-dcs-jb{height:28px;margin:0;position:relative;top:auto;right:auto;display:inline-block;vertical-align:middle}.dcs-a-dcs-mc .dcs-a-dcs-fd-dcs-bb,.dcs-a-dcs-mc .dcs-a-dcs-z-dcs-ab-dcs-bb-dcs-kf-dcs-lf,.dcs-a-dcs-mc .dcs-a-dcs-qf-dcs-jb,.dcs-a-dcs-mc .dcs-a-dcs-ib-dcs-jb{padding:0}.dcs-a-dcs-mc .dcs-a-dcs-qf-dcs-jb{right:-1px}.dcs-a-dcs-mc .dcs-a-dcs-qf-dcs-jb div,.dcs-a-dcs-mc .dcs-a-dcs-ib-dcs-jb div{margin:auto;margin-top:1px}.dcs-a-dcs-qf-dcs-jb{border-radius:3px 0 0 3px}.dcs-a-dcs-ib-dcs-jb{border-radius:0 3px 3px 0}.dcs-a-dcs-qf-dcs-jb.dcs-f-dcs-bb-dcs-bf,.dcs-a-dcs-ib-dcs-jb.dcs-f-dcs-bb-dcs-bf{background-color:#f9f9f9}.dcs-a-dcs-q-dcs-gb.dcs-a-dcs-cb .dcs-a-dcs-z-dcs-jc,.dcs-a-dcs-q-dcs-gb.dcs-a-dcs-dh .dcs-a-dcs-z-dcs-jc{display:block}.dcs-a-dcs-dh-dcs-eh{word-wrap:break-word;color:#15c}.dcs-a-dcs-dh-dcs-eh:hover,.dcs-a-dcs-cb:hover .dcs-a-dcs-dh-dcs-eh{text-decoration:underline}.dcs-a-dcs-qg-dcs-z{position:relative;margin:6px 0;padding:0}.dcs-a-dcs-qg-dcs-z.dcs-a-dcs-qg-dcs-z-dcs-fk{margin:0}.dcs-a-dcs-mc .dcs-a-dcs-eh-dcs-z{height:78px;overflow:hidden}.dcs-a-dcs-ai-dcs-jk,.dcs-a-dcs-ai-dcs-bi{color:#15c;display:none;opacity:1;width:100%;outline:none}.dcs-a-dcs-ai-dcs-jk:focus,.dcs-a-dcs-ai-dcs-bi:focus{text-decoration:underline}.dcs-a-dcs-ai-dcs-jk{bottom:0;padding-top:16px;position:absolute;right:0}.dcs-a-dcs-cb .dcs-a-dcs-ai-dcs-bi,.dcs-a-dcs-cb .dcs-a-dcs-ai-dcs-jk{cursor:pointer;font-size:11px}.dcs-a-dcs-cb .dcs-a-dcs-ai-dcs-bi{background:#f5f5f5;padding:2px 0}.dcs-a-dcs-cb .dcs-a-dcs-ai-dcs-jk{padding:7px 0 2px 0}.dcs-a-dcs-cb .dcs-a-dcs-z-dcs-be .dcs-a-dcs-ai-dcs-bi{background:#fff}.dcs-a-dcs-ai-dcs-jk:hover,.dcs-a-dcs-ai-dcs-bi:hover{text-decoration:underline}.dcs-a-dcs-cb .dcs-a-dcs-ai-dcs-jk{background:#f5f5f5;-ms-filter:none;filter:none}.dcs-a-dcs-cb .dcs-a-dcs-z-dcs-be .dcs-a-dcs-ai-dcs-jk{background:#fff}.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-wf-dcs-xf:hover .dcs-a-dcs-ai-dcs-jk{background:#f5f5f5;-ms-filter:none;filter:none}.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-wf-dcs-xf:hover .dcs-a-dcs-z-dcs-be .dcs-a-dcs-ai-dcs-jk{background:#fff}.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-ai-dcs-jk,.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb:hover .dcs-a-dcs-ai-dcs-jk{background:#f5f5f5;-ms-filter:none;filter:none}.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-z-dcs-be .dcs-a-dcs-ai-dcs-jk,.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb:hover .dcs-a-dcs-z-dcs-be .dcs-a-dcs-ai-dcs-jk{background:#fff}.dcs-a-dcs-eh-dcs-z>.dcs-a-dcs-ai-dcs-jk{display:block}.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-ai-dcs-bi{background:#f5f5f5}.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-z-dcs-be .dcs-a-dcs-ai-dcs-bi{background:#fff}.dcs-a-dcs-mc-dcs-cg{margin:6px 0;height:38px;white-space:nowrap;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex}.dcs-a-dcs-z-dcs-be .dcs-a-dcs-mc-dcs-cg{margin:0;margin-bottom:8px}.dcs-a-dcs-cb-dcs-tk .dcs-a-dcs-z-dcs-be .dcs-a-dcs-mc-dcs-cg{margin:0}.dcs-a-dcs-mc-dcs-sj{white-space:nowrap}.dcs-a-dcs-cb:hover .dcs-a-dcs-ib-dcs-jb,.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-ib-dcs-jb,.dcs-a-dcs-cb.dcs-a-dcs-wg-dcs-qe .dcs-a-dcs-ib-dcs-jb,.dcs-a-dcs-cb:hover .dcs-a-dcs-qf-dcs-jb,.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-qf-dcs-jb,.dcs-a-dcs-cb.dcs-a-dcs-wg-dcs-qe .dcs-a-dcs-qf-dcs-jb,.dcs-a-dcs-cb:hover .dcs-a-dcs-uh-dcs-qd-dcs-bb-dcs-oc,.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-uh-dcs-qd-dcs-bb-dcs-oc,.dcs-a-dcs-cb.dcs-a-dcs-wg-dcs-qe .dcs-a-dcs-uh-dcs-qd-dcs-bb-dcs-oc,.dcs-a-dcs-cb:hover .dcs-a-dcs-z-dcs-ab-dcs-bb,.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-z-dcs-ab-dcs-bb,.dcs-a-dcs-cb.dcs-a-dcs-wg-dcs-qe .dcs-a-dcs-z-dcs-ab-dcs-bb,.dcs-a-dcs-cb:hover .dcs-a-dcs-aj-dcs-lh>.dcs-a-dcs-wg-dcs-ec,.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-aj-dcs-lh>.dcs-a-dcs-wg-dcs-ec,.dcs-a-dcs-cb.dcs-a-dcs-wg-dcs-qe .dcs-a-dcs-aj-dcs-lh>.dcs-a-dcs-wg-dcs-ec{opacity:0.7}.dcs-a-dcs-cb:hover .dcs-a-dcs-uh-dcs-qd-dcs-bb-dcs-y,.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-uh-dcs-qd-dcs-bb-dcs-y,.dcs-a-dcs-cb.dcs-a-dcs-wg-dcs-qe .dcs-a-dcs-uh-dcs-qd-dcs-bb-dcs-y{border:1px solid rgba(255,255,255,.7)}.dcs-a-dcs-aj-dcs-lh .dcs-cc-dcs-dc{z-index:600}.dcs-a-dcs-mc-dcs-sj:hover .dcs-a-dcs-ib-dcs-jb,.dcs-a-dcs-mc-dcs-sj:hover .dcs-a-dcs-z-dcs-ab-dcs-bb{border-top-right-radius:0;border-bottom-right-radius:0}.dcs-a-dcs-mc-dcs-sj>.dcs-a-dcs-ib-dcs-jb:hover,.dcs-a-dcs-mc-dcs-sj>.dcs-a-dcs-z-dcs-ab-dcs-bb:hover{border-top-right-radius:2px;border-bottom-right-radius:2px}.dcs-a-dcs-z-dcs-be .dcs-a-dcs-mc-dcs-sj{padding:4px 0 4px 4px}.dcs-a-dcs-qf-dcs-jb{margin-right:-1px}.dcs-a-dcs-mc-dcs-jh{padding-left:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-webkit-box-flex:1;box-flex:1;-ms-flex-positive:1;-webkit-flex-grow:1;flex-grow:1}.dcs-a-dcs-mc-dcs-jh>*{overflow:hidden;text-overflow:ellipsis}.dcs-a-dcs-mc-dcs-yc-dcs-vf{max-width:32px}.dcs-a-dcs-mc-dcs-cg .dcs-a-dcs-yc{position:relative}.dcs-a-dcs-ed-dcs-jf{width:32px;height:6px}.dcs-a-dcs-z-dcs-ab-dcs-bb-dcs-lk{display:inline-block;margin:0;opacity:0.2;padding-left:2px;position:relative;padding:0 4px 0 4px;min-width:50px;height:28px;vertical-align:top}.dcs-a-dcs-mc .dcs-a-dcs-z-dcs-bc{margin-left:0}.dcs-a-dcs-mc-dcs-zg{word-wrap:break-word;color:#777;margin:8px -8px 0 -8px;padding:8px 8px 4px 8px;border-color:#e5e5e5;border-top-style:solid;border-top-width:1px;font-size:11px;font-style:italic}.dcs-a-dcs-mc .dcs-a-dcs-ue-dcs-l{color:#707070;font-style:italic;word-wrap:break-word;-ms-word-wrap:break-word;overflow-wrap:break-word}.dcs-a-dcs-ue-dcs-l-dcs-ve-dcs-we{padding:8px 0 3px 0;position:relative}.dcs-a-dcs-cb .dcs-a-dcs-mc:last-of-type .dcs-a-dcs-ue-dcs-l-dcs-ve-dcs-we{padding:8px 0 0 0}.dcs-a-dcs-jd{padding:7px 10px 7px 8px;border-bottom:solid #dddddd 1px}.dcs-a-dcs-jd table{border-spacing:0;width:100%}.dcs-a-dcs-jd.dcs-a-dcs-nb-dcs-of{background-color:#f2f2f2;color:#333333}.dcs-a-dcs-jd.dcs-a-dcs-nb-dcs-si{background-color:#4285f4;color:white}.dcs-a-dcs-jd-dcs-yc.dcs-a-dcs-yc{position:relative;display:block}.dcs-a-dcs-jd-dcs-ih{padding:0px 0px 0px 10px;width:100%;max-width:135px}.dcs-a-dcs-jd-dcs-nb-dcs-l{font-weight:700;font-weight:var(--docs-material-font-weight-bold,700);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dcs-a-dcs-jd .dcs-a-dcs-hb-dcs-v-dcs-oc{margin-top:1px}.dcs-a-dcs-jd .dcs-a-dcs-hb-dcs-v-dcs-y{margin-top:6px}.dcs-a-dcs-jd .dcs-a-dcs-uh-dcs-qd-dcs-bb{width:28px;height:28px;min-width:28px;padding:0px;margin:0px;background:none}.dcs-a-dcs-jd .dcs-a-dcs-uh-dcs-qd-dcs-bb-dcs-oc{opacity:0.2}.dcs-a-dcs-jd .dcs-a-dcs-uh-dcs-qd-dcs-bb-dcs-y{border:1px solid rgba(255,255,255,.38);opacity:0.7}.dcs-a-dcs-jd .dcs-a-dcs-uh-dcs-qd-dcs-bb-dcs-y:hover{border:1px solid rgba(255,255,255,1);opacity:1;background:none}.dcs-a-dcs-vg{background:#fff;border:1px solid #c8c8c8;font-family:Arial,sans-serif,sans;font-family:var(--docs-material-font-family,Arial,sans-serif,sans);margin:0px 0px;padding:4px 0px 4px 0px;position:absolute;z-index:900}.dcs-a-dcs-vg div{cursor:pointer}.dcs-a-dcs-vg .dcs-vg-dcs-mi{height:auto;padding:0px}.dcs-a-dcs-vg .dcs-vg-dcs-gb{background-color:#eee}.dcs-a-dcs-vg div.dcs-gb{background-color:#eee}.dcs-a-dcs-vg-dcs-fh{font-weight:bold}.dcs-a-dcs-yc{left:0;position:absolute;object-fit:cover}.dcs-a-dcs-yc-dcs-ie{opacity:0.4}.dcs-a-dcs-pf-dcs-id{font-family:Arial,sans-serif,sans;font-family:var(--docs-material-font-family,Arial,sans-serif,sans);font-size:10px/12px;color:#bbb;text-align:right;padding-right:30px}.dcs-a-dcs-pf-dcs-id a{color:#bbb}.dcs-a-dcs-li-dcs-mi{height:32px;color:rgb(0,0,0);padding:4px 8px;font-family:Arial,sans-serif,sans;font-family:var(--docs-material-font-family,Arial,sans-serif,sans)}.dcs-a-dcs-li-dcs-mi .dcs-a-dcs-yc{float:left;left:initial;position:relative;padding-right:8px}.dcs-a-dcs-li-dcs-mi-dcs-bj,.dcs-a-dcs-li-dcs-mi-dcs-ni{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.dcs-a-dcs-li-dcs-mi-dcs-ni{color:#777;font-size:0.9em}.dcs-pc-dcs-fl-dcs-s{color:black;font-family:Arial,sans-serif,sans;font-family:var(--docs-material-font-family,Arial,sans-serif,sans);font-size:13px;white-space:normal}.dcs-pc-dcs-fl-dcs-s button.dcs-pc-dcs-fl-dcs-pc-dcs-bb,.dcs-pc-dcs-fl-dcs-s button.dcs-pc-dcs-fl-dcs-pc-dcs-bb:hover{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;background-color:#4d90fe;background-color:#4d90fe;background-image:-webkit-linear-gradient(top,#4d90fe,#4787ed);background-image:-moz-linear-gradient(top,#4d90fe,#4787ed);background-image:-ms-linear-gradient(top,#4d90fe,#4787ed);background-image:-o-linear-gradient(top,#4d90fe,#4787ed);background-image:linear-gradient(top,#4d90fe,#4787ed);border:1px solid #3079ed;color:#fff}.dcs-a{color:black;font-family:Arial,sans-serif,sans;font-family:var(--docs-material-font-family,Arial,sans-serif,sans);font-size:13px;font-size:var(--docs-material-font-size-normal,13px);white-space:normal}.dcs-a .dcs-f-dcs-bb{font-family:Arial,sans-serif,sans;font-family:var(--docs-material-header-font-family,Arial,sans-serif,sans);font-weight:700;font-weight:var(--docs-material-font-weight-bold,700)}.dcs-a .dcs-s-dcs-t-dcs-vh{font-family:arial,sans-serif;font-family:var(--docs-material-header-font-family,arial,sans-serif)}.dcs-a .dcs-s-dcs-t-dcs-vh button{font-weight:700;font-weight:var(--docs-material-font-weight-bold,700)}.dcs-a .dcs-s-dcs-t-dcs-k{font-size:16px;font-size:var(--docs-material-font-size-22,16px)}.dcs-a .dcs-s-dcs-t-dcs-k-dcs-l{font-family:arial,sans-serif;font-family:var(--docs-material-header-font-family,arial,sans-serif);font-weight:normal;font-weight:var(--docs-material-font-weight-bold,normal)}.dcs-a-dcs-hb{overflow:hidden;vertical-align:middle;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}.dcs-a-dcs-hb-dcs-ye:before{content:url(//ssl.gstatic.com/docs/common/d-icons27.png)}.dcs-a-dcs-hb-dcs-ye-dcs-ze:before{transform:scale(0.5);transform-origin:0 0;display:inline-block;image-rendering:optimizeSpeed;image-rendering:-moz-crisp-edges;image-rendering:-o-crisp-edges;image-rendering:-webkit-optimize-contrast;image-rendering:optimize-contrast;-ms-interpolation-mode:nearest-neighbor}.dcs-a-dcs-hb-dcs-ye{*background:url(//ssl.gstatic.com/docs/common/d-icons27.png)}.dcs-a-dcs-hb-dcs-ye-dcs-de{position:absolute}.dcs-a-dcs-hb-dcs-nc-dcs-oc{top:-88px;left:-4px}.dcs-a-dcs-hb-dcs-nc-dcs-p{top:-106px;left:-4px}.dcs-a-dcs-hb-dcs-nc-dcs-fe{height:18px;width:18px}.dcs-a-dcs-hb-dcs-ag{top:-25px;left:-25px}.dcs-a-dcs-hb-dcs-ag-dcs-fe{height:13px;width:11px}.dcs-a-dcs-hb-dcs-gl-dcs-lc{top:-48px;left:-1px}.dcs-a-dcs-hb-dcs-qf-dcs-v-dcs-oc{left:0px;top:0px}.dcs-a-dcs-hb-dcs-qf-dcs-v-dcs-y{top:-140px;left:-49px}.dcs-a-dcs-hb-dcs-qf-dcs-v-dcs-fe{height:21px;width:21px}.dcs-a-dcs-hb-dcs-ib-dcs-jb-dcs-kb{top:-45px;left:-21px}.dcs-a-dcs-hb-dcs-ib-dcs-jb-dcs-kb-dcs-fe{height:21px;width:21px}.dcs-a-dcs-hb-dcs-gl-dcs-lc-dcs-fe{height:14px;width:18px}.dcs-a-dcs-hb-dcs-kj-dcs-lj-dcs-mj{left:-25px;top:0px}.dcs-a-dcs-hb-dcs-kj-dcs-lj-dcs-mj-dcs-fe{height:21px;width:14px}.dcs-a-dcs-hb-dcs-ee{top:-64px;left:-2px}.dcs-a-dcs-hb-dcs-ee-dcs-fe{height:21px;width:21px}.dcs-a-dcs-w-dcs-re .dcs-a-dcs-hb-dcs-ye,.dcs-a-dcs-w-dcs-x .dcs-a-dcs-hb-dcs-ye{filter:invert(100%)}.dcs-a-dcs-w-dcs-ej .dcs-a-dcs-hb-dcs-ye{-ms-high-contrast-adjust:none;background-color:white}.dcs-a-dcs-hb-dcs-vd-dcs-a-dcs-pi{top:-48px;left:12px;height:14px;width:18px;position:absolute;clip:rect(48px,20px,72px,0px)}.dcs-a-dcs-hb-dcs-vd-dcs-a-dcs-wd{top:-48px;left:60px;height:14px;width:18px;position:absolute;clip:rect(48px,-28px,63px,-48px)}.dcs-a-dcs-w-dcs-re .dcs-f-dcs-fb-dcs-ei .dcs-f-dcs-fb-dcs-v::before,.dcs-a-dcs-w-dcs-x .dcs-f-dcs-fb-dcs-ei .dcs-f-dcs-fb-dcs-v::before{content:url(//ssl.gstatic.com/docs/common/d-icons27.png);position:absolute;left:-50px;top:-124px;width:15px;height:15px;clip:rect(125px,65px,140px,51px)}.dcs-d-dcs-e>.dcs-a-dcs-sd-dcs-lc-dcs-hb>.dcs-a-dcs-hb-dcs-kc-dcs-lc{top:-125px;left:-4px}.dcs-d-dcs-e>.dcs-a-dcs-hb-dcs-kc-dcs-lc-dcs-fe{height:18px;width:18px}.dcs-d-dcs-e .dcs-a-dcs-hb-dcs-vd-dcs-a-dcs-pi{top:-125px;left:11px;height:18px;width:18px;clip:rect(125px,20px,145px,0px)}.dcs-d-dcs-e .dcs-a-dcs-hb-dcs-vd-dcs-a-dcs-wd{top:-125px;left:59px;height:18px;width:18px;clip:rect(125px,-28px,145px,-48px)}.dcs-a-dcs-db{position:relative;zoom:1}.dcs-a-dcs-db.dcs-a-dcs-db-dcs-qj{display:block!important}.dcs-a-dcs-db-dcs-gj-dcs-ud{border-top:7px solid transparent;border-right:8px solid #fff;border-bottom:7px solid transparent;height:0;left:-6px;position:absolute;top:3px}.dcs-a-dcs-db-dcs-gj-dcs-lh{border-top:7px solid transparent;border-right:8px solid #c8c8c8;border-bottom:7px solid transparent;height:0;left:-7px;position:absolute;top:3px}.dcs-a-dcs-db-dcs-te{border:1px solid #c8c8c8;box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-webkit-box-sizing:border-box;color:#999;font-family:Arial,sans-serif,sans;font-family:var(--docs-material-font-family,Arial,sans-serif,sans);font-size:13px;margin:0;overflow-x:hidden;overflow-y:hidden;outline-width:0!important;padding:4px;resize:none;width:100%}.dcs-a-dcs-db-dcs-te:disabled{background-color:#eee!important}*:first-child+html .dcs-a-dcs-db-dcs-te{width:95%}.dcs-a-dcs-db-dcs-vh{display:none;zoom:1}.dcs-a-dcs-db-dcs-vh-dcs-zc{font-weight:700;font-weight:var(--docs-material-font-weight-bold,700)}.dcs-a-dcs-db-dcs-og>.dcs-a-dcs-db-dcs-te{color:#000}.dcs-a-dcs-db-dcs-og>.dcs-a-dcs-db-dcs-vh{display:block}.dcs-a-dcs-db-dcs-ok-dcs-pk-dcs-l{color:#616161;font-style:italic;padding:5px 0 3px 0;word-wrap:break-word}.dcs-a-dcs-db-dcs-ld-dcs-md{padding:6px 8px 4px 8px;background-color:#f5f5f5;border-style:solid;border-width:0 1px 1px 1px;border-color:#c8c8c8;margin-bottom:8px;cursor:pointer}.dcs-a-dcs-db-dcs-ld-dcs-gh{margin:2px 10px 0 0;float:left;width:11px}.dcs-a-dcs-cb .dcs-a-dcs-db-dcs-nb-dcs-l{margin-top:1px}.dcs-a-dcs-db-dcs-nb-dcs-l{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;font-family:Arial,sans-serif,sans;font-family:var(--docs-material-font-family,Arial,sans-serif,sans);color:#707070;font-weight:normal;display:inline-block;width:calc(100% - 51px)}.dcs-a-dcs-db-dcs-nb-dcs-l.dcs-a-dcs-db-dcs-nb-dcs-l-dcs-cd-dcs-jg{width:calc(100% - 23px)}.dcs-a-dcs-lb .dcs-a-dcs-db-dcs-nb-dcs-ob{margin-top:0px}.dcs-a-dcs-nb-dcs-ob-dcs-sf{border:1px solid #4d90fe!important;border-radius:2px}.dcs-a-dcs-db-dcs-nb-dcs-ob{border:none;-moz-box-shadow:none;-webkit-box-shadow:none;background:none;box-shadow:none;cursor:pointer;float:right;width:24px;height:15px;margin:2px}.dcs-a-dcs-db-dcs-nb-dcs-ob .dcs-cc-dcs-dc-dcs-bb-dcs-ff{padding:0px}.dcs-a-dcs-db-dcs-nb-dcs-ob .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{margin:0px}.dcs-a-dcs-nb-dcs-ob-dcs-pb{padding:0px;border-width:0px}.dcs-a-dcs-nb-dcs-ob-dcs-pb.dcs-cc-dcs-hf-dcs-ne{background-color:#f2f2f2}.dcs-cc-dcs-dc.dcs-cc-dcs-dc-dcs-uf.dcs-a-dcs-nb-dcs-ob-dcs-dc{padding:4px 0 4px 0;max-height:222px;overflow-y:auto;box-sizing:border-box}.dcs-a-dcs-db-dcs-ld-dcs-md .dcs-cc-dcs-dc-dcs-bb-dcs-ec{width:24px;background:url(//ssl.gstatic.com/images/icons/material/system/2x/arrow_drop_down_black_24dp.png) center no-repeat;background-size:24px;opacity:0.54;box-sizing:border-box}.dcs-a-dcs-db-dcs-ld-dcs-md .dcs-cc-dcs-dc-dcs-bb-dcs-ec:hover{opacity:0.87}.dcs-a-dcs-db-dcs-ld-dcs-md .dcs-cc-dcs-dc-dcs-bb-dcs-lh-dcs-gh,.dcs-a-dcs-db-dcs-ld-dcs-md .dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh{border-style:none;padding:0}.dcs-a-dcs-dg-dcs-bb{padding:0px 4px 0px 4px;min-width:20px;background-color:rgba(245,245,245,0.2);border-color:rgba(0,0,0,0.01880392);background-image:-moz-linear-gradient(top,rgba(245,245,245,0.2),rgba(241,241,241,0.2));background-image:-ms-linear-gradient(top,rgba(245,245,245,0.2),rgba(241,241,241,0.2));background-image:-o-linear-gradient(top,rgba(245,245,245,0.2),rgba(241,241,241,0.2));background-image:linear-gradient(top,rgba(245,245,245,0.2),rgba(241,241,241,0.2));background-image:-webkit-linear-gradient(top,rgba(245,245,245,0.2),rgba(241,241,241,0.2))}.dcs-a-dcs-cb:hover .dcs-a-dcs-dg-dcs-bb,.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-dg-dcs-bb,.dcs-a-dcs-cb.dcs-a-dcs-wg-dcs-qe .dcs-a-dcs-dg-dcs-bb{background-color:rgba(245,245,245,0.7);border-color:rgba(0,0,0,0.0686274);background-image:-webkit-linear-gradient(top,rgba(245,245,245,0.7),rgba(241,241,241,0.7));background-image:-moz-linear-gradient(top,rgba(245,245,245,0.7),rgba(241,241,241,0.7));background-image:-ms-linear-gradient(top,rgba(245,245,245,0.7),rgba(241,241,241,0.7));background-image:-o-linear-gradient(top,rgba(245,245,245,0.7),rgba(241,241,241,0.7));background-image:linear-gradient(top,rgba(245,245,245,0.7),rgba(241,241,241,0.7))}.dcs-a-dcs-dg-dcs-bb.dcs-f-dcs-bb-dcs-le{border:1px solid rgba(198,198,198,0.7)!important}.dcs-a-dcs-dg-dcs-bb .dcs-f-dcs-bb-dcs-ye{margin-top:0px}.dcs-a-dcs-dg-dcs-bb .dcs-a-dcs-hb{opacity:0.2}.dcs-a-dcs-cb:hover .dcs-a-dcs-hb,.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-hb,.dcs-a-dcs-cb.dcs-a-dcs-wg-dcs-qe .dcs-a-dcs-hb{opacity:0.6}.dcs-zc-dcs-ad-dcs-bd-dcs-cd-dcs-dd-dcs-ed-dcs-fd,.dcs-f-dcs-bb-dcs-le .dcs-a-dcs-hb,.dcs-dd-dcs-ed-dcs-ad-dcs-uj-dcs-fd{opacity:1!important}.dcs-dg-dcs-bb-dcs-l{font-size:12px;display:inline-block;vertical-align:middle;color:rgb(51,51,51);opacity:1;margin-left:2px;font-weight:normal}.dcs-dg-dcs-bb-dcs-l.dcs-cd-dcs-bd{display:none}.dcs-a-dcs-o{height:100px;overflow:hidden;position:relative}.dcs-a-dcs-rj-dcs-o{height:28px;left:50%;margin-left:sub(0,divide(28px,2));position:absolute;top:divide(sub(100px,28px),2);width:28px}.dcs-a-dcs-sg-dcs-ff-dcs-hb{display:inline-block;vertical-align:middle;margin:4px 5px 5px 2px}.dcs-a-dcs-sg-dcs-ff{text-align:left}.dcs-a-dcs-sg-dcs-ff-dcs-l{display:inline-block;height:17px}.dcs-a-dcs-sg-dcs-ff-dcs-qi{visibility:hidden}.dcs-a-dcs-bg-dcs-c{width:500px}.dcs-a-dcs-bg-dcs-af{padding:0 3px 0 8px}.dcs-a-dcs-bg-dcs-jc{padding-left:3px;margin-bottom:12px}.dcs-a-dcs-bg-dcs-cg{font-weight:700;font-weight:var(--docs-material-font-weight-bold,700);margin-bottom:12px}.dcs-a-dcs-bg-dcs-fg{position:absolute;right:20px}.dcs-a-dcs-aj-dcs-lh{display:inline-block}.dcs-a-dcs-aj-dcs-lh>.dcs-a-dcs-wg-dcs-ec{border:1px solid transparent;width:14px;height:28px;margin:auto;position:relative;left:-1px;opacity:0.2}.dcs-a-dcs-aj-dcs-lh>.dcs-a-dcs-wg-dcs-ec:hover,.dcs-a-dcs-aj-dcs-lh>.dcs-a-dcs-wg-dcs-ec:focus{border:1px solid #4d90fe;border-top-left-radius:0;border-bottom-left-radius:0}.dcs-a-dcs-aj-dcs-lh .dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-ud-dcs-gh,.dcs-a-dcs-aj-dcs-lh .dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-lh-dcs-gh{min-width:14px;margin:0;padding:0}.dcs-a-dcs-aj-dcs-lh .dcs-a-dcs-hb{vertical-align:middle;opacity:0.7}.dcs-a-dcs-aj-dcs-lh .dcs-cc-dcs-sk-dcs-dc-dcs-bb-dcs-ec{display:none}.dcs-a-dcs-aj .dcs-cc-dcs-hf{padding-right:15px;padding-left:15px}.dcs-a-dcs-rj-dcs-o.dcs-gb{-webkit-animation:container-rotate 1568ms linear infinite;animation:container-rotate 1568ms linear infinite}@-webkit-keyframes container-rotate{to{-webkit-transform:rotate(360deg)}}@keyframes container-rotate{to{transform:rotate(360deg)}}.dcs-o-dcs-di{position:absolute;width:100%;height:100%;opacity:0}.dcs-o-dcs-nd{border-color:#4285f4}.dcs-o-dcs-yg{border-color:#db4437}.dcs-o-dcs-zf{border-color:#f4b400}.dcs-o-dcs-p{border-color:#0f9d58}.dcs-gb .dcs-o-dcs-di.dcs-o-dcs-nd{-webkit-animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both,blue-fade-in-out 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both;animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both,blue-fade-in-out 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both}.dcs-gb .dcs-o-dcs-di.dcs-o-dcs-yg{-webkit-animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both,red-fade-in-out 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both;animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both,red-fade-in-out 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both}.dcs-gb .dcs-o-dcs-di.dcs-o-dcs-zf{-webkit-animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both,yellow-fade-in-out 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both;animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both,yellow-fade-in-out 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both}.dcs-gb .dcs-o-dcs-di.dcs-o-dcs-p{-webkit-animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both,green-fade-in-out 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both;animation:fill-unfill-rotate 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both,green-fade-in-out 5332ms cubic-bezier(0.4,0.0,0.2,1) infinite both}@-webkit-keyframes fill-unfill-rotate{12.5%{-webkit-transform:rotate(135deg)}25%{-webkit-transform:rotate(270deg)}37.5%{-webkit-transform:rotate(405deg)}50%{-webkit-transform:rotate(540deg)}62.5%{-webkit-transform:rotate(675deg)}75%{-webkit-transform:rotate(810deg)}87.5%{-webkit-transform:rotate(945deg)}to{-webkit-transform:rotate(1080deg)}}@keyframes fill-unfill-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}to{transform:rotate(1080deg)}}@-webkit-keyframes blue-fade-in-out{from{opacity:1}25%{opacity:1}26%{opacity:0}89%{opacity:0}90%{opacity:1}100%{opacity:1}}@keyframes blue-fade-in-out{from{opacity:1}25%{opacity:1}26%{opacity:0}89%{opacity:0}90%{opacity:1}100%{opacity:1}}@-webkit-keyframes red-fade-in-out{from{opacity:0}15%{opacity:0}25%{opacity:1}50%{opacity:1}51%{opacity:0}}@keyframes red-fade-in-out{from{opacity:0}15%{opacity:0}25%{opacity:1}50%{opacity:1}51%{opacity:0}}@-webkit-keyframes yellow-fade-in-out{from{opacity:0}40%{opacity:0}50%{opacity:1}75%{opacity:1}76%{opacity:0}}@keyframes yellow-fade-in-out{from{opacity:0}40%{opacity:0}50%{opacity:1}75%{opacity:1}76%{opacity:0}}@-webkit-keyframes green-fade-in-out{from{opacity:0}65%{opacity:0}75%{opacity:1}90%{opacity:1}100%{opacity:0}}@keyframes green-fade-in-out{from{opacity:0}65%{opacity:0}75%{opacity:1}90%{opacity:1}100%{opacity:0}}.dcs-o-dcs-gk-dcs-hk{position:absolute;box-sizing:border-box;top:0;left:45%;width:10%;height:100%;overflow:hidden;border-color:inherit}.dcs-o-dcs-gk-dcs-hk .dcs-o-dcs-kg{width:1000%;left:-450%}.dcs-o-dcs-kg-dcs-nh{display:inline-block;position:relative;width:50%;height:100%;overflow:hidden;border-color:inherit}.dcs-o-dcs-kg-dcs-nh .dcs-o-dcs-kg{width:200%}.dcs-o-dcs-kg{box-sizing:border-box;height:100%;border-width:3px;border-style:solid;border-color:inherit;border-bottom-color:transparent!important;border-radius:50%;-webkit-animation:none;animation:none}.dcs-o-dcs-kg-dcs-nh.dcs-o-dcs-u .dcs-o-dcs-kg{border-right-color:transparent!important;-webkit-transform:rotate(129deg);transform:rotate(129deg)}.dcs-o-dcs-kg-dcs-nh.dcs-o-dcs-qh .dcs-o-dcs-kg{left:-100%;border-left-color:transparent!important;-webkit-transform:rotate(-129deg);transform:rotate(-129deg)}.dcs-gb .dcs-o-dcs-kg-dcs-nh.dcs-o-dcs-u .dcs-o-dcs-kg{-webkit-animation:left-spin 1333ms cubic-bezier(0.4,0.0,0.2,1) infinite both;animation:left-spin 1333ms cubic-bezier(0.4,0.0,0.2,1) infinite both}.dcs-gb .dcs-o-dcs-kg-dcs-nh.dcs-o-dcs-qh .dcs-o-dcs-kg{-webkit-animation:right-spin 1333ms cubic-bezier(0.4,0.0,0.2,1) infinite both;animation:right-spin 1333ms cubic-bezier(0.4,0.0,0.2,1) infinite both}@-webkit-keyframes left-spin{from{-webkit-transform:rotate(130deg)}50%{-webkit-transform:rotate(-5deg)}to{-webkit-transform:rotate(130deg)}}@keyframes left-spin{from{transform:rotate(130deg)}50%{transform:rotate(-5deg)}to{transform:rotate(130deg)}}@-webkit-keyframes right-spin{from{-webkit-transform:rotate(-130deg)}50%{-webkit-transform:rotate(5deg)}to{-webkit-transform:rotate(-130deg)}}@keyframes right-spin{from{transform:rotate(-130deg)}50%{transform:rotate(5deg)}to{transform:rotate(-130deg)}}.dcs-o-dcs-gf{position:absolute;top:0;bottom:0;right:0;left:0}.dcs-a-dcs-qc .dcs-h-dcs-xg-dcs-qc{display:none!important}.dcs-ai-dcs-xg-dcs-qc{display:none}.dcs-a-dcs-qc .dcs-ai-dcs-xg-dcs-qc{display:inline-block!important}.dcs-a-dcs-ab-dcs-ne{border:1px solid rgba(0,0,0,0.2)}.dcs-a-dcs-ab-dcs-ae{-webkit-transition:all 270ms ease-out;-moz-transition:all 270ms ease-out;-o-transition:all 270ms ease-out;transition:all 270ms ease-out;-webkit-transform:scale(0.3);-moz-transform:scale(0.3);-o-transform:scale(0.3);transform:scale(0.3);-webkit-transform-origin:center top;-moz-transform-origin:center top;-o-transform-origin:center top;transform-origin:center top;opacity:0.3}#docos-shadow-wrapper{position:relative}#docos-shadow{background:#000;background:rgba(0,0,0,0.7);color:#fff;position:absolute;z-index:700;left:0;top:0}#docos-shadow,.dcs-a-dcs-zb-dcs-me{height:100%;width:100%}#docos-shadow-description{font-weight:700;font-weight:var(--docs-material-font-weight-bold,700)}#docos-shadow-confirm,#docos-shadow-delete{margin:2px 7px}.dcs-a-dcs-ub{min-height:36px}.dcs-a-dcs-ub-dcs-de{padding:8px;background:#f2f2f2}.dcs-a-dcs-ub .dcs-a-dcs-hb-dcs-ee-dcs-de{display:inline-block;padding:3px 2px 0px 2px;width:20px;height:20px;opacity:.54}.dcs-a-dcs-ub-dcs-cg{height:38px}.dcs-a-dcs-ub-dcs-cg table{border-spacing:0}.dcs-a-dcs-ub-dcs-he{padding-left:8px;width:100%;vertical-align:top}.dcs-a-dcs-ub-dcs-he-dcs-lh{position:relative}.dcs-a-dcs-ub-dcs-he-dcs-ud{position:absolute;padding-top:4px;width:100%;color:#616161;font-weight:700;font-weight:var(--docs-material-font-weight-bold,700);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dcs-a-dcs-ub-dcs-pe{color:#333;padding-bottom:4px;word-wrap:break-word}.dcs-a-dcs-ub-dcs-ri-dcs-de{display:inline-block;margin-top:8px}.dcs-a-dcs-ub-dcs-ri-dcs-bb{color:#616161;font-size:12px}.dcs-a-dcs-ub-dcs-ri-dcs-bb:hover,.dcs-a-dcs-ub-dcs-ri-dcs-bb:focus{text-decoration:underline;cursor:pointer;outline:none}.dcs-a-dcs-ub-dcs-vb{padding:13px 8px 10px 8px;border-top:1px solid #ddd;background-color:#fff}.dcs-a-dcs-ub-dcs-vb-dcs-he{color:#333;font-weight:700;font-weight:var(--docs-material-font-weight-bold,700)}.dcs-a-dcs-ub-dcs-vb-dcs-vc{margin:7px 0 7px 0}.dcs-a-dcs-ub-dcs-vb-dcs-fb-dcs-de{margin:4px 0 3px 0}.dcs-a-dcs-ub-dcs-vb-dcs-fb-dcs-de label{cursor:pointer}.dcs-a-dcs-ub-dcs-vb-dcs-fb-dcs-de .dcs-f-dcs-fb{border:1px solid rgba(0,0,0,.54);cursor:pointer}.dcs-a-dcs-ub-dcs-vb-dcs-fb-dcs-de .dcs-f-dcs-fb-dcs-hh{border:1px solid #4d90fe}.dcs-a-dcs-ub-dcs-vb-dcs-fb-dcs-de .dcs-f-dcs-fb-dcs-le{border:1px solid #333}.dcs-a-dcs-ub-dcs-vb-dcs-fb-dcs-de .dcs-f-dcs-fb-dcs-bh{border:1px solid rgba(0,0,0,.54)}.dcs-a-dcs-ub-dcs-vb-dcs-fb{margin:0 8px 0 4px}.dcs-a-dcs-ub-dcs-vb-dcs-l{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#333;display:inline-block;vertical-align:middle}.dcs-a-dcs-ub-dcs-vj-dcs-pd{margin:2px 0 5px 0;color:#4285f4;cursor:pointer}.dcs-a-dcs-tf-dcs-uf .dcs-a-dcs-cb .dcs-a-dcs-cb-dcs-td-dcs-ud.dcs-a-dcs-ub-dcs-td-dcs-ud{border-right:18px solid #f2f2f2}.dcs-a-dcs-b .dcs-a-dcs-db-dcs-vh{padding-bottom:6px}.dcs-a-dcs-b .dcs-a-dcs-db-dcs-zc{margin:0 4px 0 0}.dcs-a-dcs-b .dcs-a-dcs-db-dcs-zd{background:none}.dcs-a-dcs-lb{border-top:1px solid #e8e8e8;font-family:Arial,sans-serif,sans;font-family:var(--docs-material-font-family,Arial,sans-serif,sans);font-size:12px;padding:18px 0 7px 0;position:relative;outline:none;zoom:1}.dcs-a-dcs-lb:last-child{padding-bottom:0}.dcs-a-dcs-lb:last-child .dcs-a-dcs-lb-dcs-kk{padding-bottom:0}.dcs-a-dcs-lb .dcs-a-dcs-q-dcs-oj{min-height:48px}.dcs-a-dcs-ck{margin-right:12px;min-height:51px;padding:0 6px;position:relative;top:-3px}.dcs-a-dcs-q-dcs-r .dcs-a-dcs-ck{background-color:#f6f6f6}.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-ck{background-color:#fffbe1}.dcs-a-dcs-lb-dcs-c{margin-left:60px;position:relative}.dcs-a-dcs-lb-dcs-yb{font-weight:700;font-weight:var(--docs-material-font-weight-bold,700)}.dcs-a-dcs-lb-dcs-pe{color:#333;word-wrap:break-word;top:-7px;zoom:1}.dcs-a-dcs-lb-dcs-mf,.dcs-a-dcs-lb-dcs-wc-dcs-xc{font-size:11px;color:#999;padding:0}.dcs-a-dcs-lb-dcs-mf,.dcs-a-dcs-lb-dcs-ic-dcs-jc{right:2px}.dcs-a-dcs-lb-dcs-mb{color:#ccc;font-size:12px;line-height:100%;padding:0 2px}.dcs-a-dcs-lb-dcs-kk{padding:4px 0}.dcs-a-dcs-lb-dcs-mf:hover{text-decoration:underline;cursor:pointer}.dcs-a-dcs-lb-dcs-db-dcs-eb{padding-right:6px;margin-left:30px}.dcs-a-dcs-lb-dcs-db-dcs-eb .dcs-a-dcs-db-dcs-te{background-color:#fff;border:1px solid #c9d4ec;height:23px;font-size:12px}.dcs-a-dcs-lb-dcs-db-dcs-eb.dcs-a-dcs-db-dcs-og .dcs-a-dcs-db-dcs-te{background-color:#fff}.dcs-a-dcs-lb-dcs-bc-dcs-eb .dcs-a-dcs-db-dcs-te{height:36px}.dcs-a-dcs-lb-dcs-qk,.dcs-a-dcs-lb-dcs-ci{margin:4px 12px 3px 0}.dcs-a-dcs-lb-dcs-qk{background-color:#eff2f9;-moz-border-radius:0 0 6px 6px;-webkit-border-radius:0 0 6px 6px;border-radius:0 0 6px 6px;padding:6px 0 2px 6px;position:relative;zoom:1}.dcs-a-dcs-q-dcs-r .dcs-a-dcs-lb-dcs-qk{background-color:#f6f6f6}.dcs-a-dcs-lb-dcs-wj{position:absolute;right:0;top:0}.dcs-a-dcs-lb.dcs-a-dcs-q-dcs-r .dcs-a-dcs-lb-dcs-wj{right:4px}.dcs-a-dcs-lb .dcs-a-dcs-kh-dcs-lh{position:absolute;right:-12px;top:3px}.dcs-a-dcs-lb-dcs-ic-dcs-jc{display:inline}.dcs-a-dcs-lb-dcs-ic-dcs-jc>.dcs-a-dcs-q-dcs-ic{font-family:Arial,sans-serif,sans;font-family:var(--docs-material-header-font-family,Arial,sans-serif,sans);font-size:11px;font-weight:normal;font-weight:var(--docs-material-font-weight-bold,normal);color:#15c}.dcs-a-dcs-lb-dcs-lc-dcs-jc>.dcs-a-dcs-q-dcs-lc,.dcs-a-dcs-lb-dcs-ab-dcs-jc>.dcs-a-dcs-q-dcs-ab{color:#999;line-height:100%}.dcs-a-dcs-lb-dcs-lc-dcs-jc>.dcs-a-dcs-q-dcs-lc:hover,.dcs-a-dcs-lb-dcs-ic-dcs-jc>.dcs-a-dcs-q-dcs-ic:hover,.dcs-a-dcs-lb-dcs-ab-dcs-jc>.dcs-a-dcs-q-dcs-ab:hover{text-decoration:underline;cursor:pointer}.dcs-a-dcs-ck:hover .dcs-a-dcs-q-dcs-lc,.dcs-a-dcs-ck:hover .dcs-a-dcs-q-dcs-ab,.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-q-dcs-lc,.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-q-dcs-ab{color:#15c}.dcs-a-dcs-b-dcs-de{line-height:140%;outline:none}.dcs-a-dcs-b-dcs-c{position:relative}.dcs-a-dcs-b-dcs-ij{color:#15c;cursor:pointer;font-size:12px;position:absolute;right:0;top:-3px}.dcs-a-dcs-b-dcs-ij:hover{text-decoration:underline}.dcs-a-dcs-xd .dcs-a-dcs-b-dcs-ij{color:#999;cursor:default}.dcs-a-dcs-xd .dcs-a-dcs-b-dcs-ij:hover{text-decoration:none}.dcs-a-dcs-b-dcs-hl{bottom:-10px;color:#15c;cursor:pointer;font-size:12px;padding-right:5px;padding-top:5px;position:absolute;right:5px;text-decoration:none}.dcs-a-dcs-xd .dcs-a-dcs-b-dcs-hl{display:none}.dcs-a-dcs-b-dcs-vi{color:#333;padding:12px 0 12px 20px}.dcs-a-dcs-b-dcs-lg{margin:6px 29px 10px 20px;position:relative;zoom:1}.dcs-a-dcs-b-dcs-lg-dcs-c{margin-left:61px;position:relative;zoom:1}.dcs-a-dcs-b-dcs-yd{font-size:12px;font-weight:700;font-weight:var(--docs-material-font-weight-bold,700);margin-bottom:3px;top:-3px}.dcs-a-dcs-b-dcs-k{font-size:1.2em;margin:20px 5px 2px}.dcs-a-dcs-b-dcs-db-dcs-eb{top:-4px}.dcs-a-dcs-b-dcs-db-dcs-eb .dcs-a-dcs-db-dcs-zc{font-weight:700;font-weight:var(--docs-material-font-weight-bold,700)}.dcs-a-dcs-b-dcs-db-dcs-eb .dcs-a-dcs-db-dcs-te{font-size:12px;height:30px}.dcs-a-dcs-lb-dcs-qk .dcs-a-dcs-db-dcs-hi-dcs-ii-dcs-if,.dcs-a-dcs-lb-dcs-qk .dcs-a-dcs-db-dcs-mk-dcs-nk-dcs-if,.dcs-a-dcs-lb-dcs-qk .dcs-a-dcs-db-dcs-ld-dcs-if,.dcs-a-dcs-lb-dcs-qk .dcs-a-dcs-db-dcs-ti-dcs-if{color:#777;line-height:normal;margin-top:8px}.dcs-a-dcs-b-dcs-rh{background-color:#dd4b39;border:1px solid #602019;border-radius:4px;color:#fff;margin:6px;padding:6px;text-align:center}.dcs-a-dcs-b-dcs-cg{overflow:hidden;padding:10px 29px 10px 20px;background-color:#f5f5f5}.dcs-a-dcs-b-dcs-cg .dcs-a-dcs-m-dcs-n,.dcs-a-dcs-b-dcs-cg .dcs-a-dcs-sd-dcs-lc-dcs-bb,.dcs-a-dcs-b-dcs-cg .dcs-a-dcs-vb-dcs-bb{display:inline-block;float:right}.dcs-a-dcs-b-dcs-cg .dcs-cc-dcs-cf-dcs-dc-dcs-bb,.dcs-a-dcs-b-dcs-cg .dcs-f-dcs-bb{border-color:transparent;background-color:transparent;background-image:none}.dcs-a-dcs-b-dcs-cg .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-le,.dcs-a-dcs-b-dcs-cg .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-gb,.dcs-a-dcs-b-dcs-cg .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-xi,.dcs-a-dcs-b-dcs-cg .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-hh,.dcs-a-dcs-b-dcs-cg .dcs-f-dcs-bb-dcs-le,.dcs-a-dcs-b-dcs-cg .dcs-f-dcs-bb-dcs-gb,.dcs-a-dcs-b-dcs-cg .dcs-f-dcs-bb-dcs-hh{border-color:#c6c6c6;background-color:#f8f8f8;background-image:-webkit-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-moz-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-ms-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:-o-linear-gradient(top,#f8f8f8,#f1f1f1);background-image:linear-gradient(top,#f8f8f8,#f1f1f1)}.dcs-a-dcs-b-dcs-cg .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ec{visibility:hidden}.dcs-a-dcs-b-dcs-cg .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-le .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ec,.dcs-a-dcs-b-dcs-cg .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-gb .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ec,.dcs-a-dcs-b-dcs-cg .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-xi .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ec,.dcs-a-dcs-b-dcs-cg .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-hh .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-ec{visibility:visible}.dcs-a-dcs-b-dcs-cg .dcs-cc-dcs-cf-dcs-dc-dcs-bb-dcs-bf .dcs-a-dcs-sg-dcs-ff-dcs-hb{opacity:0.3}.dcs-a-dcs-b-dcs-cg .dcs-f-dcs-bb-dcs-bf .dcs-a-dcs-sd-dcs-lc-dcs-hb{opacity:0.15}.dcs-a-dcs-b-dcs-cg .dcs-a-dcs-sd-dcs-lc-dcs-bb,.dcs-a-dcs-b-dcs-cg .dcs-a-dcs-vb-dcs-bb{margin-left:12px;margin-right:0}.dcs-a-dcs-mg-dcs-ng{padding:0 29px 0 20px}.dcs-a-dcs-yh-dcs-d-dcs-cg .dcs-a-dcs-mg-dcs-ng{position:relative;overflow:auto;max-height:450px}.dcs-a-dcs-yh-dcs-d-dcs-cg .dcs-a-dcs-mg-dcs-ng>.dcs-a-dcs-lb:first-child{border-top-color:transparent}.dcs-a-dcs-sd-dcs-lc-dcs-hb{display:inline-block;vertical-align:middle;margin:4px 5px 5px 2px;opacity:0.65}.dcs-a-dcs-fc{background-color:#eff2f9;color:#666;font-size:12px;padding:6px 6px 0 6px;position:relative;margin-bottom:3px;min-height:24px}.dcs-a-dcs-q-dcs-r .dcs-a-dcs-fc{background-color:#f6f6f6}.dcs-a-dcs-fc-dcs-yc{left:6px}.dcs-a-dcs-fc-dcs-c{padding-left:30px}.dcs-a-dcs-fc-dcs-kd{color:black;font-weight:700;font-weight:var(--docs-material-font-weight-bold,700);left:-2px;margin:0 4px;right:-2px}.dcs-a-dcs-fc-dcs-pe{color:#333;margin:0;top:-4px;width:100%;word-wrap:break-word}.dcs-a-dcs-fc-dcs-l,.dcs-a-dcs-fc-dcs-mf{position:relative;top:-3px}.dcs-a-dcs-fc-dcs-l{width:100%}.dcs-a-dcs-fc-dcs-zg{padding-bottom:4px;font-style:italic}.dcs-a-dcs-fc-dcs-zg,.dcs-a-dcs-fc-dcs-mf{color:#999;font-size:11px;white-space:pre}.dcs-a-dcs-lb .dcs-a-dcs-fc .dcs-a-dcs-z-dcs-jc{display:inline;top:-3px;z-index:-1}.dcs-a-dcs-lb .dcs-a-dcs-fc:hover .dcs-a-dcs-z-dcs-jc,.dcs-a-dcs-lb .dcs-a-dcs-fc .dcs-a-dcs-z-dcs-jc-dcs-hh{z-index:auto}.dcs-a-dcs-fc-dcs-bc-dcs-eb .dcs-a-dcs-db-dcs-te{height:23px}.dcs-a-dcs-lb .dcs-a-dcs-z-dcs-eg{border-left:1px solid #ccc;font-style:italic;padding:3px 10px 3px 10px;position:relative;zoom:1;word-wrap:break-word}.dcs-a-dcs-z-dcs-eg-dcs-ff{font-size:11px;font-weight:normal;font-weight:var(--docs-material-font-weight-bold,normal);color:#999;margin-right:2px;padding:0}.dcs-a-dcs-z-dcs-eg-dcs-eh{overflow:hidden;height:18px}.dcs-a-dcs-z-dcs-eg-dcs-dk{background:#fff;padding:3px 5px 0 5px;position:absolute;right:0;top:0}.dcs-a-dcs-z-dcs-eg-dcs-ah,.dcs-a-dcs-z-dcs-eg-dcs-dk{color:#15c;visibility:hidden}.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-z-dcs-eg-dcs-ah,.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-z-dcs-eg-dcs-dk{visibility:visible}.dcs-a-dcs-z-dcs-eg-dcs-ah{padding-left:3px}.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-z-dcs-eg-dcs-dk{background:#fffbe1}.dcs-a-dcs-z-dcs-eg-dcs-ah:hover,.dcs-a-dcs-z-dcs-eg-dcs-dk:hover{cursor:pointer;text-decoration:underline}.dcs-a-dcs-ck .dcs-a-dcs-ue-dcs-l,.dcs-a-dcs-fc .dcs-a-dcs-ue-dcs-l{color:#777;font-style:italic;word-wrap:break-word;-ms-word-wrap:break-word;overflow-wrap:break-word}.dcs-a-dcs-ck .dcs-a-dcs-ue-dcs-l{display:inline-block}.dcs-a-dcs-lb-dcs-c .dcs-a-dcs-db-dcs-ld-dcs-md{margin-top:-5px}.dcs-a-dcs-te{margin:0;padding:2px;font-family:Arial,sans-serif,sans;font-family:var(--docs-material-font-family,Arial,sans-serif,sans);outline-width:0!important;resize:none}.dcs-a-dcs-z-dcs-pc,.dcs-a-dcs-z-dcs-bc{color:#15c;font-size:11px;margin:0 2px}.dcs-a-dcs-z-dcs-pc:hover,.dcs-a-dcs-z-dcs-bc:hover{text-decoration:underline;cursor:pointer}.dcs-a-dcs-db-dcs-zd{margin:0 0}.dcs-a-dcs-db-dcs-zc{margin:8px 7px 0 0}.dcs-a-dcs-ki-dcs-ii-dcs-ue-dcs-l-dcs-we{padding:8px 0 0 0;position:relative}.dcs-a-dcs-w-dcs-ej .dcs-f-dcs-fb{-ms-high-contrast-adjust:none!important;background-color:white!important}.dcs-a-dcs-fd-dcs-bb{font-size:14px;min-width:38px;background-color:rgba(245,245,245,0.2);border-color:rgba(0,0,0,0.01880392);background-image:-moz-linear-gradient(top,rgba(245,245,245,0.2),rgba(241,241,241,0.2));background-image:-ms-linear-gradient(top,rgba(245,245,245,0.2),rgba(241,241,241,0.2));background-image:-o-linear-gradient(top,rgba(245,245,245,0.2),rgba(241,241,241,0.2));background-image:linear-gradient(top,rgba(245,245,245,0.2),rgba(241,241,241,0.2));background-image:-webkit-linear-gradient(top,rgba(245,245,245,0.2),rgba(241,241,241,0.2))}.dcs-a-dcs-cb:hover .dcs-a-dcs-fd-dcs-bb,.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-a-dcs-fd-dcs-bb,.dcs-a-dcs-cb.dcs-a-dcs-wg-dcs-qe .dcs-a-dcs-fd-dcs-bb{background-color:rgba(245,245,245,0.7);border-color:rgba(0,0,0,0.0686274);background-image:-webkit-linear-gradient(top,rgba(245,245,245,0.7),rgba(241,241,241,0.7));background-image:-moz-linear-gradient(top,rgba(245,245,245,0.7),rgba(241,241,241,0.7));background-image:-ms-linear-gradient(top,rgba(245,245,245,0.7),rgba(241,241,241,0.7));background-image:-o-linear-gradient(top,rgba(245,245,245,0.7),rgba(241,241,241,0.7));background-image:linear-gradient(top,rgba(245,245,245,0.7),rgba(241,241,241,0.7))}.dcs-a-dcs-fd-dcs-bb.dcs-f-dcs-bb-dcs-le{border:1px solid rgba(198,198,198,0.7)!important}.dcs-fd-dcs-bb-dcs-l{color:rgb(51,51,51);opacity:0.2}.dcs-a-dcs-cb:hover .dcs-fd-dcs-bb-dcs-l,.dcs-a-dcs-cb.dcs-a-dcs-q-dcs-gb .dcs-fd-dcs-bb-dcs-l,.dcs-a-dcs-cb.dcs-a-dcs-wg-dcs-qe .dcs-fd-dcs-bb-dcs-l{opacity:0.6}.dcs-zc-dcs-ad-dcs-bd-dcs-cd-dcs-dd-dcs-ed-dcs-fd,.dcs-f-dcs-bb-dcs-le .dcs-fd-dcs-bb-dcs-l,.dcs-dd-dcs-ed-dcs-ad-dcs-uj-dcs-fd{opacity:1!important}.dcs-fd-dcs-bb-dcs-l.dcs-dd-dcs-ed-dcs-ad-dcs-uj-dcs-fd{color:#0f9d58}
+</style><script type="text/javascript" charset="UTF-8" src="./webform hooks example - Ravi Mane_files/api.js" gapi_processed="true"></script><script async="" src="./webform hooks example - Ravi Mane_files/lazy.min.js"></script><script src="./webform hooks example - Ravi Mane_files/ga.js"></script></head>
+<body xmlns="http://www.google.com/ns/jotspot" id="body" class=" en            ">
+<div id="sites-page-toolbar" class="sites-header-divider">
+<div xmlns="http://www.w3.org/1999/xhtml" id="sites-status" class="sites-status" style="display:none;"><div id="sites-notice" class="sites-notice" role="status" aria-live="assertive"> </div></div>
+</div>
+<div id="sites-chrome-everything-scrollbar">
+<div id="sites-chrome-everything" class="">
+<div id="sites-chrome-page-wrapper" style="direction: ltr">
+<div id="sites-chrome-page-wrapper-inside">
+<div xmlns="http://www.w3.org/1999/xhtml" id="sites-chrome-header-wrapper" style="">
+<table id="sites-chrome-header" class="sites-layout-hbox" cellspacing="0" style="">
+<tbody><tr class="sites-header-primary-row" id="sites-chrome-userheader">
+<td id="sites-header-title" class="" role="banner"><div class="sites-header-cell-buffer-wrapper"><h2><a href="https://sites.google.com/site/ravivmane/" dir="ltr" id="sites-chrome-userheader-title">Ravi Mane</a></h2></div></td><td class="sites-layout-searchbox  "><div class="sites-header-cell-buffer-wrapper"><form id="sites-searchbox-form" action="https://sites.google.com/site/ravivmane/system/app/pages/search" role="search"><input type="hidden" id="sites-searchbox-scope" name="scope" value="search-site"><input type="text" id="jot-ui-searchInput" name="q" size="20" value="" aria-label="Search this site"><div id="sites-searchbox-button-set" class="goog-inline-block"><div role="button" id="sites-searchbox-search-button" class="goog-inline-block jfk-button jfk-button-standard" tabindex="0" style="user-select: none;">Search this site</div></div></form></div></td>
+</tr>
+<tr class="sites-header-secondary-row" id="sites-chrome-horizontal-nav">
+<td colspan="2" id="sites-chrome-header-horizontal-nav-container" role="navigation">
+</td>
+</tr>
+</tbody></table>
+</div>
+<div id="sites-chrome-main-wrapper">
+<div id="sites-chrome-main-wrapper-inside">
+<table id="sites-chrome-main" class="sites-layout-hbox" cellspacing="0" cellpadding="{scmCellpadding}" border="0">
+<tbody><tr>
+<td id="sites-chrome-sidebar-left" class="sites-layout-sidebar-left initial" style="width:150px">
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_2bd" class="sites-embed" role="navigation"><div class="sites-embed-content sites-sidebar-nav"><ul role="navigation" jotid="navList" class="has-expander"><li class="topLevel nav-first "><div dir="ltr" style="padding-left: 19px;"><a href="https://sites.google.com/site/ravivmane/home" jotid="wuid:gx:60369791d9417460" class="sites-navigation-link topLevel">Mysql Server</a></div></li><li class="topLevel "><div dir="ltr" style="padding-left: 19px;"><a href="https://sites.google.com/site/ravivmane/drupal-api" jotid="wuid:gx:4acdf1c89da69843" class="sites-navigation-link topLevel">Drupal Api</a></div></li><li class="topLevel "><div dir="ltr" style="padding-left: 19px;"><a href="https://sites.google.com/site/ravivmane/encryption-in-drupal" jotid="wuid:gx:5276590c73c7ad59" class="sites-navigation-link topLevel">Encryption in drupal</a></div></li><li class="topLevel "><div dir="ltr" style="padding-left: 19px;"><a href="https://sites.google.com/site/ravivmane/find-quarter-start-and-end-dates" jotid="wuid:gx:6978a57044aa93cc" class="sites-navigation-link topLevel">Find quarter start and end dates</a></div></li><li class="topLevel "><div dir="ltr" style="padding-left: 19px;"><a href="https://sites.google.com/site/ravivmane/get-current-quarter-of-the-date" jotid="wuid:gx:4277c242595c116e" class="sites-navigation-link topLevel">Get current quarter of the date</a></div></li><li class="topLevel parent " wuid="gx:7b588a78cb270440"><div dir="ltr" style="padding-left: 0px;"><div class="expander"></div><a href="https://sites.google.com/site/ravivmane/hook-view-query-alter" jotid="wuid:gx:7b588a78cb270440" class="sites-navigation-link topLevel">hook view query alter</a></div><ul role="navigation" class="has-expander"><li class=""><div dir="ltr" style="padding-left: 38px;"><a href="https://sites.google.com/site/ravivmane/hook-view-query-alter/hook_views_api" jotid="wuid:gx:603ccf1258f62982" class="sites-navigation-link">hook_views_api()</a></div></li></ul></li><li class="topLevel parent " wuid="gx:2a542f19173cf2d5"><div dir="ltr" style="padding-left: 0px;"><div class="expander"></div><a href="https://sites.google.com/site/ravivmane/open-source" jotid="wuid:gx:2a542f19173cf2d5" class="sites-navigation-link topLevel">Open Source</a></div><ul role="navigation" class="has-expander"><li class=""><div dir="ltr" style="padding-left: 38px;"><a href="https://sites.google.com/site/ravivmane/open-source/php-ini-directives" jotid="wuid:gx:799cddd940b295c8" class="sites-navigation-link">List of php.ini directives</a></div></li><li class=""><div dir="ltr" style="padding-left: 38px;"><a href="https://sites.google.com/site/ravivmane/open-source/whatisamodule" jotid="wuid:gx:34a6d019c657a566" class="sites-navigation-link">What is a module?</a></div></li><li class=""><div dir="ltr" style="padding-left: 38px;"><a href="https://sites.google.com/site/ravivmane/open-source/whatisanopensourcesoftware" jotid="wuid:gx:7c73b7f03b258ae" class="sites-navigation-link">What is an Open source software ?</a></div></li></ul></li><li class="topLevel parent" wuid="gx:57a5412134c94516"><div dir="ltr" style="padding-left: 0px;"><div class="expander"></div><a href="https://sites.google.com/site/ravivmane/webform-in-drupal" jotid="wuid:gx:57a5412134c94516" class="sites-navigation-link topLevel">Webform in drupal</a></div><ul role="navigation" class="has-expander"><li class=""><div class="current-bg" jotid="wuid:gx:7116bed36dc90f43" dir="ltr" style="padding-left: 38px;">webform hooks example</div></li></ul></li><li class="topLevel "><div dir="ltr" style="padding-left: 19px;"><a href="https://sites.google.com/site/ravivmane/system/app/pages/sitemap/hierarchy" jotid="wuid:gx:ebc10ae071edce4" class="sites-navigation-link topLevel">Sitemap</a></div></li></ul></div></div>
+</td>
+<td id="sites-canvas-wrapper">
+<div id="sites-canvas" role="main">
+<div id="goog-ws-editor-toolbar-container"> </div>
+<div xmlns="http://www.w3.org/1999/xhtml" id="title-crumbs" style="">
+<a href="https://sites.google.com/site/ravivmane/webform-in-drupal" dir="ltr">Webform in drupal</a>‎ &gt; ‎
+  </div>
+<h3 xmlns="http://www.w3.org/1999/xhtml" id="sites-page-title-header" style="" align="left">
+<span id="sites-page-title" dir="ltr" tabindex="-1" style="outline: none">webform hooks example</span>
+</h3>
+<div id="sites-canvas-main" class="sites-canvas-main">
+<div id="sites-canvas-main-content">
+<table xmlns="http://www.w3.org/1999/xhtml" cellspacing="0" class="sites-layout-name-one-column sites-layout-hbox"><tbody><tr><td class="sites-layout-tile sites-tile-name-content-1"><div dir="ltr"><pre><code><span>&lt;?php
+</span>
+<span>/**
+ * @file
+ * Sample hooks demonstrating usage in Webform.
+ */</span>
+
+<span>/**
+ * @defgroup webform_hooks Webform Module Hooks
+ * @{
+ * Webform's hooks enable other modules to intercept events within Webform, such
+ * as the completion of a submission or adding validation. Webform's hooks also
+ * allow other modules to provide additional components for use within forms.
+ */</span>
+
+<span>/**
+ * Define callbacks that can be used as select list options.
+ *
+ * @return
+ *   An array of callbacks that can be used for select list options. This array
+ *   should be keyed by the "name" of the pre-defined list. The values should
+ *   be an array with the following additional keys:
+ *     - title: The translated title for this list.
+ *     - options callback: The name of the function that will return the list.
+ *     - options arguments: Any additional arguments to send to the callback.
+ *     - file: Optional. The file containing the options callback, relative to
+ *       the module root.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_select_options_info/7" title="Define callbacks that can be used as select list options." rel="nofollow">hook_webform_select_options_info</a>() {
+  $items = array();
+
+  $items['days'] = array(
+    'title' =&gt; <a href="http://api.lullabot.com/t/7" title="Translates a string to the current language or to a given language." rel="nofollow">t</a>('Days of the week'),
+    'options callback' =&gt; 'webform_options_days',
+    'file' =&gt; 'includes/webform.options.inc',
+  );
+
+  return $items;
+}</span>
+
+<span>/**
+ * Respond to the loading of Webform submissions.
+ *
+ * @param $submissions
+ *   An array of Webform submissions that are being loaded, keyed by the
+ *   submission ID. Modifications to the submissions are done by reference.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_submission_load/7" title="Respond to the loading of Webform submissions." rel="nofollow">hook_webform_submission_load</a>(&amp;$submissions) {
+  foreach ($submissions as $sid =&gt; $submission) {
+    $submissions[$sid]-&gt;new_property = 'foo';
+  }
+}</span>
+
+<span>/**
+ * Modify a Webform submission, prior to saving it in the database.
+ *
+ * @param $node
+ *   The Webform node on which this submission was made.
+ * @param $submission
+ *   The Webform submission that is about to be saved to the database.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_submission_presave/7" title="Modify a Webform submission, prior to saving it in the database." rel="nofollow">hook_webform_submission_presave</a>($node, &amp;$submission) {
+  // Update some component's value before it is saved.
+  $component_id = 4;
+  $submission-&gt;data[$component_id]['value'][0] = 'foo';
+}</span>
+
+<span>/**
+ * Respond to a Webform submission being inserted.
+ *
+ * Note that this hook is called after a submission has already been saved to
+ * the database. If needing to modify the submission prior to insertion, use
+ * hook_webform_submission_presave().
+ *
+ * @param $node
+ *   The Webform node on which this submission was made.
+ * @param $submission
+ *   The Webform submission that was just inserted into the database.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_submission_insert/7" title="Respond to a Webform submission being inserted." rel="nofollow">hook_webform_submission_insert</a>($node, $submission) {
+  // Insert a record into a 3rd-party module table when a submission is added.
+  <a href="http://api.lullabot.com/db_insert/7" title="Returns a new InsertQuery object for the active database." rel="nofollow">db_insert</a>('mymodule_table')
+    -&gt;fields(array(
+      'nid' =&gt; $node-&gt;nid,
+      'sid' =&gt; $submission-&gt;sid,
+      'foo' =&gt; 'foo_data',
+    ))
+    -&gt;execute();
+}</span>
+
+<span>/**
+ * Respond to a Webform submission being updated.
+ *
+ * Note that this hook is called after a submission has already been saved to
+ * the database. If needing to modify the submission prior to updating, use
+ * hook_webform_submission_presave().
+ *
+ * @param $node
+ *   The Webform node on which this submission was made.
+ * @param $submission
+ *   The Webform submission that was just updated in the database.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_submission_update/7" title="Respond to a Webform submission being updated." rel="nofollow">hook_webform_submission_update</a>($node, $submission) {
+  // Update a record in a 3rd-party module table when a submission is updated.
+  <a href="http://api.lullabot.com/db_update/7" title="Returns a new UpdateQuery object for the active database." rel="nofollow">db_update</a>('mymodule_table')
+    -&gt;fields(array(
+      'foo' =&gt; 'foo_data',
+    ))
+    -&gt;condition('nid', $node-&gt;nid)
+    -&gt;condition('sid', $submission-&gt;sid)
+    -&gt;execute();
+}</span>
+
+<span>/**
+ * Respond to a Webform submission being deleted.
+ *
+ * @param $node
+ *   The Webform node on which this submission was made.
+ * @param $submission
+ *   The Webform submission that was just deleted from the database.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_submission_delete/7" title="Respond to a Webform submission being deleted." rel="nofollow">hook_webform_submission_delete</a>($node, $submission) {
+  // Delete a record from a 3rd-party module table when a submission is deleted.
+  <a href="http://api.lullabot.com/db_delete/7" title="Returns a new DeleteQuery object for the active database." rel="nofollow">db_delete</a>('mymodule_table')
+    -&gt;condition('nid', $node-&gt;nid)
+    -&gt;condition('sid', $submission-&gt;sid)
+    -&gt;execute();
+}</span>
+
+<span>/**
+ * Provide a list of actions that can be executed on a submission.
+ *
+ * Some actions are displayed in the list of submissions such as edit, view, and
+ * delete. All other actions are displayed only when viewing the submission.
+ * These additional actions may be specified in this hook. Examples included
+ * directly in the Webform module include PDF, print, and resend e-mails. Other
+ * modules may extend this list by using this hook.
+ *
+ * @param $node
+ *   The Webform node on which this submission was made.
+ * @param $submission
+ *   The Webform submission on which the actions may be performed.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_submission_actions/7" title="Provide a list of actions that can be executed on a submission." rel="nofollow">hook_webform_submission_actions</a>($node, $submission) {
+  if (<a href="http://api.lullabot.com/webform_results_access/7" title="Menu access callback. Ensure a user both access and node &amp;#039;view&amp;#039; permission." rel="nofollow">webform_results_access</a>($node)) {
+    $actions['myaction'] = array(
+      'title' =&gt; <a href="http://api.lullabot.com/t/7" title="Translates a string to the current language or to a given language." rel="nofollow">t</a>('Do my action'),
+      'href' =&gt; 'node/' . $node-&gt;nid . '/submission/' . $submission-&gt;sid . '/myaction',
+      'query' =&gt; <a href="http://api.lullabot.com/drupal_get_destination/7" title="Prepare a &amp;#039;destination&amp;#039; URL query parameter for use in combination with drupal_goto()." rel="nofollow">drupal_get_destination</a>(),
+    );
+  }
+
+  return $actions;
+}</span>
+
+<span>/**
+ * Alter the display of a Webform submission.
+ *
+ * This function applies to both e-mails sent by Webform and normal display of
+ * submissions when viewing through the adminsitrative interface.
+ *
+ * @param $renderable
+ *   The Webform submission in a renderable array, similar to FormAPI's
+ *   structure. This variable must be passed in by-reference. Important
+ *   properties of this array include #node, #submission, #email, and #format,
+ *   which can be used to find the context of the submission that is being
+ *   rendered.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_submission_render_alter/7" title="Alter the display of a Webform submission." rel="nofollow">hook_webform_submission_render_alter</a>(&amp;$renderable) {
+  // Remove page breaks from sent e-mails.
+  if (isset($renderable['#email'])) {
+    foreach (<a href="http://api.lullabot.com/element_children/7" title="Return the children of an element, optionally sorted by weight." rel="nofollow">element_children</a>($renderable) as $key) {
+      if ($renderable[$key]['#component']['type'] == 'pagebreak') {
+        unset($renderable[$key]);
+      }
+    }
+  }
+}</span>
+
+<span>/**
+ * Modify a loaded Webform component.
+ *
+ * IMPORTANT: This hook does not actually exist because components are loaded
+ * in bulk as part of webform_node_load(). Use hook_node_load() to modify loaded
+ * components when the node is loaded. This example is provided merely to point
+ * to hook_node_load().
+ *
+ * @see hook_nodeapi()
+ * @see webform_node_load()
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_component_load/7" title="Modify a loaded Webform component." rel="nofollow">hook_webform_component_load</a>() {
+  // This hook does not exist. Instead use hook_node_load().
+}
+</span>
+<span>/**
+ * Modify a Webform component before it is saved to the database.
+ *
+ * Note that most of the time this hook is not necessary, because Webform will
+ * automatically add data to the component based on the component form. Using
+ * hook_form_alter() will be sufficient in most cases.
+ *
+ * @see hook_form_alter()
+ * @see webform_component_edit_form()
+ *
+ * @param $component
+ *   The Webform component being saved.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_component_presave/7" title="Modify a Webform component before it is saved to the database." rel="nofollow">hook_webform_component_presave</a>(&amp;$component) {
+  $component['extra']['new_option'] = 'foo';
+}
+</span>
+<span>/**
+ * Respond to a Webform component being inserted into the database.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_component_insert/7" title="Respond to a Webform component being inserted into the database." rel="nofollow">hook_webform_component_insert</a>($component) {
+  // Insert a record into a 3rd-party module table when a component is inserted.
+  <a href="http://api.lullabot.com/db_insert/7" title="Returns a new InsertQuery object for the active database." rel="nofollow">db_insert</a>('mymodule_table')
+    -&gt;fields(array(
+      'nid' =&gt; $component['nid'],
+      'cid' =&gt; $component['cid'],
+      'foo' =&gt; 'foo_data',
+    ))
+    -&gt;execute();
+}</span>
+
+<span>/**
+ * Respond to a Webform component being updated in the database.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_component_update/7" title="Respond to a Webform component being updated in the database." rel="nofollow">hook_webform_component_update</a>($component) {
+  // Update a record in a 3rd-party module table when a component is updated.
+  <a href="http://api.lullabot.com/db_update/7" title="Returns a new UpdateQuery object for the active database." rel="nofollow">db_update</a>('mymodule_table')
+    -&gt;fields(array(
+      'foo' =&gt; 'foo_data',
+    ))
+    -&gt;condition('nid', $component['nid'])
+    -&gt;condition('cid', $component['cid'])
+    -&gt;execute();
+}
+</span>
+<span>/**
+ * Respond to a Webform component being deleted.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_component_delete/7" title="Respond to a Webform component being deleted." rel="nofollow">hook_webform_component_delete</a>($component) {
+  // Delete a record in a 3rd-party module table when a component is deleted.
+  <a href="http://api.lullabot.com/db_delete/7" title="Returns a new DeleteQuery object for the active database." rel="nofollow">db_delete</a>('mymodule_table')
+    -&gt;condition('nid', $component['nid'])
+    -&gt;condition('cid', $component['cid'])
+    -&gt;execute();
+}</span>
+
+<span>/**
+ * Define components to Webform.
+ *
+ * @return
+ *   An array of components, keyed by machine name. Required properties are
+ *   "label" and "description". The "features" array defines which capabilities
+ *   the component has, such as being displayed in e-mails or csv downloads.
+ *   A component like "markup" for example would not show in these locations.
+ *   The possible features of a component include:
+ *
+ *     - csv
+ *     - email
+ *     - email_address
+ *     - email_name
+ *     - required
+ *     - conditional
+ *     - spam_analysis
+ *     - group
+ *
+ *   Note that most of these features do not indicate the default state, but 
+ *   determine if the component can have this property at all. Setting
+ *   "required" to TRUE does not mean that a component's fields will always be 
+ *   required, but instead give the option to the administrator to choose the
+ *   requiredness. See the example implementation for details on how these
+ *   features may be set.
+ *
+ *   An optional "file" may be specified to be loaded when the component is
+ *   needed. A set of callbacks will be established based on the name of the
+ *   component. All components follow the pattern:
+ *
+ *   _webform_[callback]_[component]
+ *
+ *   Where [component] is the name of the key of the component and [callback] is
+ *   any of the following:
+ *
+ *     - defaults
+ *     - edit
+ *     - render
+ *     - display
+ *     - submit
+ *     - delete
+ *     - help
+ *     - theme
+ *     - analysis
+ *     - table
+ *     - csv_headers
+ *     - csv_data
+ *
+ * See the sample component implementation for details on each one of these
+ * callbacks.
+ *
+ * @see webform_components()
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_component_info/7" title="Define components to Webform." rel="nofollow">hook_webform_component_info</a>() {
+  $components = array();
+
+  $components['textfield'] = array(
+    'label' =&gt; <a href="http://api.lullabot.com/t/7" title="Translates a string to the current language or to a given language." rel="nofollow">t</a>('Textfield'),
+    'description' =&gt; <a href="http://api.lullabot.com/t/7" title="Translates a string to the current language or to a given language." rel="nofollow">t</a>('Basic textfield type.'),
+    'features' =&gt; array(
+      // Add content to CSV downloads. Defaults to TRUE.
+      'csv' =&gt; TRUE,
+
+      // Show this component in e-mailed submissions. Defaults to TRUE.
+      'email' =&gt; TRUE,
+
+      // Allow this component to be used as an e-mail FROM or TO address.
+      // Defaults to FALSE.
+      'email_address' =&gt; FALSE,
+
+      // Allow this component to be used as an e-mail SUBJECT or FROM name.
+      // Defaults to FALSE.
+      'email_name' =&gt; TRUE,
+
+      // This component may be toggled as required or not. Defaults to TRUE.
+      'required' =&gt; TRUE,
+
+      // This component has a title that can be toggled as displayed or not.
+      'title_display' =&gt; TRUE,
+
+      // This component has a title that can be displayed inline.
+      'title_inline' =&gt; TRUE,
+
+      // If this component can be used as a conditional SOURCE. All components
+      // may always be displayed conditionally, regardless of this setting.
+      // Defaults to TRUE.
+      'conditional' =&gt; TRUE,
+
+      // If this component allows other components to be grouped within it 
+      // (like a fieldset or tabs). Defaults to FALSE.
+      'group' =&gt; FALSE,
+
+      // If this component can be used for SPAM analysis, usually with Mollom.
+      'spam_analysis' =&gt; FALSE,
+
+      // If this component saves a file that can be used as an e-mail
+      // attachment. Defaults to FALSE.
+      'attachment' =&gt; FALSE,
+    ),
+    'file' =&gt; 'components/textfield.inc',
+  );
+
+  return $components;
+}
+</span>
+<span>/**
+ * Alter the list of available Webform components.
+ *
+ * @param $components
+ *   A list of existing components as defined by hook_webform_component_info().
+ *
+ * @see hook_webform_component_info()
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/hook_webform_component_info_alter/7" title="Alter the list of available Webform components." rel="nofollow">hook_webform_component_info_alter</a>(&amp;$components) {
+  // Completely remove a component.
+  unset($components['grid']);
+
+  // Change the name of a component.
+  $components['textarea']['label'] = <a href="http://api.lullabot.com/t/7" title="Translates a string to the current language or to a given language." rel="nofollow">t</a>('Text box');
+}</span>
+
+<span>/**
+ * @}
+ */</span>
+
+<span>/**
+ * @defgroup webform_component Sample Webform Component
+ * @{
+ * In each of these examples, the word "component" should be replaced with the,
+ * name of the component type (such as textfield or select). These are not
+ * actual hooks, but instead samples of how Webform integrates with its own
+ * built-in components.
+ */</span>
+
+<span>/**
+ * Specify the default properties of a component.
+ *
+ * @return
+ *   An array defining the default structure of a component.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/_webform_defaults_component/7" title="Specify the default properties of a component." rel="nofollow">_webform_defaults_component</a>() {
+  return array(
+    'name' =&gt; '',
+    'form_key' =&gt; NULL,
+    'mandatory' =&gt; 0,
+    'pid' =&gt; 0,
+    'weight' =&gt; 0,
+    'extra' =&gt; array(
+      'options' =&gt; '',
+      'questions' =&gt; '',
+      'optrand' =&gt; 0,
+      'qrand' =&gt; 0,
+      'description' =&gt; '',
+    ),
+  );
+}
+</span>
+<span>/**
+ * Generate the form for editing a component.
+ *
+ * Create a set of form elements to be displayed on the form for editing this
+ * component. Use care naming the form items, as this correlates directly to the
+ * database schema. The component "Name" and "Description" fields are added to
+ * every component type and are not necessary to specify here (although they
+ * may be overridden if desired).
+ *
+ * @param $component
+ *   A Webform component array.
+ * @return
+ *   An array of form items to be displayed on the edit component page
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/_webform_edit_component/7" title="Generate the form for editing a component." rel="nofollow">_webform_edit_component</a>($component) {
+  $form = array();
+
+  // Disabling the description if not wanted.
+  $form['description'] = array();
+
+  // Most options are stored in the "extra" array, which stores any settings
+  // unique to a particular component type.
+  $form['extra']['options'] = array(
+    '#type' =&gt; 'textarea',
+    '#title' =&gt; <a href="http://api.lullabot.com/t/7" title="Translates a string to the current language or to a given language." rel="nofollow">t</a>('Options'),
+    '#default_value' =&gt; $component['extra']['options'],
+    '#description' =&gt; <a href="http://api.lullabot.com/t/7" title="Translates a string to the current language or to a given language." rel="nofollow">t</a>('Key-value pairs may be entered separated by pipes. i.e. safe_key|Some readable option') . <a href="http://api.lullabot.com/theme/7" title="Generates themed output." rel="nofollow">theme</a>('webform_token_help'),
+    '#cols' =&gt; 60,
+    '#rows' =&gt; 5,
+    '#weight' =&gt; -3,
+    '#required' =&gt; TRUE,
+  );
+  return $form;
+}
+</span>
+<span>/**
+ * Render a Webform component to be part of a form.
+ *
+ * @param $component
+ *   A Webform component array.
+ * @param $value
+ *   If editing an existing submission or resuming a draft, this will contain
+ *   an array of values to be shown instead of the default in the component
+ *   configuration. This value will always be an array, keyed numerically for
+ *   each value saved in this field.
+ * @param $filter
+ *   Whether or not to filter the contents of descriptions and values when
+ *   rendering the component. Values need to be unfiltered to be editable by
+ *   Form Builder.
+ *
+ * @see _webform_client_form_add_component()
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/_webform_render_component/7" title="Render a Webform component to be part of a form." rel="nofollow">_webform_render_component</a>($component, $value = NULL, $filter = TRUE) {
+  $form_item = array(
+    '#type' =&gt; 'textfield',
+    '#title' =&gt; $filter ? <a href="http://api.lullabot.com/_webform_filter_xss/7" title="Filter labels for display by running through XSS checks." rel="nofollow">_webform_filter_xss</a>($component['name']) : $component['name'],
+    '#required' =&gt; $component['mandatory'],
+    '#weight' =&gt; $component['weight'],
+    '#description'   =&gt; $filter ? <a href="http://api.lullabot.com/_webform_filter_descriptions/7" title="Filters all special tokens provided by webform, and allows basic layout in descriptions." rel="nofollow">_webform_filter_descriptions</a>($component['extra']['description']) : $component['extra']['description'],
+    '#default_value' =&gt; $filter ? <a href="http://api.lullabot.com/_webform_filter_values/7" title="Filters all special tokens provided by webform, such as %post and %profile." rel="nofollow">_webform_filter_values</a>($component['value']) : $component['value'],
+    '#prefix' =&gt; '&lt;div class="webform-component-textfield" id="webform-component-' . $component['form_key'] . '"&gt;',
+    '#suffix' =&gt; '&lt;/div&gt;',
+  );
+
+  if (isset($value)) {
+    $form_item['#default_value'] = $value[0];
+  }
+
+  return $form_item;
+}</span>
+
+<span>/**
+ * Display the result of a submission for a component.
+ *
+ * The output of this function will be displayed under the "Results" tab then
+ * "Submissions". This should output the saved data in some reasonable manner.
+ *
+ * @param $component
+ *   A Webform component array.
+ * @param $value
+ *   An array of information containing the submission result, directly
+ *   correlating to the webform_submitted_data database table schema.
+ * @param $format
+ *   Either 'html' or 'text'. Defines the format that the content should be
+ *   returned as. Make sure that returned content is run through check_plain()
+ *   or other filtering functions when returning HTML.
+ * @return
+ *   A renderable element containing at the very least these properties:
+ *    - #title
+ *    - #weight
+ *    - #component
+ *    - #format
+ *    - #value
+ *   Webform also uses #theme_wrappers to output the end result to the user,
+ *   which will properly format the label and content for use within an e-mail
+ *   (such as wrapping the text) or as HTML (ensuring consistent output).
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/_webform_display_component/7" title="Display the result of a submission for a component." rel="nofollow">_webform_display_component</a>($component, $value, $format = 'html') {
+  return array(
+    '#title' =&gt; $component['name'],
+    '#weight' =&gt; $component['weight'],
+    '#theme' =&gt; 'webform_display_textfield',
+    '#theme_wrappers' =&gt; $format == 'html' ? array('webform_element') : array('webform_element_text'),
+    '#post_render' =&gt; array('webform_element_wrapper'),
+    '#field_prefix' =&gt; $component['extra']['field_prefix'],
+    '#field_suffix' =&gt; $component['extra']['field_suffix'],
+    '#component' =&gt; $component,
+    '#format' =&gt; $format,
+    '#value' =&gt; isset($value[0]) ? $value[0] : '',
+  );
+}
+</span>
+<span>/**
+ * A hook for changing the input values before saving to the database.
+ *
+ * Webform expects a component to consist of a single field, or a single array 
+ * of fields. If you have a component that requires a deeper form tree
+ * you must flatten the data into a single array using this callback 
+ * or by setting #parents on each field to avoid data loss and/or unexpected
+ * behavior. 
+ *
+ * Note that Webform will save the result of this function directly into the
+ * database.
+ *
+ * @param $component
+ *   A Webform component array.
+ * @param $value
+ *   The POST data associated with the user input.
+ * @return
+ *   An array of values to be saved into the database. Note that this should be
+ *   a numerically keyed array.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/_webform_submit_component/7" title="A hook for changing the input values before saving to the database." rel="nofollow">_webform_submit_component</a>($component, $value) {
+  // Clean up a phone number into 123-456-7890 format.
+  if ($component['extra']['phone_number']) {
+    $matches = array();
+    $number = </span><a href="http://php.net/preg_replace" style="color:rgb(255,0,0)" title="string preg_replace(mixed regex, mixed replace, mixed subject [, int limit [, count]]) U       Perform Perl-style regular expression replacement." rel="nofollow">preg_replace</a><span style="color:rgb(255,0,0)">('[^0-9]', $value[0]);
+    if (</span><a href="http://php.net/strlen" style="color:rgb(255,0,0)" title="int strlen(string str) U       Get string length" rel="nofollow">strlen</a><span style="color:rgb(255,0,0)">($number) == 7) {
+      $number = </span><a href="http://php.net/substr" style="color:rgb(255,0,0)" title="string substr(string str, int start [, int length]) U       Returns part of a string" rel="nofollow">substr</a><span style="color:rgb(255,0,0)">($number, 0, 3) . '-' . </span><a href="http://php.net/substr" style="color:rgb(255,0,0)" title="string substr(string str, int start [, int length]) U       Returns part of a string" rel="nofollow">substr</a><span style="color:rgb(255,0,0)">($number, 3, 4);
+    }
+    else {
+      $number = </span><a href="http://php.net/substr" style="color:rgb(255,0,0)" title="string substr(string str, int start [, int length]) U       Returns part of a string" rel="nofollow">substr</a><span style="color:rgb(255,0,0)">($number, 0, 3) . '-' . </span><a href="http://php.net/substr" style="color:rgb(255,0,0)" title="string substr(string str, int start [, int length]) U       Returns part of a string" rel="nofollow">substr</a><span style="color:rgb(255,0,0)">($number, 3, 3) . '-' . </span><a href="http://php.net/substr" style="color:rgb(255,0,0)" title="string substr(string str, int start [, int length]) U       Returns part of a string" rel="nofollow">substr</a><span style="color:rgb(255,0,0)">($number, 6, 4);
+    }
+  }
+
+  $value[0] = $number;
+  return $value;
+}</span>
+
+<span>/**
+ * Delete operation for a component or submission.
+ *
+ * @param $component
+ *   A Webform component array.
+ * @param $value
+ *   An array of information containing the submission result, directly
+ *   correlating to the webform_submitted_data database schema.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/_webform_delete_component/7" title="Delete operation for a component or submission." rel="nofollow">_webform_delete_component</a>($component, $value) {
+  // Delete corresponding files when a submission is deleted.
+  $filedata = </span><a href="http://php.net/unserialize" style="color:rgb(255,0,0)" title="mixed unserialize(string variable_representation) U       Takes a string representation of variable and recreates it" rel="nofollow">unserialize</a><span style="color:rgb(255,0,0)">($value['0']);
+  if (isset($filedata['filepath']) &amp;&amp; </span><a href="http://php.net/is_file" style="color:rgb(255,0,0)" title="bool is_file(string filename) U       Returns true if file is a regular file" rel="nofollow">is_file</a><span style="color:rgb(255,0,0)">($filedata['filepath'])) {
+    </span><a href="http://php.net/unlink" style="color:rgb(255,0,0)" title="bool unlink(string filename[, context context]) U       Delete a file" rel="nofollow">unlink</a><span style="color:rgb(255,0,0)">($filedata['filepath']);
+    <a href="http://api.lullabot.com/db_query/7" title="Executes an arbitrary query string against the active database." rel="nofollow">db_query</a>("DELETE FROM {files} WHERE filepath = '%s'", $filedata['filepath']);
+  }
+}</span>
+
+<span>/**
+ * Module specific instance of hook_help().
+ *
+ * This allows each Webform component to add information into hook_help().
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/_webform_help_component/7" title="Module specific instance of hook_help()." rel="nofollow">_webform_help_component</a>($section) {
+  switch ($section) {
+    case 'admin/config/content/webform#grid_description':
+      return <a href="http://api.lullabot.com/t/7" title="Translates a string to the current language or to a given language." rel="nofollow">t</a>('Allows creation of grid questions, denoted by radio buttons.');
+  }
+}</span>
+
+<span>/**
+ * Module specific instance of hook_theme().
+ *
+ * This allows each Webform component to add information into hook_theme().
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/_webform_theme_component/7" title="Module specific instance of hook_theme()." rel="nofollow">_webform_theme_component</a>() {
+  return array(
+    'webform_grid' =&gt; array(
+      'arguments' =&gt; array('grid_element' =&gt; NULL),
+    ),
+    'webform_mail_grid' =&gt; array(
+      'arguments' =&gt; array('component' =&gt; NULL, 'value' =&gt; NULL),
+    ),
+  );
+}</span>
+
+<span>/**
+ * Calculate and returns statistics about results for this component.
+ *
+ * This takes into account all submissions to this webform. The output of this
+ * function will be displayed under the "Results" tab then "Analysis".
+ *
+ * @param $component
+ *   An array of information describing the component, directly correlating to
+ *   the webform_component database schema.
+ * @param $sids
+ *   An optional array of submission IDs (sid). If supplied, the analysis will
+ *   be limited to these sids.
+ * @param $single
+ *   Boolean flag determining if the details about a single component are being
+ *   shown. May be used to provided detailed information about a single
+ *   component's analysis, such as showing "Other" options within a select list.
+ * @return
+ *   An array of data rows, each containing a statistic for this component's
+ *   submissions.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/_webform_analysis_component/7" title="Calculate and returns statistics about results for this component." rel="nofollow">_webform_analysis_component</a>($component, $sids = array(), $single = FALSE) {
+  // Generate the list of options and questions.
+  $options = <a href="http://api.lullabot.com/_webform_select_options_from_text/7" title="Utility function to split user-entered values from new-line seperated text into an array of options." rel="nofollow">_webform_select_options_from_text</a>($component['extra']['options'], TRUE);
+  $questions = <a href="http://api.lullabot.com/_webform_select_options_from_text/7" title="Utility function to split user-entered values from new-line seperated text into an array of options." rel="nofollow">_webform_select_options_from_text</a>($component['extra']['questions'], TRUE);
+
+  // Generate a lookup table of results.
+  $query = <a href="http://api.lullabot.com/db_select/7" title="Returns a new SelectQuery object for the active database." rel="nofollow">db_select</a>('webform_submitted_data', 'wsd')
+    -&gt;fields('wsd', array('no', 'data'))
+    -&gt;condition('nid', $component['nid'])
+    -&gt;condition('cid', $component['cid'])
+    -&gt;condition('data', '', '&lt;&gt;')
+    -&gt;groupBy('no')
+    -&gt;groupBy('data');
+  $query-&gt;addExpression('COUNT(sid)', 'datacount');
+
+  if (</span><a href="http://php.net/count" style="color:rgb(255,0,0)" title="int count(mixed var [, int mode]) U       Count the number of elements in a variable (usually an array)" rel="nofollow">count</a><span style="color:rgb(255,0,0)">($sids)) {
+    $query-&gt;condition('sid', $sids, 'IN');
+  }
+
+  $result = $query-&gt;execute();
+  $counts = array();
+  foreach ($result as $data) {
+    $counts[$data-&gt;no][$data-&gt;data] = $data-&gt;datacount;
+  }
+
+  // Create an entire table to be put into the returned row.
+  $rows = array();
+  $header = array('');
+
+  // Add options as a header row.
+  foreach ($options as $option) {
+    $header[] = $option;
+  }
+
+  // Add questions as each row.
+  foreach ($questions as $qkey =&gt; $question) {
+    $row = array($question);
+    foreach ($options as $okey =&gt; $option) {
+      $row[] = !empty($counts[$qkey][$okey]) ? $counts[$qkey][$okey] : 0;
+    }
+    $rows[] = $row;
+  }
+  $output = <a href="http://api.lullabot.com/theme/7" title="Generates themed output." rel="nofollow">theme</a>('table', array('header' =&gt; $header, 'rows' =&gt; $rows, 'attributes' =&gt; array('class' =&gt; array('webform-grid'))));
+
+  return array(array(array('data' =&gt; $output, 'colspan' =&gt; 2)));
+}</span>
+
+<span>/**
+ * Return the result of a component value for display in a table.
+ *
+ * The output of this function will be displayed under the "Results" tab then
+ * "Table".
+ *
+ * @param $component
+ *   A Webform component array.
+ * @param $value
+ *   An array of information containing the submission result, directly
+ *   correlating to the webform_submitted_data database schema.
+ * @return
+ *   Textual output formatted for human reading.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/_webform_table_component/7" title="Return the result of a component value for display in a table." rel="nofollow">_webform_table_component</a>($component, $value) {
+  $questions = </span><a href="http://php.net/array_values" style="color:rgb(255,0,0)" title="array array_values(array input) U       Return just the values from the input array" rel="nofollow">array_values</a><span style="color:rgb(255,0,0)">(_webform_component_options($component['extra']['questions']));
+  $output = '';
+  // Set the value as a single string.
+  if (</span><a href="http://php.net/is_array" style="color:rgb(255,0,0)" title="bool is_array(mixed var) U       Returns true if variable is an array" rel="nofollow">is_array</a><span style="color:rgb(255,0,0)">($value)) {
+    foreach ($value as $item =&gt; $value) {
+      if ($value !== '') {
+        $output .= $questions[$item] . ': ' . <a href="http://api.lullabot.com/check_plain/7" title="Encode special characters in a plain-text string for display as HTML." rel="nofollow">check_plain</a>($value) . '&lt;br /&gt;';
+      }
+    }
+  }
+  else {
+    $output = <a href="http://api.lullabot.com/check_plain/7" title="Encode special characters in a plain-text string for display as HTML." rel="nofollow">check_plain</a>(!isset($value['0']) ? '' : $value['0']);
+  }
+  return $output;
+}</span>
+
+<span>/**
+ * Return the header for this component to be displayed in a CSV file.
+ *
+ * The output of this function will be displayed under the "Results" tab then
+ * "Download".
+ *
+ * @param $component
+ *   A Webform component array.
+ * @param $export_options
+ *   An array of options that may configure export of this field.
+ * @return
+ *   An array of data to be displayed in the first three rows of a CSV file, not
+ *   including either prefixed or trailing commas.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/_webform_csv_headers_component/7" title="Return the header for this component to be displayed in a CSV file." rel="nofollow">_webform_csv_headers_component</a>($component, $export_options) {
+  $header = array();
+  $header[0] = array('');
+  $header[1] = array($component['name']);
+  $items = _webform_component_options($component['extra']['questions']);
+  $count = 0;
+  foreach ($items as $key =&gt; $item) {
+    // Empty column per sub-field in main header.
+    if ($count != 0) {
+      $header[0][] = '';
+      $header[1][] = '';
+    }
+    // The value for this option.
+    $header[2][] = $item;
+    $count++;
+  }
+
+  return $header;
+}</span>
+
+<span>/**
+ * Format the submitted data of a component for CSV downloading.
+ *
+ * The output of this function will be displayed under the "Results" tab then
+ * "Download".
+ *
+ * @param $component
+ *   A Webform component array.
+ * @param $export_options
+ *   An array of options that may configure export of this field.
+ * @param $value
+ *   An array of information containing the submission result, directly
+ *   correlating to the webform_submitted_data database schema.
+ * @return
+ *   An array of items to be added to the CSV file. Each value within the array
+ *   will be another column within the file. This function is called once for
+ *   every row of data.
+ */</span>
+<span style="color:rgb(255,0,0)">function <a href="http://api.lullabot.com/_webform_csv_data_component/7" title="Format the submitted data of a component for CSV downloading." rel="nofollow">_webform_csv_data_component</a>($component, $export_options, $value) {
+  $questions = </span><a href="http://php.net/array_keys" style="color:rgb(255,0,0)" title="array array_keys(array input [, mixed search_value[, bool strict]]) U       Return just the keys from the input array, optionally only for the specified search_value" rel="nofollow">array_keys</a><span style="color:rgb(255,0,0)">(<a href="http://api.lullabot.com/_webform_select_options/7" title="Generate a list of options for a select list." rel="nofollow">_webform_select_options</a>($component['extra']['questions']));
+  $return = array();
+  foreach ($questions as $key =&gt; $question) {
+    $return[] = isset($value[$key]) ? $value[$key] : '';
+  }
+  return $return;
+}</span>
+
+<span>/**
+ * @}<br>?&gt;</span></code></pre></div></td></tr></tbody></table>
+</div> 
+</div> 
+<div id="sites-canvas-bottom-panel">
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_page-subpages"> </div>
+<div id="sites-attachments-container">
+</div>
+<a xmlns="http://www.w3.org/1999/xhtml" name="page-comments"></a>
+<div xmlns="http://www.w3.org/1999/xhtml" id="COMP_page-comments"><div class="sites-comment-docos-wrapper"><div class="sites-comment-docos"><div class="sites-comment-docos-background"></div><div class="sites-comment-docos-header"><div class="sites-comment-docos-header-title">Comments</div></div><div id="sites-comment-docos-pane" class="sites-comment-docos-pane" dir="ltr" style="text-align: left;"><div class="dcs-a dcs-a-dcs-b-dcs-de dcs-a-dcs-qc" tabindex="0"><div class="dcs-a-dcs-b-dcs-c"><div class="dcs-a-dcs-b-dcs-lg dcs-h-dcs-xg-dcs-qc"><img class="dcs-a-dcs-yc dcs-a-dcs-b-dcs-yc g-hovercard" width="48" height="48" alt="Anonymous" id="dcs-img-0" src="./webform hooks example - Ravi Mane_files/silhouette96.png" data-userid="ANONYMOUS_105250506097979753968"><div class="dcs-a-dcs-b-dcs-lg-dcs-c"><div class="dcs-a-dcs-b-dcs-yd dcs-cc-dcs-ak-dcs-bk g-hovercard" data-userid="ANONYMOUS_105250506097979753968">Anonymous</div><div class="dcs-a-dcs-db dcs-a-dcs-b-dcs-db-dcs-eb" style="text-align: left;" dir="ltr"><textarea class="dcs-a-dcs-db-dcs-te" autocomplete="input-area" x-webkit-speech="" speech="" role="combobox" aria-autocomplete="list" aria-label="Comment draft"></textarea><div class="dcs-a-dcs-db-dcs-gj-dcs-lh"></div><div class="dcs-a-dcs-db-dcs-gj-dcs-ud"></div><div id="docos-input-assignment-panel" class="dcs-a-dcs-db-dcs-ld-dcs-md" style="display: none"><span class="dcs-f-dcs-fb dcs-cc-dcs-ak-dcs-bk dcs-f-dcs-fb-dcs-rd dcs-a-dcs-db-dcs-ld-dcs-gh" role="checkbox" aria-checked="false" dir="ltr" style="user-select: none;" tabindex="0" aria-labelledby=":9.lbl"><div class="dcs-f-dcs-fb-dcs-v" role="presentation"></div></span><div class="dcs-a-dcs-db-dcs-nb-dcs-l" id=":9.lbl">undefined</div><div class="dcs-a-dcs-db-dcs-nb-dcs-ob dcs-cc-dcs-ak-dcs-bk dcs-cc-dcs-dc-dcs-bb" role="listbox" aria-expanded="false" style="user-select: none;" tabindex="0" aria-haspopup="false" aria-activedescendant=":8"><div class="dcs-cc-dcs-ak-dcs-bk dcs-cc-dcs-dc-dcs-bb-dcs-lh-dcs-gh"><div class="dcs-cc-dcs-ak-dcs-bk dcs-cc-dcs-dc-dcs-bb-dcs-ud-dcs-gh"><div class="dcs-cc-dcs-ak-dcs-bk dcs-cc-dcs-dc-dcs-bb-dcs-ff" id=":8" role="option"></div><div class="dcs-cc-dcs-ak-dcs-bk dcs-cc-dcs-dc-dcs-bb-dcs-ec">&nbsp;</div></div></div></div></div><div class="dcs-a-dcs-db-dcs-hi-dcs-ii-dcs-if" style="display: none" id=":3">Your +mention will add people to this discussion and send an email.</div><div class="dcs-a-dcs-db-dcs-mk-dcs-nk-dcs-if" style="display: none" aria-live="polite" id=":4">Making sure people you mentioned have access…</div><div class="dcs-a-dcs-db-dcs-ld-dcs-if" style="display: none" id=":5">The assigned person will be notified and responsible for marking as done.</div><div class="dcs-a-dcs-db-dcs-ok-dcs-pk-dcs-l" style="display: none"></div><div class="dcs-a-dcs-db-dcs-vh"><div role="button" class="dcs-cc-dcs-ak-dcs-bk dcs-f-dcs-bb dcs-f-dcs-bb-dcs-ue dcs-a-dcs-db-dcs-zc dcs-a-dcs-db-dcs-vh-dcs-zc" tabindex="0" style="user-select: none;"></div><div role="button" class="dcs-cc-dcs-ak-dcs-bk dcs-f-dcs-bb dcs-f-dcs-bb-dcs-tc dcs-a-dcs-db-dcs-zd" tabindex="0" title="Discard comment" aria-label="Discard comment" style="user-select: none;">Cancel</div></div></div></div></div><div class="dcs-a-dcs-b-dcs-vi dcs-ai-dcs-xg-dcs-qc dcs-cc-dcs-ak-dcs-bk">You do not have permission to add comments.</div><div class="dcs-a-dcs-qc dcs-a dcs-a-dcs-mg-dcs-ng"></div></div><div></div></div></div></div></div></div>
+</div>
+</div> 
+</td> 
+</tr>
+</tbody></table> 
+</div> 
+</div> 
+<div id="sites-chrome-footer-wrapper">
+<div id="sites-chrome-footer-wrapper-inside">
+<div id="sites-chrome-footer">
+</div>
+</div>
+</div>
+</div> 
+</div> 
+<div id="sites-chrome-adminfooter-container">
+<div xmlns="http://www.w3.org/1999/xhtml" class="sites-adminfooter" role="navigation"><p><a class="sites-system-link" href="https://accounts.google.com/ServiceLogin?continue=https://sites.google.com/site/ravivmane/webform-in-drupal/webform-hooks-example&amp;service=jotspot">Sign in</a><span aria-hidden="true">|</span><a class="sites-system-link" href="https://sites.google.com/site/ravivmane/system/app/pages/recentChanges">Recent Site Activity</a><span aria-hidden="true">|</span><a class="sites-system-link" href="https://sites.google.com/site/ravivmane/system/app/pages/reportAbuse" target="_blank">Report Abuse</a><span aria-hidden="true">|</span><a class="sites-system-link" href="javascript:;" onclick="window.open(webspace.printUrl)">Print Page</a><span aria-hidden="true">|</span><span class="sites-system-link">Powered By</span> <b class="powered-by"><a href="http://sites.google.com/">Google Sites</a></b></p></div>
+</div>
+</div> 
+</div> 
+<div id="sites-chrome-onebar-footer">
+</div>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    window.jstiming.load.tick('sjl');
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" src="./webform hooks example - Ravi Mane_files/jot_min_view__en.js"></script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    window.jstiming.load.tick('jl');
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+                    sites.Searchbox.initialize(
+                        'sites-searchbox-search-button',
+                        {"object":[]}['object'],
+                        'search-site',
+                        {"label":"Configure search options...","url":"/site/ravivmane/system/app/pages/admin/settings"});
+                  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+      gsites.HoverPopupMenu.createSiteDropdownMenus('sites-header-nav-dropdown', false);
+    </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+            JOT_setupNav("2bd", "Navigation", true);
+            JOT_addListener('titleChange', 'JOT_NAVIGATION_titleChange', 'COMP_2bd');
+          </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+              new sites.CommentPane('//docs.google.com/comments/d/AAHRpnXsPxZjbAZh3TEOF-thhM7zMnltWFPpmiHSaGALUQ6TS9OfKJQuPhYGm_6psjX8JwPe_PCUxU8DWO2ABvPIL79CsoRUdluvq0XCAx5b3ABsr5fJKBx9fSqqEy-yfB-DCuWUbfv60/api/js?anon=true',
+                  false, false);
+            </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+  setTimeout(function() {
+    var fingerprint = gsites.date.TimeZone.getFingerprint([1109635200000, 1128902400000, 1130657000000, 1143333000000, 1143806400000, 1145000000000, 1146380000000, 1152489600000, 1159800000000, 1159500000000, 1162095000000, 1162075000000, 1162105500000]);
+    gsites.Xhr.send('https://sites.google.com/site/ravivmane/_/tz', null, null, 'GET', null, null, { afjstz: fingerprint });
+  }, 500);
+</script>
+<script xmlns="http://www.w3.org/1999/xhtml">
+                    window.onload = function() {
+                      if (false) {
+                        JOT_setMobilePreview();
+                      }
+                      var loadTimer = window.jstiming.load;
+                      loadTimer.tick("ol");
+                      loadTimer["name"] = "load," + webspace.page.type + ",user_page";
+                      window.jstiming.report(loadTimer, {}, 'https://gg.google.com/csi');
+                    }
+                  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+        JOT_insertAnalyticsCode(false,
+            false);
+      </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    var maestroRunner = new gsites.pages.view.SitesMaestroRunner(
+        webspace, "en");
+    maestroRunner.initListeners();
+    maestroRunner.installEditRender();
+  </script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript" defer="true">
+  //<![CDATA[
+    // Decorate any fastUI buttons on the page with a class of 'goog-button'.
+    if (webspace.user.hasWriteAccess) {
+      JOT_decorateButtons();
+    }
+
+    // Fires delayed events.
+    (function() {
+      JOT_fullyLoaded = true;
+      var delayedEvents = JOT_delayedEvents;
+      for (var x = 0; x < delayedEvents.length; x++) {
+        var event = delayedEvents[x];
+        JOT_postEvent(event.eventName, event.eventSrc, event.payload);
+      }
+      JOT_delayedEvents = null;
+      JOT_postEvent('pageLoaded');
+    })();
+  //]]>
+</script>
+<script xmlns="http://www.w3.org/1999/xhtml" type="text/javascript">
+    JOT_postEvent('decorateGvizCharts');
+  </script>
+<script type="text/javascript">
+          JOT_setupPostRenderingManager();
+        </script>
+<script type="text/javascript">
+          JOT_postEvent('renderPlus', null, 'sites-chrome-main');
+        </script>
+<script type="text/javascript">
+              sites.codeembed.init();
+            </script>
+<div id="server-timer-div" style="display:none"> </div>
+<script type="text/javascript">
+          window.jstiming.load.tick('render');
+          JOT_postEvent('usercontentrendered', this);
+        </script>
+
+
+<div style="display: none;"><iframe name="xpcpeerCH4k" id="xpcpeerCH4k" src="./webform hooks example - Ravi Mane_files/xpc.html" style="height: 100%; width: 100%;"></iframe></div><iframe id="apiproxy7d785cc6266085279aa296a9ba149c2e164bcd6a0.3750742" name="apiproxy7d785cc6266085279aa296a9ba149c2e164bcd6a0.3750742" src="./webform hooks example - Ravi Mane_files/proxy.html" tabindex="-1" aria-hidden="true" style="width: 1px; height: 1px; position: absolute; top: -100px; display: none;"></iframe></body></html>
