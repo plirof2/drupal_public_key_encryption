@@ -115,7 +115,11 @@ function webform_pki_encrypt_webform_submission_load($submissions) {
         foreach ($submission->data[$cid] as $delta => $value) {
           ///if (!empty($entry[$delta]) && @unserialize($entry[$delta] ) !== FALSE) {  //ORIGINAL Line - don't know if its ok
           if (!empty($entry[$delta]) ) {
-            $submission->data[$cid][$delta] = (user_access('view encrypted values') || $has_result_access  )? decrypt($entry[$delta], get_my_private_Key()) : t('[Value Encrypted]');
+            //$submission->data[$cid][$delta] = (user_access('view encrypted values') || $has_result_access  )? decrypt($entry[$delta], get_my_private_Key()) : t('[Value Encrypted]');
+            $my_private_key=0;
+            $my_private_key=  (null !==(_mySite_session("current_private_key"))  )? _mySite_session("current_private_key") : t('[NO PRIVATE KEY FOUND]');
+            $submission->data[$cid][$delta] = (user_access('view encrypted values') || $has_result_access  )? /*"DECRYPTED-".*/decrypt($entry[$delta], $my_private_key) : t('[Value Encrypted]');
+            
           }
         }
       }
