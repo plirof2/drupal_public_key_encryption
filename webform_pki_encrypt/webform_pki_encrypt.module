@@ -785,9 +785,9 @@ function webform_pki_encrypt_menu() {
     'title' => 'PKI-Client-Key',
     'page callback' => 'webform_pki_encrypt_generate_page',
     'page arguments' => array(1),
-    'access callback' => 'node_access',
-    'access arguments' => array('update', 1),
-    // 'access callback' =>'webform_pki_encrypt_my_access_callback',
+    //'access callback' => 'node_access',
+    //'access arguments' => array('update', 1),
+    'access callback' =>'webform_pki_encrypt_my_access_callback',
     'weight' => 12,
     'type' => MENU_LOCAL_TASK,
   );
