@@ -107,10 +107,10 @@ function webform_pki_encrypt_webform_submission_load($submissions) {
     $node = node_load($submission->nid);
     watchdog("webform_pki_encrypt_webform_submission_load", "nodeid= ".$node->nid." subm nodeid=".$submission->nid. ' SUBMID='.$submission->sid, $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
 
-    if (_mySite_session("temp_decryptor")!="yes" ) 
+    if (_mySite_session("temp_decryptor")!="yes" ) //if nothing is set
       { drupal_set_message("webform_pki_encrypt_webform_submission_load temp_decryptor YES temp_decryptorSESSION=". _mySite_session("temp_decryptor")." has_result_access=$has_result_access");
-        $has_result_access=false;
-        //$has_result_access=_webform_pki_encrypt_my_access_call_back($node);
+        //$has_result_access=false;
+        $has_result_access=_webform_pki_encrypt_my_access_call_back($node);
       } 
     else 
       { drupal_set_message("webform_pki_encrypt_webform_submission_load temp_decryptor NO temp_decryptorSESSION=". _mySite_session("temp_decryptor")." has_result_access=$has_result_access");
