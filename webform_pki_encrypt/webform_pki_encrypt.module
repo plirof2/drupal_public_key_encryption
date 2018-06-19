@@ -698,7 +698,7 @@ function _test_my_decrypt($data, $privateKey)
 {
     // Decrypt the data using the private key
    //openssl_private_my_decrypt($data, $decryptedData, get_my_private_Key()); //ORIG
-   openssl_private_my_decrypt($data, $decryptedData, $privateKey); //ORIG
+   openssl_private_decrypt($data, $decryptedData, $privateKey); //ORIG
    //echo  "<HR>privateKey = $privateKey";
 
     // Return decrypted data
