@@ -222,10 +222,11 @@ function webform_pki_encrypt_decrypt_component_data($nid = NULL, $cid = NULL, $e
 
 
 //--------------------------------------
-// Encrypt data using the public key
+/**
+ * Encrypt data using the public key
+ */
 function my_encrypt($data="aaa", $publicKey)
 {
-    //drupal_set_message("my_encrypt". "data=$data ,|||||||| ,||||||| publicKey=$publicKey ");
     // Encrypt the data using the public key
     openssl_public_encrypt($data, $encryptedData, $publicKey);
     //drupal_set_message("[[[EEEE my_encrypt  data=$data ,|||||||| encryptedData=".base64_encode($encryptedData)." ,]]]]]]] md5 of public  ".md5($publicKey)." ooooooo PUBLIC KEY = $publicKey");
@@ -234,7 +235,9 @@ function my_encrypt($data="aaa", $publicKey)
     return base64_encode($encryptedData);
 }
 
-// Decrypt data using the private key
+/**
+ * Decrypt data using the private key
+ */
 function my_decrypt($data, $privateKey)
 {
     // Decrypt the data using the private key
@@ -322,7 +325,9 @@ function get_my_public_Key()
     return $public_my_key;
 }
 
-
+/**
+ * returns current node id
+ */
 function _get_current_node_id(){
   /*
   if (isset($node->nid) && count($node->nid) > 0){
@@ -601,11 +606,11 @@ function _mySite_session($key, $value = NULL)
     if ($value)
     {
         $storage[$key] = $value ;
-        $_SESSION['mykey'][$key] = $value ; // I use 'mykey' as a session key because in case some other module uses 'type' in $_SESSION. So try to make it unique.
+        $_SESSION['pkistorage'][$key] = $value ; // I use 'pkistorage' as a session key because in case some other module uses 'type' in $_SESSION. So try to make it unique.
     }
-    elseif (empty($storage[$key]) && isset($_SESSION['mykey'][$key]))
+    elseif (empty($storage[$key]) && isset($_SESSION['pkistorage'][$key]))
     {
-        $storage[$key] = $_SESSION['mykey'][$key];
+        $storage[$key] = $_SESSION['pkistorage'][$key];
     }
     return $storage[$key];
 }
