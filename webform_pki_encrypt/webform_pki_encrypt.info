@@ -1,5 +1,5 @@
 name = Webform PKI Encrypt (asymmetric encryption)
-description = MOD Provides PUBLIC KEY encryption for webform components (trying_extra_decryptors branch)
+description = MOD Provides PUBLIC KEY encryption for webform components (trying_extra_decryptors branch).NOTE: Only ONE decrypt key per SESSION...
 core = 7.x
 package = Webform
 
