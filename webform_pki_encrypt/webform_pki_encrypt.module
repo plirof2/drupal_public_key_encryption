@@ -310,7 +310,7 @@ function get_my_public_Key()
 	NvyNRc0INDQ5BhQ9u5YAQBQdXri3/oTepoVQXY+MvVdnKR1fSIlgIOVmXhdnf58L
 	sjCP579ZnZr3zZsqHwIDAQAB
 	-----END PUBLIC KEY-----'); //sample default value
-	$public_my_key="NOT FOUND PUBLIC KEY";
+	//$public_my_key="NOT FOUND PUBLIC KEY";
     if(!is_null($current_nid= _get_current_node_id() ) ) {
     	$settings = _webform_pki_encrypt_webform_pki_encrypt_settings($current_nid);
     } 
