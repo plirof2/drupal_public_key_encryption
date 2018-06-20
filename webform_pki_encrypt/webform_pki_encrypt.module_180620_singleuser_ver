@@ -88,12 +88,8 @@ function webform_pki_encrypt_webform_submission_presave($node, &$submission) {
   foreach ($submission->data as $cid => $entry) {
     if (!empty($node->webform['components'][$cid]['extra']['pki_encrypt'])) {
       foreach ($submission->data[$cid] as $delta => $value) {
-        //watchdog("webform_pki_encrypt_webform_submission_presave ZZZZ", "91 entry[delta] =".$entry[$delta]."get_my_public_Key()  ".get_my_public_Key()." !!!!!!!!!!!!!!OOOOOO  entry[delta] =".$entry[$delta]."|||||||||||||||||||  get_my_private_Key()  ".get_my_private_Key(), $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
-
         //$submission->data[$cid][$delta] = my_encrypt($entry[$delta], array('base64' => TRUE));
         $submission->data[$cid][$delta] = my_encrypt($entry[$delta], get_my_public_Key());
-        //watchdog("webform_pki_encrypt_webform_submission_presave ZZZZ", "95 submission->data[cid][delta] =".$submission->data[$cid][$delta]."get_my_public_Key()  ".get_my_public_Key()." !!!!!!!!!!!!!!OOOOOO  entry[delta] =".$entry[$delta]."|||||||||||||||||||  get_my_private_Key()  ".get_my_private_Key(), $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
-
       }
     }
   }
@@ -101,30 +97,35 @@ function webform_pki_encrypt_webform_submission_presave($node, &$submission) {
 
 /**
  * Implementation of hook_webform_submission_load().
- * This is called EACH time a submission is loaded (it is called even during anonymous submissions).
  * Decrypt values if encrypted
  */
 function webform_pki_encrypt_webform_submission_load($submissions) {
   $has_result_access=false;
   if(_mySite_session("temp_decryptor")=="yes") $has_result_access=true;
   foreach ($submissions as $submission) {
+    //drupal_set_message("webform_pki_encrypt_webform_submission_load ");
     $node = node_load($submission->nid);
-    //drupal_set_message("webform_pki_encrypt_webform_submission_load node+id=".$node->nid);
-    _mySite_session("current_submission_update_node_id",$node->nid); //save current node_id to use in update submissions etc
     //watchdog("webform_pki_encrypt_webform_submission_load", "nodeid= ".$node->nid." subm nodeid=".$submission->nid. ' SUBMID='.$submission->sid, $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
 
-    $has_result_access=_webform_pki_encrypt_my_access_call_back($node);
+    if (_mySite_session("temp_decryptor")!="yes" ) 
+      { //drupal_set_message("webform_pki_encrypt_webform_submission_load temp_decryptor YES temp_decryptorSESSION=". _mySite_session("temp_decryptor")." has_result_access=$has_result_access");
+        $has_result_access=false;
+        //$has_result_access=_webform_pki_encrypt_my_access_call_back($node);
+      } 
+    else 
+      { //drupal_set_message("webform_pki_encrypt_webform_submission_load temp_decryptor NO temp_decryptorSESSION=". _mySite_session("temp_decryptor")." has_result_access=$has_result_access");
+        
+        $has_result_access=_webform_pki_encrypt_my_access_call_back($node);
+      };
 
     foreach ($submission->data as $cid => $entry) {
       if (!empty($node->webform['components'][$cid]['extra']['pki_encrypt'])) {
         foreach ($submission->data[$cid] as $delta => $value) {
           ///if (!empty($entry[$delta]) && @unserialize($entry[$delta] ) !== FALSE) {  //ORIGINAL Line - don't know if its ok
-          if (!empty($entry[$delta]) ) {
-            //$submission->data[$cid][$delta] = (user_access('view encrypted values') || $has_result_access  )? my_decrypt($entry[$delta], get_my_private_Key()) : t('[Value Encrypted]');
+          if (!empty($entry[$delta]) /* && @unserialize($entry[$delta] ) !== FALSE */) {
             $my_private_key=0;
             $my_private_key=  (null !==(_mySite_session("current_private_key"))  )? _mySite_session("current_private_key") : t('[NO PRIVATE KEY FOUND]');
-            $submission->data[$cid][$delta] = (user_access('view encrypted values') || $has_result_access  )? /*"DECRYPTED-".*/my_decrypt($entry[$delta], $my_private_key) : t('[Value Encrypted]');
-
+            $submission->data[$cid][$delta] = (user_access('view encrypted values') || $has_result_access  )? /*"DECRYPTED-".*/decrypt($entry[$delta], $my_private_key) : t('[Value Encrypted]');
           }
         }
       }
@@ -132,38 +133,31 @@ function webform_pki_encrypt_webform_submission_load($submissions) {
   }
 }
 
-
 /**
- * Preprocess for theme('webform_results_table'). **NOT USED**
- * Decrypt webform values in the table display. 
- * NOTE THIS is called ONLY if you bypass VIEWS $conf['webform_table'] = TRUE; 
+ * Preprocess for theme('webform_results_table').
+ *
+ * Decrypt webform values in the table display.
  */
 function webform_pki_encrypt_preprocess_webform_results_table(&$vars) {
   foreach ($vars['submissions'] as $sid => &$submission) {
-
     foreach ($submission->data as $cid => &$item) {
-      //drupal_set_message("webform_pki_encrypt_preprocess_webform_results_table conf[webform_table] = TRUE;");
-      //watchdog("webform_pki_encrypt_preprocess_webform_results_table ", "BYPASSED webform VIEWS using STATIC old Tables nodeid= ".$node->nid." conf[webform_table] = TRUE; subm nodeid=".$submission->nid. ' SUBMID='.$submission->sid, $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);      
+      drupal_set_message("webform_pki_encrypt_preprocess_webform_results_table");
       //$has_result_access=false;
-      //$has_result_access=_webform_pki_encrypt_my_access_call_back($submission->nid); 
-      $node = node_load($submission->nid); 
-      $has_result_access=_webform_pki_encrypt_my_access_call_back($node);
+      //$has_result_access=_webform_pki_encrypt_my_access_call_back($submission->nid);  
       $component = $vars['components'][$cid];
       if (!empty($component['extra']['pki_encrypt'])) {
         foreach ($item['value'] as &$value) {
-          //$value = user_access('view encrypted values') ? my_decrypt($value, array('base64' => TRUE)) : t('[Value Encrypted]');
-          $value = (user_access('view encrypted values') || $has_result_access  ) ? my_decrypt($value, get_my_private_Key()) : t('[Value Encrypted-bbb]');
+          //$value = user_access('view encrypted values') ? decrypt($value, array('base64' => TRUE)) : t('[Value Encrypted]');
+          $value = (user_access('view encrypted values') || $has_result_access  ) ? decrypt($value, get_my_private_Key()) : t('[Value EncryptedBBBBB]');
         }
       }
     }
   }
 }
 
-
 /**
  * Encrypt all non-encrypted data of a component.
  */
-
 function webform_pki_encrypt_encrypt_component_data($nid = NULL, $cid = NULL, $extra = array()) {
   $results = db_query('SELECT nid, cid, extra FROM {webform_component} where nid = :nid AND cid = :cid', array(':nid' => $nid, ':cid' => $cid))->fetchAll();
   
@@ -174,12 +168,9 @@ function webform_pki_encrypt_encrypt_component_data($nid = NULL, $cid = NULL, $e
   foreach ($data as $row) {
     $key = $row->nid . ':' . $row->cid;
     if (isset($components[$key]['pki_encrypt']) && !$components[$key]['pki_encrypt']) {
-      //drupal_set_message("webform_pki_encrypt_encrypt_component_data AAAAAA" .get_my_public_Key());
-      //watchdog("webform_pki_encrypt_encrypt_component_data AAAAAA", "get_my_public_Key()  ".get_my_public_Key(), $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);      
       db_update('webform_submitted_data')
         ->fields(array(
           //'data' => my_encrypt($row->data, array('base64' => TRUE)),
-
           'data' => my_encrypt($row->data, get_my_public_Key()),
         ))
         ->condition('nid', $row->nid)
@@ -193,7 +184,6 @@ function webform_pki_encrypt_encrypt_component_data($nid = NULL, $cid = NULL, $e
 /**
  * Decrypt all encrypted data of a component.
  */
-
 function webform_pki_encrypt_decrypt_component_data($nid = NULL, $cid = NULL, $extra = array()) {
   $results = db_query('SELECT nid, cid, extra FROM {webform_component} where nid = :nid AND cid = :cid', array(':nid' => $nid, ':cid' => $cid))->fetchAll();
   
@@ -205,12 +195,11 @@ function webform_pki_encrypt_decrypt_component_data($nid = NULL, $cid = NULL, $e
     $key = $row->nid . ':' . $row->cid;
     
     if (!empty($components[$key]['pki_encrypt']) && is_array(@unserialize($row->data))) {
-      //echo "<pre>";print_R(my_decrypt($row->data, array('base64' => TRUE)));exit;
-      watchdog("webform_pki_encrypt_decrypt_component_data AAAAAA", "get_my_private_Key()  ".get_my_private_Key(), $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
+      //echo "<pre>";print_R(decrypt($row->data, array('base64' => TRUE)));exit;
       db_update('webform_submitted_data')
         ->fields(array(
-          //'data' => my_decrypt($row->data, array('base64' => TRUE)),
-          'data' => my_decrypt($row->data, get_my_private_Key()),
+          //'data' => decrypt($row->data, array('base64' => TRUE)),
+          'data' => decrypt($row->data, get_my_private_Key()),
         ))
         ->condition('nid', $row->nid)
         ->condition('sid', $row->sid)
@@ -222,113 +211,118 @@ function webform_pki_encrypt_decrypt_component_data($nid = NULL, $cid = NULL, $e
 
 
 //--------------------------------------
-/**
- * Encrypt data using the public key
- */
+// Encrypt data using the public key
 function my_encrypt($data="aaa", $publicKey)
 {
     // Encrypt the data using the public key
     openssl_public_encrypt($data, $encryptedData, $publicKey);
-    //drupal_set_message("[[[EEEE my_encrypt  data=$data ,|||||||| encryptedData=".base64_encode($encryptedData)." ,]]]]]]] md5 of public  ".md5($publicKey)." ooooooo PUBLIC KEY = $publicKey");
-    //watchdog("my_encrypt", "data=$data ,|||||||| encryptedData=$encryptedData ,||||||| publicKey=$publicKey ", $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);  
     // Return encrypted data
     return base64_encode($encryptedData);
 }
 
-/**
- * Decrypt data using the private key
- */
-function my_decrypt($data, $privateKey)
+// Decrypt data using the private key
+function decrypt($data, $privateKey)
 {
     // Decrypt the data using the private key
     openssl_private_decrypt(base64_decode($data), $decryptedData, $privateKey);
-    //drupal_set_message("[[[DDD my_decrypt data=".($data)." ,|||||||| decryptedData=".($decryptedData)." ,]]]]]]]]] md5 of priv  ".md5($privateKey));
-    //watchdog("my_decrypt", "data=$data |||||||| decryptedData=$decryptedData ,||||||| publicKey=$privateKey ", $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);    
-
     // Return decrypted data
     return ($decryptedData);
 }
-
-
-/**
- * When updating a submission store current NodeID to session (so we can get the correct public-key to re-encrypt data)
- */
 /*
-function webform_pki_encrypt_webform_submission_update($node, $submission) {
+function ssl_encrypt($source,$type,$key){
+//Assumes 1024 bit key and encrypts in chunks.
 
+$maxlength=117;
+$output='';
+while($source){
+  $input= substr($source,0,$maxlength);
+  $source=substr($source,$maxlength);
+  if($type=='private'){
+    $ok= openssl_private_encrypt($input,$encrypted,$key);
+  }else{
+    $ok= openssl_public_encrypt($input,$encrypted,$key);
+  }
+        
+  $output.=$encrypted;
+}
+return $output;
+}
 
-	_mySite_session("current_submission_update_node_id",$node->nid); //save PRivate key to SESSION
-	drupal_set_message("webform_pki_encrypt_webform_submission_update SSSSSSSS node-id=".$node->nid." SESSION="._mySite_session("current_submission_update_node_id"));
-  	// The submission object contains $submission->sid, the submission id.
-  	print_r($submission);
+function ssl_decrypt($source,$type,$key){
+// The raw PHP decryption functions appear to work
+// on 128 Byte chunks. So this decrypts long text
+// encrypted with ssl_encrypt().
+
+$maxlength=128;
+$output='';
+while($source){
+  $input= substr($source,0,$maxlength);
+  $source=substr($source,$maxlength);
+  if($type=='private'){
+    $ok= openssl_private_decrypt($input,$out,$key);
+  }else{
+    $ok= openssl_public_decrypt($input,$out,$key);
+  }
+        
+  $output.=$out;
+}
+return $output;
+
 }
 */
 
-/**
- * returns private key
- */
 function get_my_private_Key()
 {
-	$private_my_key= trim('-----BEGIN PRIVATE KEY-----
-	MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJka97mFuKzAd9qY
-	s5nKdoNW/dkyQCFcGFFtZ7ZsXvTUOe678Bh91Ca5zeYin+vpsYRbzci/CYvxbYui
-	VJVjn+URmnY2/I1FzQg0NDkGFD27lgBAFB1euLf+hN6mhVBdj4y9V2cpHV9IiWAg
-	5WZeF2d/nwuyMI/nv1mdmvfNmyofAgMBAAECgYARMk86vkNE3AVaPyaFEpGHJQE0
-	IQnE9XQhyTkJ61grBZ9QKjnIdnGau+ndfGwb8k6nACy37IUk+8QDGAOKF/uAcaR5
-	9pXArxlJo73EC9yadFyAc/DMf/y2vEFFC4ZrXoZhx+CG1qvqjSK4hccg2VZdlq0U
-	ktXprIFXCwgxQkFMSQJBAMihyvPbAWzP8+uSdMcCBlzrkhIuokYhRZDoyYtsNq/Y
-	Dsyg1N+4F0MGHcwikYhc68oZuHXe4A1bRkGDriAfk1MCQQDDW4V9xsRDM4QGKEKS
-	lcUgK+FQP4pNKxa4T/peaXDeYTKIZ1KRFNUULfX57vFWJ9y857zkzQ+m0JksDfUM
-	KeCFAkBlvCT9ooAGfSxit9EfWJeBZrKbJaqDhTuRT3ljiWvxns1iVeubxe2FvwQ9
-	Dwpc60FlKcWvf2R9YVsuvWb+QwShAkBosPZD5i4tWUEqT48FoS+Hwxw29iY2np3J
-	XkrtJ5JuCiabhMtxpnleHBdSvmMk6a3YqlPHRcFagzVir4Qf5Z1FAkEAjqJyHb8V
-	rZu2uj1+r/vGv9BbH80xjReT8udGjewBxBtqCfFoMuE8Xh6EImOXdZSHBXF2Srzq
-	bb12MrEizy/XNQ==
-	-----END PRIVATE KEY-----');
-
-    if(!is_null($current_nid= _get_current_node_id() ) ) {
-    	$settings = _webform_pki_encrypt_webform_pki_encrypt_settings($current_nid);
-    }
-
-    if (!empty($settings) && $settings['private_key']!=0 && $settings['private_key']!='0') {
+$private_my_key= trim('-----BEGIN PRIVATE KEY-----
+MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJka97mFuKzAd9qY
+s5nKdoNW/dkyQCFcGFFtZ7ZsXvTUOe678Bh91Ca5zeYin+vpsYRbzci/CYvxbYui
+VJVjn+URmnY2/I1FzQg0NDkGFD27lgBAFB1euLf+hN6mhVBdj4y9V2cpHV9IiWAg
+5WZeF2d/nwuyMI/nv1mdmvfNmyofAgMBAAECgYARMk86vkNE3AVaPyaFEpGHJQE0
+IQnE9XQhyTkJ61grBZ9QKjnIdnGau+ndfGwb8k6nACy37IUk+8QDGAOKF/uAcaR5
+9pXArxlJo73EC9yadFyAc/DMf/y2vEFFC4ZrXoZhx+CG1qvqjSK4hccg2VZdlq0U
+ktXprIFXCwgxQkFMSQJBAMihyvPbAWzP8+uSdMcCBlzrkhIuokYhRZDoyYtsNq/Y
+Dsyg1N+4F0MGHcwikYhc68oZuHXe4A1bRkGDriAfk1MCQQDDW4V9xsRDM4QGKEKS
+lcUgK+FQP4pNKxa4T/peaXDeYTKIZ1KRFNUULfX57vFWJ9y857zkzQ+m0JksDfUM
+KeCFAkBlvCT9ooAGfSxit9EfWJeBZrKbJaqDhTuRT3ljiWvxns1iVeubxe2FvwQ9
+Dwpc60FlKcWvf2R9YVsuvWb+QwShAkBosPZD5i4tWUEqT48FoS+Hwxw29iY2np3J
+XkrtJ5JuCiabhMtxpnleHBdSvmMk6a3YqlPHRcFagzVir4Qf5Z1FAkEAjqJyHb8V
+rZu2uj1+r/vGv9BbH80xjReT8udGjewBxBtqCfFoMuE8Xh6EImOXdZSHBXF2Srzq
+bb12MrEizy/XNQ==
+-----END PRIVATE KEY-----');
+    $settings = _webform_pki_encrypt_webform_pki_encrypt_settings(get_current_node_id());
+    if (!empty($settings)) {
       //$public_my_key = $settings['public_key'] ;
       $private_my_key = $settings['private_key'];
     }
     $session_private_key=_mySite_session("current_private_key");
     //drupal_set_message("SESS PRIV="._mySite_session("current_private_key"));
-    //drupal_set_message(  "<h1>nid="._get_current_node_id()."private_my_key=$private_my_key </h1>");
+    //drupal_set_message(  "<h1>nid=".get_current_node_id()."private_my_key=$private_my_key </h1>");
     if($session_private_key!=null) $private_my_key=$session_private_key;
 
     return $private_my_key;
 }
 
-/**
- * returns public key
- */
 function get_my_public_Key()
 {
-	$public_my_key=trim('-----BEGIN PUBLIC KEY-----
-	MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCZGve5hbiswHfamLOZynaDVv3Z
-	MkAhXBhRbWe2bF701Dnuu/AYfdQmuc3mIp/r6bGEW83IvwmL8W2LolSVY5/lEZp2
-	NvyNRc0INDQ5BhQ9u5YAQBQdXri3/oTepoVQXY+MvVdnKR1fSIlgIOVmXhdnf58L
-	sjCP579ZnZr3zZsqHwIDAQAB
-	-----END PUBLIC KEY-----'); //sample default value
-	//$public_my_key="NOT FOUND PUBLIC KEY";
-    if(!is_null($current_nid= _get_current_node_id() ) ) {
-    	$settings = _webform_pki_encrypt_webform_pki_encrypt_settings($current_nid);
-    } 
+$public_my_key=trim('-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCZGve5hbiswHfamLOZynaDVv3Z
+MkAhXBhRbWe2bF701Dnuu/AYfdQmuc3mIp/r6bGEW83IvwmL8W2LolSVY5/lEZp2
+NvyNRc0INDQ5BhQ9u5YAQBQdXri3/oTepoVQXY+MvVdnKR1fSIlgIOVmXhdnf58L
+sjCP579ZnZr3zZsqHwIDAQAB
+-----END PUBLIC KEY-----'); //sample default value
+
+    $settings = _webform_pki_encrypt_webform_pki_encrypt_settings(get_current_node_id());
     if (!empty($settings)) {
       $public_my_key = $settings['public_key'] ;
       //$my_private_key = $settings['private_key'];
     }
     //drupal_set_message(  "<h1>public_my_key=$public_my_key</h1>");
+
     return $public_my_key;
 }
 
-/**
- * returns current node id
- */
-function _get_current_node_id(){
+
+function get_current_node_id(){
   /*
   if (isset($node->nid) && count($node->nid) > 0){
     $mynodeid = $node->nid;
@@ -345,11 +339,9 @@ function _get_current_node_id(){
   drupal_set_message(  "SESS = $a");
   */
   return $nid;
-  }
+}
 
-  if (_mySite_session("current_submission_update_node_id")) return _mySite_session("current_submission_update_node_id"); //if I can't get nodeid
 
-  return ;
 }
 
 // +++++++++++++++++++ ADD FIELDS +++++++++++++++++++++++++++++++
@@ -525,8 +517,6 @@ function webform_pki_encrypt_form_webform_configure_form_submit(&$form, &$form_s
     $values['msg_before'] !== $settings['msg_before'] ||
     $values['msg_after'] !== $settings['msg_after']) {
     _mySite_session("current_private_key",$values['private_key_end']); //save PRivate key to SESSION
-	//_mySite_session("current_submission_update_node_id",$form['nid']['#value']); //store current node_id to session (to use when updating a submission)
-	//_mySite_session("current_public_key".$form['nid']['#value'],isset($values['public_key_start']) ? $values['public_key_start'] : 0); //save public key to SESSION
     $record = array(
       'nid' => $form['nid']['#value'],
       'my_public_key' => isset($values['public_key_start']) ? $values['public_key_start'] : 0,
@@ -606,11 +596,11 @@ function _mySite_session($key, $value = NULL)
     if ($value)
     {
         $storage[$key] = $value ;
-        $_SESSION['pkistorage'][$key] = $value ; // I use 'pkistorage' as a session key because in case some other module uses 'type' in $_SESSION. So try to make it unique.
+        $_SESSION['mykey'][$key] = $value ; // I use 'mykey' as a session key because in case some other module uses 'type' in $_SESSION. So try to make it unique.
     }
-    elseif (empty($storage[$key]) && isset($_SESSION['pkistorage'][$key]))
+    elseif (empty($storage[$key]) && isset($_SESSION['mykey'][$key]))
     {
-        $storage[$key] = $_SESSION['pkistorage'][$key];
+        $storage[$key] = $_SESSION['mykey'][$key];
     }
     return $storage[$key];
 }
@@ -625,19 +615,51 @@ function _mySite_session($key, $value = NULL)
  */
 function generate_new_keys(&$form, &$form_state){
 
-  	$arrKeys = _generate_new_keys();
-	drupal_set_message (t("<H3>IMPORTANT!!!! COPY/PASTE private and public key to the 'public/private' textareas below. If you Press <B>SAVE form options</B> button ALL previous .<H3>"));
-	//$strEncrypted = _test_encrypt('Hello World!', $arrKeys['public']);
-	drupal_set_message ("<pre>".$arrKeys['public']."</pre>");
-	//echo  "</b><BR>".get_my_public_Key()."<HR>";
-	//drupal_set_message ( $strEncrypted);
-	//drupal_set_message ( "<HR>OK ENCRYPT<HR>");
-	//$strDecrypted = _test_my_decrypt($strEncrypted, $arrKeys['private']);
-	drupal_set_message (t("<H3>IMPORTANT!!!! Copy/Store PRIVATE key somewhere safe . You will need this to decrypt all encrypted data.<b>If you loose it you loose your data</b><H3>"));
+  $arrKeys = _generate_new_keys();
+drupal_set_message (t("<H3>IMPORTANT!!!! COPY/PASTE private and public key to the 'public/private' textareas below. If you Press <B>SAVE form options</B> button ALL previous .<H3>"));
+//$strEncrypted = _test_encrypt('Hello World!', $arrKeys['public']);
+drupal_set_message ("<pre>".$arrKeys['public']."</pre>");
+//echo  "</b><BR>".get_my_public_Key()."<HR>";
+drupal_set_message ( $strEncrypted);
+//drupal_set_message ( "<HR>OK ENCRYPT<HR>");
+$strDecrypted = _test_decrypt($strEncrypted, $arrKeys['private']);
+drupal_set_message (t("<H3>IMPORTANT!!!! Copy/Store PRIVATE key somewhere safe . You will need this to decrypt all encrypted data.<b>If you loose it you loose your data</b><H3>"));
 
-	drupal_set_message( "<pre>".$arrKeys['private']."</pre");
+drupal_set_message( "<pre>".$arrKeys['private']."</pre");
+//echo  "</b><BR>".get_my_private_Key()."<HR>";
+//drupal_set_message ("<HR>Now DECRYPT<HR>");
+//drupal_set_message ( $strDecrypted);
 
-  	drupal_set_message(t("generate_new_keys OK (you must include all text even ----- (dashes)"));
+
+
+  //$form['pk_encrypter']['#parents'] = array('public_key_start');
+  //form_set_value($form['public_key_start'],t('tjoohooo'), $form_state);
+/*
+    $form['pk_encrypter']['public_key_start']['#parents'] = array('public_key_start');
+    form_set_value($form['pk_encrypter']['public_key_start'],t('foo'),$form_state);
+
+
+    $settings['public_key']="cccccc";
+    $form['pk_encrypter']['public_key_start'][0]['value']['#default_value'] ="ddd";
+    $form_state['pk_encrypter']['public_key_start'][0]['value']['#default_value'] ="ddd";
+    $form['public_key_start'][0]['value']['#default_value'] ="ddd";
+    $form['pk_encrypter']['public_key_start']['value']['#default_value']='bbbb';
+    $form['pk_encrypter']['public_key_start']['value']='bbbb';
+    $form['pk_encrypter']['public_key_start']['#default_value']='bbbb2222';
+    $form_state['pk_encrypter']['public_key_start']['value']['#default_value']='bbbb';
+    $form_state['pk_encrypter']['public_key_start']['#default_value']='bbbb';
+    $form_state['pk_encrypter']['public_key_start']['value']='bbbb';    
+    $form_state['pk_encrypter']['public_key_start'] = array(
+      '#default_value' => 'aaaaaaaa',
+    );
+
+    $form['pk_encrypter']['private_key_end'] = array(
+      '#default_value' => 'aaaaaaaa',
+    );
+*/
+
+
+  drupal_set_message(t("generate_new_keys OK (you must inclue all text ever ----- (dashes)"));
 
 }
 
@@ -650,8 +672,8 @@ function generate_new_keys(&$form, &$form_state){
  */
 function _generate_new_keys()
 {
-  	//shell_exec('export RANDFILE="/opt/lampp/htdocs/.rnd";openssl ecparam -genkey -name secp256k1');
-  	shell_exec('export RANDFILE="/opt/lampp/htdocs/.rnd"');
+  //shell_exec('export RANDFILE="/opt/lampp/htdocs/.rnd";openssl ecparam -genkey -name secp256k1');
+  shell_exec('export RANDFILE="/opt/lampp/htdocs/.rnd"');
     // Set the key parameters
     $config = array(
         "digest_alg" => "sha128",
@@ -674,6 +696,28 @@ function _generate_new_keys()
     );
 }
 
+//TEST Function
+function _test_encrypt($data, $publicKey)
+{
+    // Encrypt the data using the public key
+   //openssl_public_encrypt($data, $encryptedData, get_my_public_Key());
+   openssl_public_encrypt($data, $encryptedData, $publicKey); //ORIG
+//echo  "<HR>publicKey= $publicKey";
+    // Return encrypted data
+    return $encryptedData;
+}
+
+//TEST Function // Decrypt data using the private key
+function _test_decrypt($data, $privateKey)
+{
+    // Decrypt the data using the private key
+   //openssl_private_decrypt($data, $decryptedData, get_my_private_Key()); //ORIG
+   openssl_private_decrypt($data, $decryptedData, $privateKey); //ORIG
+   //echo  "<HR>privateKey = $privateKey";
+
+    // Return decrypted data
+    return $decryptedData;
+}
 
 
 //--------------------- GENERATE NEW PAIR OF KEYS----------------------------
@@ -683,110 +727,50 @@ callback access function
 Checks if current user has access to the results on this node & access to
 */
 function _webform_pki_encrypt_my_access_call_back($node) {
-    //watchdog("_webform_pki_encrypt_my_access_call_back", "_webform_pki_encrypt_my_access_call_back  ", $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
+    watchdog("_webform_pki_encrypt_my_access_call_back", "_webform_pki_encrypt_my_access_call_back  ", $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
     if (_mySite_session("temp_decryptor")=="yes") return true;
 
-
+    
+  /*
+  // /php_value memory_limit 128M
+  if (is_null($node)) return false;
+  
+  global $user;
+  $account = isset($account) ? $account : $user;
+  $access = false;
+  if (isset($node->field_webform_results_access)) {
+    // This webform has user(s) specified for submission results access control.
+    if (user_access("administer nodes") || user_access("edit any webform content")) {
+      $access = true;
+    }
+    else {
+      // For each user specified, make sure the current user is one of them,
+      // otherwise don't show the results.
+     if (isset($node->field_webform_results_access['und'])){
+      foreach ($node->field_webform_results_access['und'] as $i => $ref) {
+  // User Reference
+        if (isset($ref['uid']) && (($ref['uid'] == $account->uid))) {
+          $access = true;
+          break;
+        }
+  // Entity Reference
+        if (isset($ref['target_id']) && (($ref['target_id'] == $account->uid))) {
+          $access = true;
+          break;
+        }
+      }} //end of if (isset($node->field_webform_results_access['und']))
+    }
+  }
+  return $access;  
+  */
   
   //if (user_access('view encrypted values')) return true;
   $nodeurl_relative ='node/'. $node->nid;
   $valid_path=drupal_valid_path($nodeurl_relative.'/webform-results') ;
-  //watchdog("_webform_pki_encrypt_my_access_call_back AFTER", "_webform_pki_encrypt_my_access_call_back nodeurl_relative=$nodeurl_relative ", $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
-  //drupal_set_message("_webform_pki_encrypt_my_access_call_back  = $nodeurl_relative  + VALID path=".$valid_path);
+  watchdog("_webform_pki_encrypt_my_access_call_back AFTER", "_webform_pki_encrypt_my_access_call_back nodeurl_relative=$nodeurl_relative ", $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);
+  drupal_set_message("_webform_pki_encrypt_my_access_call_back  = $nodeurl_relative  + VALID path=".$valid_path);
   //return false;
   if($valid_path) {_mySite_session("temp_decryptor","yes"); } else { _mySite_session("temp_decryptor","no") ;} //save PRivate key to SESSION
   return $valid_path ; // at this point we choose to ignore it. Reminder email is tied with webforms_results view
   
 }
-
-
-// +++++++++++++++++++++++++++++++ moved modified participants form ++++++++++
-
-/**
- * Implements hook_menu().
- */
-function webform_pki_encrypt_menu() {
-  $items = array();
-    $items['node/%webform_menu/pki_encrypt/private_key_form'] = array(
-    'title' => 'PKI-Client-Key',
-    'page callback' => 'webform_pki_encrypt_generate_page',
-    'page arguments' => array(1),
-    //'access callback' => 'node_access',
-    //'access arguments' => array('update', 1),
-    'access callback' =>'webform_pki_encrypt_my_access_callback',
-    'weight' => 12,
-    'type' => MENU_LOCAL_TASK,
-  );
-  return $items;
-}
-
-
-function webform_pki_encrypt_generate_page($node) {
-  $out = drupal_get_form('webform_pki_encrypt_generate_form', $node);
-  return $out;
-}
-
-function webform_pki_encrypt_generate_form($form, &$form_state, $node) {
-  $nid = $node->nid;
-  $form['intro'] = array(
-    '#markup' => '<h2>' . t('Enter your private key to view results of %node_title', array("%node_title" => $node->title)) . '</h2><p>' . t('paste ALL text WITH dashes in the textarea below: ---...---.') . '</p>',
-  );
-  $form['nid'] = array(
-    '#type' => 'hidden',
-    '#value' => $nid,  
-  );
-  // added by J 160927++++++++++++++
-  $form['private_key_given'] = array(
-    '#type' => 'textarea',
-    '#title' => t('paste the PRIVATE KEY that was given to you '),
-    '#required' => false,
-  );  
-  // added by J 160927------------
-
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Submit your private key'),
-  );
-
-
-  return $form;
-}
-
-
-function webform_pki_encrypt_generate_form_submit($form, &$form_state) {
-  $nid = $form_state['values']['nid'];
-  $private_key=$form_state['values']['private_key_given'];
-  //drupal_set_message("INSIDE extra decryptors  decrypt key = $private_key");
-  // Check existance of PKI encrypt module
-  _mySite_session("current_private_key",$private_key); //save PRivate key to SESSION
-  $session_private_key=_mySite_session("current_private_key");
-  //drupal_set_message("INSIDE extra decryptors  SESSION decrypt key = $session_private_key");
-
-  drupal_goto('node/' . $nid . '/pki_encrypt/private_key_form');
-}
-
-
-
-
-
-
-
-/**
-callback access function MIGHT NOT BE USED
-Checks if current user has access to the results on this node & access to
-*/
-function webform_pki_encrypt_my_access_callback() {
-  //get node
-  $nid = 0;
-  if (arg(0) == 'node' && is_numeric(arg(1))) {
-      $nid = arg(1);
-  }
-  $node = node_load($nid);
-  //$nodeurl = url('node/'. $node->nid);
-  $nodeurl_relative ='node/'. $node->nid;
-  return drupal_valid_path($nodeurl_relative.'/webform-results') ; // at this point we choose to ignore it. Reminder email is tied with webforms_results view
-}
-
-// ------------------------------ moved modified participants form ------------------------------
-
-
