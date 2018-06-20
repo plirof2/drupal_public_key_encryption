@@ -241,12 +241,13 @@ function my_encrypt($data="aaa", $publicKey)
 function my_decrypt($data, $privateKey)
 {
     // Decrypt the data using the private key
-    openssl_private_decrypt(base64_decode($data), $decryptedData, $privateKey);
+    $success=@openssl_private_decrypt(base64_decode($data), $decryptedData, $privateKey);
     //drupal_set_message("[[[DDD my_decrypt data=".($data)." ,|||||||| decryptedData=".($decryptedData)." ,]]]]]]]]] md5 of priv  ".md5($privateKey));
     //watchdog("my_decrypt", "data=$data |||||||| decryptedData=$decryptedData ,||||||| publicKey=$privateKey ", $variables = array(), $severity = WATCHDOG_NOTICE, $link = NULL);    
 
     // Return decrypted data
-    return ($decryptedData);
+    if($success)return ($decryptedData);
+    return t("-ENCRYPTED VALUE-");
 }
 
 
@@ -598,7 +599,8 @@ function _webform_pki_encrypt_node_types() {
 
 /**
  * Save private key in client session
- *
+ * If we send value it Stores this value in SESSION
+ * If we dont send a value it just returns the session variable value
  */
 function _mySite_session($key, $value = NULL)
 {
@@ -611,6 +613,8 @@ function _mySite_session($key, $value = NULL)
     elseif (empty($storage[$key]) && isset($_SESSION['pkistorage'][$key]))
     {
         $storage[$key] = $_SESSION['pkistorage'][$key];
+    }else {
+      return false; // If we have empty storafe key and NO value set return false (nothing was done)
     }
     return $storage[$key];
 }
