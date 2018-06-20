@@ -9,3 +9,6 @@ drupal_public_key_encryption TESTS
  - [ ] give decrypt permission to people with results access (they will still need the form private key in order to decrypt the form )
  - [ ] remove debug code
  - [ ] Enable global form encryption (for ver 2.0)
+
+
+ ## features :
