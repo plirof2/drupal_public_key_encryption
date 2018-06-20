@@ -616,7 +616,7 @@ function _mySite_session($key, $value = NULL)
     }else {
       //return false; //DISABLED Always RETURNED NOT-ENCYPTED If we have empty storafe key and NO value set return false (nothing was done)
     }
-    return $storage[$key];
+    return @$storage[$key]; //added @ to surpress error messages when value not set
 }
 
 
