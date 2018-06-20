@@ -1,6 +1,6 @@
 name: 'Webform PKI Encrypt MOD'
 type: module
-description: 'MOD jon Provides encryption for webform components.'
+description: 'MOD jon Provides PKI encryption for webform components.'
 package: 'Webform'
 # core: 8.x
 dependencies:
