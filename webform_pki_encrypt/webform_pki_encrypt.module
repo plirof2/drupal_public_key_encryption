@@ -614,7 +614,7 @@ function _mySite_session($key, $value = NULL)
     {
         $storage[$key] = $_SESSION['pkistorage'][$key];
     }else {
-      return false; // If we have empty storafe key and NO value set return false (nothing was done)
+      //return false; //DISABLED Always RETURNED NOT-ENCYPTED If we have empty storafe key and NO value set return false (nothing was done)
     }
     return $storage[$key];
 }
