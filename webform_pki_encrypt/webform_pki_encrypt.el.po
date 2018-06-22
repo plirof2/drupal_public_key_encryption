@@ -27,7 +27,7 @@ msgstr ""
 
 #: webform_pki_encrypt.module:16 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:16
 msgid "Users that do not have this permission will see placeholder text."
-msgstr ""
+msgstr "Οι χρήστες που δεν έχουν αυτήν την άδεια θα βλέπουν ένα μήνυμα σε κάθε κρυπτογραφημένο πεδίο"
 
 #: webform_pki_encrypt.module:28 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:28
 msgid "Webform Encrypt"
@@ -83,23 +83,23 @@ msgstr "Έχει κλείσει"
 
 #: webform_pki_encrypt.module:394;395 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:381;382
 msgid "Generate Public & Private Key"
-msgstr ""
+msgstr "Δημιουργία σετ δημοσιου και προσωπικού κλειδιού."
 
 #: webform_pki_encrypt.module:408 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:395
 msgid "Public Key"
-msgstr ""
+msgstr "Δημόσιο κλειδί (public key)"
 
 #: webform_pki_encrypt.module:409 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:396
 msgid "PUBLIC KEY - saved to server"
-msgstr ""
+msgstr "Δημόσιο κλειδί - αποθηκεύεται στον server."
 
 #: webform_pki_encrypt.module:416 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:403
 msgid "Private Key"
-msgstr ""
+msgstr "Προσωπικό κλειδί (private key)"
 
 #: webform_pki_encrypt.module:417 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:404
 msgid "PRIVATE KEY - stored by USER"
-msgstr "PRIVATE KEY : Προσωπικό κλειδί , Είναι ευθύνη δική σας να το φυλάξετε κάποι με ασφάλεια."
+msgstr "PRIVATE KEY : Προσωπικό κλειδί , Είναι ευθύνη δική σας να το φυλάξετε κάπου με ασφάλεια.(ΔΕΝ αποθηκευεται πουθενά από το σύστημα)"
 
 #: webform_pki_encrypt.module:424 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:411
 msgid "Message to display before start date"
@@ -127,39 +127,29 @@ msgstr ""
 
 #: webform_pki_encrypt.module:644
 msgid "generate_new_keys OK (you must include all text even ----- (dashes)"
-msgstr ""
+msgstr "Δημιουργήθηκαν τα νέα κλαιδιά. Μπορείτε να αντιγράψετε τα δύο κλειδιά (συμπεριλαμβάνοντας τις αρχικές και τελικές παύλες --- ... ---)"
 
 #: webform_pki_encrypt.module:736
 msgid "Enter your private key to view results of %node_title"
-msgstr ""
+msgstr "Πρέπει να εισάγετε το προσωπικό κλειδί της φόρμας (private key) για να δείτε τα αποτελέσματα της φόρμας [%node_title]"
 
 #: webform_pki_encrypt.module:736
 msgid "paste ALL text WITH dashes in the textarea below: ---...---."
-msgstr ""
+msgstr "Το κλειδί σας αποτελείται από όλους τους χαρακτήρες (συμπεριλαμβάνοντας τις αρχικές και τελικές παύλες --- ... ---)"
 
 #: webform_pki_encrypt.module:745
 msgid "paste the PRIVATE KEY that was given to you "
-msgstr ""
+msgstr "Αντιγράψτε το προσωπικό κλειδί(private key) της φόρμας εδώ."
 
 #: webform_pki_encrypt.module:752
 msgid "Submit your private key"
-msgstr ""
+msgstr "Υποβολή προσωπικού κλειδιού"
 
 #: webform_pki_encrypt.module:715
 msgid "PKI-Client-Key"
 msgstr ""
 
-#: webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:658
-msgid "generate_new_keys OK (you must inclue all text ever ----- (dashes)"
-msgstr ""
 
-#: webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:726
-msgid "_webform_pki_encrypt_my_access_call_back"
-msgstr ""
-
-#: webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:726
-msgid "_webform_pki_encrypt_my_access_call_back  "
-msgstr ""
 
 #: webform_pki_encrypt.install:13
 msgid "Webform PKI Encrypt has been disabled. However, all submitted data is still encrypted. Please !link to decrypt all data."
