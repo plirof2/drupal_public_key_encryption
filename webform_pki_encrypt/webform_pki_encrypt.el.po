@@ -1,0 +1,183 @@
+# $Id$
+#
+# Greek translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  webform_pki_encrypt.module: n/a
+#  webform_pki_encrypt__mod180615c__with_webformPartic_extra.module: n/a
+#  webform_pki_encrypt.install: n/a
+#  webform_pki_encrypt.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2018-06-20 13:47+0300\n"
+"PO-Revision-Date: 2018-06-20 13:47+0300\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Greek <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: webform_pki_encrypt.module:15 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:15
+msgid "View Encrypted Values in Webform Results"
+msgstr ""
+
+#: webform_pki_encrypt.module:16 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:16
+msgid "Users that do not have this permission will see placeholder text."
+msgstr ""
+
+#: webform_pki_encrypt.module:28 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:28
+msgid "Webform Encrypt"
+msgstr ""
+
+#: webform_pki_encrypt.module:34 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:34
+msgid "Enable email to user matching"
+msgstr ""
+
+#: webform_pki_encrypt.module:35 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:35
+msgid "If enabled, every time webform sends an email, it will attempt to find a user that matches the email address the mail will be sent to in order to correctly determine permissions."
+msgstr ""
+
+#: webform_pki_encrypt.module:54 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:54
+msgid "E ncryption"
+msgstr "Προσωπικό δεδομένο-PKI Encrypt"
+
+#: webform_pki_encrypt.module:59 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:59
+msgid "Encrypt this field's value"
+msgstr "Να κρυπτογραφηθεί αυτή η τιμή"
+
+#: webform_pki_encrypt.module:60 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:60
+msgid "!link to edit encryption settings."
+msgstr ""
+
+#: webform_pki_encrypt.module:125
+msgid "[NO PRIVATE KEY FOUND]"
+msgstr "Δέν βρέθηκε κλειδί αποκρυτπογράφησης (private key)"
+
+#: webform_pki_encrypt.module:126 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:124;147
+msgid "[Value Encrypted]"
+msgstr ""
+
+#: webform_pki_encrypt.module:155
+msgid "[Value Encrypted-bbb]"
+msgstr ""
+
+#: webform_pki_encrypt.module:250
+msgid "-ENCRYPTED VALUE-"
+msgstr ""
+
+#: webform_pki_encrypt.module:381 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:368
+msgid "pk_encrypter"
+msgstr "PKI Κρυπτογράφηση"
+
+#: webform_pki_encrypt.module:382 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:369
+msgid "Specify dates and times to schedule when users are allowed to use this webform.<br />If the webform's overall status is set to %Closed under Submission settings, it will remain closed regardless of Scheduler settings."
+msgstr ""
+
+#: webform_pki_encrypt.module:383 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:370
+msgid "Closed"
+msgstr "Έχει κλείσει"
+
+#: webform_pki_encrypt.module:394;395 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:381;382
+msgid "Generate Public & Private Key"
+msgstr ""
+
+#: webform_pki_encrypt.module:408 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:395
+msgid "Public Key"
+msgstr ""
+
+#: webform_pki_encrypt.module:409 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:396
+msgid "PUBLIC KEY - saved to server"
+msgstr ""
+
+#: webform_pki_encrypt.module:416 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:403
+msgid "Private Key"
+msgstr ""
+
+#: webform_pki_encrypt.module:417 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:404
+msgid "PRIVATE KEY - stored by USER"
+msgstr "PRIVATE KEY : Προσωπικό κλειδί , Είναι ευθύνη δική σας να το φυλάξετε κάποι με ασφάλεια."
+
+#: webform_pki_encrypt.module:424 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:411
+msgid "Message to display before start date"
+msgstr "Δεν χρησιμοποιείται"
+
+#: webform_pki_encrypt.module:425 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:412
+msgid "Message to display before start date. Leave empty to use default message"
+msgstr "Δεν χρησιμοποιείται"
+
+#: webform_pki_encrypt.module:432 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:419
+msgid "Message to display after private_key date"
+msgstr "Δεν χρησιμοποιείται"
+
+#: webform_pki_encrypt.module:433 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:420
+msgid "Message to display after private_key date. Leave empty to use default message"
+msgstr "Δεν χρησιμοποιείται"
+
+#: webform_pki_encrypt.module:633 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:615
+msgid "<H3>IMPORTANT!!!! COPY/PASTE private and public key to the 'public/private' textareas below. If you Press <B>SAVE form options</B> button ALL previous .<H3>"
+msgstr ""
+
+#: webform_pki_encrypt.module:640 webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:622
+msgid "<H3>IMPORTANT!!!! Copy/Store PRIVATE key somewhere safe . You will need this to decrypt all encrypted data.<b>If you loose it you loose your data</b><H3>"
+msgstr ""
+
+#: webform_pki_encrypt.module:644
+msgid "generate_new_keys OK (you must include all text even ----- (dashes)"
+msgstr ""
+
+#: webform_pki_encrypt.module:736
+msgid "Enter your private key to view results of %node_title"
+msgstr ""
+
+#: webform_pki_encrypt.module:736
+msgid "paste ALL text WITH dashes in the textarea below: ---...---."
+msgstr ""
+
+#: webform_pki_encrypt.module:745
+msgid "paste the PRIVATE KEY that was given to you "
+msgstr ""
+
+#: webform_pki_encrypt.module:752
+msgid "Submit your private key"
+msgstr ""
+
+#: webform_pki_encrypt.module:715
+msgid "PKI-Client-Key"
+msgstr ""
+
+#: webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:658
+msgid "generate_new_keys OK (you must inclue all text ever ----- (dashes)"
+msgstr ""
+
+#: webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:726
+msgid "_webform_pki_encrypt_my_access_call_back"
+msgstr ""
+
+#: webform_pki_encrypt__mod180615c__with_webformPartic_extra.module:726
+msgid "_webform_pki_encrypt_my_access_call_back  "
+msgstr ""
+
+#: webform_pki_encrypt.install:13
+msgid "Webform PKI Encrypt has been disabled. However, all submitted data is still encrypted. Please !link to decrypt all data."
+msgstr ""
+
+#: webform_pki_encrypt.install:14
+msgid "uninstall the module"
+msgstr ""
+
+#: webform_pki_encrypt.info:0
+msgid "Webform PKI Encrypt (asymmetric encryption)"
+msgstr ""
+
+#: webform_pki_encrypt.info:0
+msgid "MOD Provides PUBLIC KEY encryption for webform components (trying_extra_decryptors branch).NOTE: Only ONE decrypt key per SESSION..."
+msgstr ""
+
+#: webform_pki_encrypt.info:0
+msgid "Webform"
+msgstr "Webform"
+
